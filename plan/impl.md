@@ -2,48 +2,57 @@
 
 ## Context
 
-We're building an inference-time scaffold around LLMs that acts as a stateful cognitive architecture — like an RNN's persistent state but using external structured memory instead of a fixed hidden state. The goal is to give LLM agents theoretically unbounded context by externalizing all working state into a queryable store, so the context window only ever holds: current input + retrieved relevant state + scaffolding for the next decision.
+We're building an inference-time scaffold for LLMs that provides theoretically unbounded context through externalized, structured memory. Instead of extending the context window, all working state is externalized into a queryable graph store. The LLM's context window only ever holds: current objective + memory map (compact routing layer) + locally retrieved entries.
 
-The key differentiator from existing approaches (like RLM) is that this is **stateful and task-global** — it maintains, retrieves, and revises beliefs across arbitrarily many steps.
+The key differentiator from existing approaches (like RLM) is that this is **stateful and task-global** — it maintains, retrieves, and revises beliefs across arbitrarily many steps. RLM is stateless and task-local; it processes more tokens per query but has no persistent memory. This scaffold targets tasks that require belief revision, temporal dependencies, and evolving understanding over long horizons — tasks where RLM structurally fails.
 
-## Phase 1: Core Scaffold (what we're building now)
+## Phase 1: Core Scaffold
 
 ### Architecture
 
 #### Core Principle: One Primitive
 
-The scaffold has one fundamental primitive: the **Cognitive Step**. It is a recursive process that orients via a memory map, decomposes its objective into sub-objectives, recurses on each, and synthesizes the results — reading from and writing to an external state store at every level.
+The scaffold has one fundamental primitive: the **Cognitive Step**. It orients via a memory map, traverses the state graph following associations, reads and writes entries, and synthesizes results. The recursion is structural — every cognitive step always recurses, terminating based on an intelligent condition (LLM-assessed, with hard caps as safety nets).
 
-Everything is composed from this primitive. Recalling memories, reasoning about input, integrating new information — these are all instances of the same Cognitive Step, differing only in their **objective**. The architecture is self-similar: the same mechanism operates at every level of recursion.
+Everything is composed from this primitive. Recalling memories, reasoning about input, integrating new information — these are all instances of the same Cognitive Step with different **objectives**. The architecture is self-similar: the same mechanism operates at every level.
 
-**The infinite context mechanism**: The state store is the externalized memory that grows without bound. The Cognitive Step is the mechanism that navigates it without needing to fit it all in context. At every level, the LLM's context window holds only: the current objective + the memory map (compact, fixed-capacity) + locally retrieved entries. The memory map is a lossy but dynamic summary — updated at every step, always biased toward what's recent and relevant.
+Reading and writing are not separate operations — they are the same cognitive process. Every cognitive step can both read from and write to state. The distinction is in the objective, not the mechanism.
 
 #### Components
 
-1. **State Store** — structured external memory (in-memory dict + JSON persistence) + a **Memory Map** (compact topical summary of what's in state — the agent's "fuzzy sense" of what it knows)
-2. **Cognitive Step** — the single recursive primitive. Orients via memory map, decomposes into sub-objectives, recurses on each (reading and writing to state at every level), synthesizes results. Termination is structural: based on state size and a configurable hard depth cap. The LLM decides **what** to explore (sub-objectives), never **whether** to continue.
-3. **LLM Interface** — provider-agnostic abstraction over language models
-4. **Agent Loop** — sequences three phases of the Cognitive Step: recall (objective: "what do I need to know?"), reason (objective: "what should I do/respond?"), integrate (objective: "what should I remember?"). Same mechanism, different objectives.
+1. **State Store** — a graph of entries (nodes) and associations (edges). Associations are first-class: typed, weighted, context-scoped, with access tracking. Weights evolve through use — strengthened when useful, weakened when misleading, invalidated when contradicted. The graph co-evolves with the cognitive process (Hebbian-like: entries accessed together become linked together).
+
+2. **Memory Map** — a compact routing layer over the state graph. Organized by entities and relationships. Provides entry points into the graph for a given objective. Also captures topology metadata (cluster density, contested regions, weakly-connected entries). Small enough to always fit in context. Updated incrementally by cognitive steps.
+
+3. **Cognitive Step** — the single recursive primitive. Orients via memory map to find entry points, traverses the graph with LLM-guided navigation, reads/writes entries and associations at every level. Terminates based on LLM assessment of traversal state (loop detection, information sufficiency, divergence from objective) with configurable hard caps on depth and width as safety nets.
+
+4. **LLM Interface** — provider-agnostic abstraction (Anthropic, OpenAI, OpenRouter).
+
+5. **Agent Loop** — sequences three phases of the Cognitive Step: recall → reason → integrate. Same mechanism, different objectives.
+
+6. **Tracing** — structured traces of the full recursion/traversal tree for observability, debugging, and analysis.
 
 ### Project Structure
 
 ```
 cognition/
-├── plan.md
+├── plan/
+│   ├── plan.md                # Research motivation (conversation transcript)
+│   └── impl.md                # This file
 ├── readme.md
 ├── pyproject.toml
 ├── cognition/
 │   ├── __init__.py
 │   ├── cognitive_step.py      # The single recursive primitive
 │   ├── agent.py               # Agent loop (three phases of CognitiveStep)
-│   ├── state.py               # StateStore + StateEntry + MemoryMap
+│   ├── state.py               # StateStore (graph), StateEntry, Association, MemoryMap
 │   ├── tracing.py             # CognitiveTrace + TraceLogger
 │   ├── llm/
 │   │   ├── __init__.py
 │   │   ├── base.py            # Abstract LLM interface
 │   │   ├── anthropic.py       # Claude implementation
 │   │   ├── openai.py          # OpenAI implementation
-│   │   └── openrouter.py      # OpenRouter implementation (access to many models)
+│   │   └── openrouter.py      # OpenRouter implementation
 │   └── types.py               # Shared types/dataclasses
 ├── experiments/
 │   └── toy_task.py            # Toy task to validate scaffold
@@ -53,248 +62,348 @@ cognition/
     └── test_agent.py
 ```
 
-#### Tracing and Logging
-
-Every cognitive step execution produces a **trace** — a structured record of the full recursion tree. This is essential for understanding, debugging, and analyzing the cognitive process.
-
-```python
-@dataclass
-class CognitiveTrace:
-    """A single node in the recursion tree."""
-    trace_id: str                          # unique ID for this trace node
-    parent_trace_id: Optional[str]         # parent in the recursion tree (None for root)
-    depth: int
-    objective: str
-    resolved_directly: bool                # True if hit base case
-
-    # Orient phase
-    memory_map_snapshot: str               # memory map as seen at orient time
-    sub_objectives: list[str]              # what orient produced
-
-    # Base case (if resolved_directly)
-    state_before: list[str]                # entry IDs in active state before resolve
-    entries_written: list[str]             # entry IDs written
-    entries_invalidated: list[str]         # entry IDs invalidated
-    map_changes: dict                      # memory map mutations
-
-    # Synthesis output
-    synthesis_output: str
-
-    # Metadata
-    llm_calls: int                         # number of LLM calls in this node
-    timestamp: datetime
-    duration_ms: float
-
-    children: list["CognitiveTrace"]       # sub-objective traces
-
-class TraceLogger:
-    """Collects traces during execution and provides analysis."""
-
-    def begin(self, objective, depth, parent_trace_id) -> str:  # returns trace_id
-    def record_orient(self, trace_id, memory_map, sub_objectives): ...
-    def record_direct_resolve(self, trace_id, state_before, writes, invalidations, map_changes): ...
-    def record_synthesis(self, trace_id, output): ...
-    def end(self, trace_id): ...
-
-    def get_tree(self) -> CognitiveTrace:          # full recursion tree
-    def get_flat(self) -> list[CognitiveTrace]:    # all nodes depth-first
-    def summary(self) -> dict:                      # stats: total depth, total LLM calls,
-                                                    # entries written/invalidated, etc.
-    def export_json(self, path: str): ...           # dump full trace for analysis
-    def print_tree(self): ...                       # human-readable tree to stdout
-```
-
-The `TraceLogger` is passed into `CognitiveStep` and the agent loop. Every `execute` call wraps its work in `begin`/`end`. This gives us:
-
-- **Full recursion tree** — see exactly how the objective was decomposed, how deep it went, what happened at each leaf
-- **State mutation audit** — every write and invalidation traced back to the specific base-case resolve that caused it
-- **LLM call accounting** — total calls per step, per phase, per depth level
-- **Performance profiling** — duration at each node, identifying bottlenecks
-- **Exportable JSON traces** — for post-hoc analysis, visualization, and comparison across ablation runs
-
-Standard Python `logging` is used alongside tracing for operational logs (debug/info/warning). Tracing captures the structured cognitive process; logging captures operational events.
-
-
 ### Component Details
 
 #### 1. State Store (`cognition/state.py`)
 
+The state store is a **graph**. Entries are nodes. Associations are edges. Both are first-class objects with rich metadata.
+
+##### Entries (nodes)
+
 ```python
 @dataclass
 class StateEntry:
-    id: str                          # UUID
-    content: str                     # The actual information
-    entry_type: str                  # "fact" | "hypothesis" | "decision" | "observation"
-    confidence: float                # 0.0 - 1.0
-    step_number: int                 # When this was created
-    superseded_by: Optional[str]     # ID of entry that invalidated this
-    tags: list[str]                  # Semantic tags for filtering
+    id: str                           # UUID
+    content: str                      # The actual information
+    entry_type: str                   # "fact" | "hypothesis" | "decision" | "observation"
+    confidence: float                 # 0.0 - 1.0
+    step_created: int                 # when this was created
+    step_last_accessed: int           # when last touched by a cognitive step
+    access_count: int                 # how often this has been accessed
+    superseded_by: Optional[str]      # not deleted — old entries persist
+    tags: list[str]                   # semantic tags
     created_at: datetime
-
-class MemoryMap:
-    """Compact topical summary of what's in the state store.
-    The agent's 'fuzzy sense' of what it knows — like a hippocampal
-    index routing queries to the right neighborhood of detailed memories.
-
-    Small enough to always fit in context. Tells the agent WHERE to look,
-    not WHAT's there. Updated incrementally by write operations."""
-
-    topics: dict[str, str]           # topic_name → brief summary of what's known
-    open_questions: list[str]        # unresolved threads
-    recent_changes: list[str]        # what was recently added/invalidated
-
-    def render(self) -> str:         # format for inclusion in LLM context
-    def update(self, changes: dict): # incremental update (not full rebuild)
-
-class StateStore:
-    entries: dict[str, StateEntry]
-    memory_map: MemoryMap
-
-    # Core operations
-    write(entry: StateEntry) -> None
-    read(query: str, filters: dict) -> list[StateEntry]   # keyword/tag match for now
-    invalidate(entry_id: str, superseded_by: str) -> None
-
-    # Navigation
-    get_recent(n: int) -> list[StateEntry]
-    get_active() -> list[StateEntry]       # non-superseded only
-    get_by_type(entry_type: str) -> list[StateEntry]
-    get_temporal_neighborhood(entry: StateEntry, window: int) -> list[StateEntry]
-    size() -> int                          # number of active entries
-
-    # Persistence
-    save(path: str) -> None                # JSON dump
-    load(path: str) -> None                # JSON load
 ```
 
-The read method starts as simple keyword + tag matching. We can swap in embedding-based retrieval later without changing the interface.
+Old entries are never deleted. When new information contradicts an old entry, the old entry is marked as superseded — but preserved. The history of what was believed and when is itself valuable state. The cognitive step decides whether to use an old or new entry based on the current context.
 
-`get_temporal_neighborhood` supports memory reconstruction — walking temporally adjacent entries to "relive" a sequence of events rather than retrieving isolated facts.
+Access tracking (`step_last_accessed`, `access_count`) gives the LLM signal about what's well-trodden vs. rarely visited — analogous to how frequently-accessed human memories are easier to recall.
 
-#### 2. Cognitive Step (`cognition/cognitive_step.py`)
-
-**The single recursive primitive.** Every cognitive act — recalling memories, reasoning about input, integrating new information — is an instance of this same mechanism with a different objective.
-
-The structure is: **orient → recurse on sub-objectives → synthesize**. The recursion is structural (always happens). Termination is determined by state size and a hard depth cap — never by the LLM.
+##### Associations (edges)
 
 ```python
-DIRECT_THRESHOLD = 20   # configurable: below this, direct resolve
+@dataclass
+class Association:
+    id: str
+    source_id: str
+    target_id: str
+    relationship: str                 # "supports" | "contradicts" | "supersedes" | "related_to" | "part_of"
+    weight: float                     # strength within this context — evolves through use
+    context: str                      # WHY this link exists — the objective when it was created
+    valid: bool                       # current belief — does this still hold in this context?
+    invalidation_reason: Optional[str]  # if invalid, why
+    invalidated_by_entry: Optional[str] # entry ID that disproved this
+    step_created: int
+    step_last_accessed: int
+```
 
+**Associations are first-class.** They have their own metadata, lifecycle, and context-scoping. Key design decisions:
+
+- **Context-scoped**: Multiple associations can exist between the same pair of entries, each in a different context. "Alice → Bob" might be strong in "apple trades" context but invalid in "family" context. Each is a separate Association object with its own weight and validity.
+
+- **Weight evolves through cognitive use, not automatically.** Strengthening is not automatic on access — it's a cognitive decision. When the LLM follows an association during traversal, it evaluates:
+  - Was this association useful for the current objective? → strengthen
+  - Was it irrelevant? → no change
+  - Was it actively misleading? → weaken
+  - Is it contradicted by new information? → invalidate
+
+- **Both `weight` and `valid` are tracked.** Weight is historical (how frequently used and found useful). Validity is current belief (does this still hold?). An association can be high-weight but invalid: "this was a well-trodden path that turned out to be wrong." This is useful signal — prevents re-discovering false associations.
+
+- **Invalidation preserves history.** Invalid associations aren't deleted — they record what was once believed and why it was disproved. The LLM can see "this connection was once believed and later contradicted by entry X."
+
+##### Association lifecycle
+
+```
+created (weak, weight ~0.2)
+  → accessed and found useful → strengthened (0.4, 0.6, 0.8...)
+  → accessed and found irrelevant → unchanged
+  → accessed and found misleading → weakened (0.5, 0.3, 0.1...)
+  → contradicted by new evidence → invalidated (valid=false, with reason and evidence)
+```
+
+##### State Store interface
+
+```python
+class StateStore:
+    entries: dict[str, StateEntry]            # nodes
+    associations: dict[str, list[Association]] # adjacency list (keyed by source_id)
+    memory_map: MemoryMap
+
+    # Entry operations
+    def write(self, entry: StateEntry) -> None
+    def invalidate(self, entry_id: str, superseded_by: str) -> None
+    def access(self, entry_id: str, step: int) -> None  # update access tracking
+
+    # Association operations
+    def add_association(self, assoc: Association) -> None
+    def strengthen(self, assoc_id: str, delta: float, step: int) -> None
+    def weaken(self, assoc_id: str, delta: float, step: int) -> None
+    def invalidate_association(self, assoc_id: str, reason: str,
+                               invalidated_by: Optional[str] = None) -> None
+    def get_associations(self, entry_id: str) -> list[Association]
+    def get_associations_in_context(self, entry_id: str, context: str) -> list[Association]
+
+    # Navigation
+    def get_neighbors(self, entry_id: str, max_hops: int = 1) -> list[StateEntry]
+    def get_active(self) -> list[StateEntry]       # non-superseded entries
+    def get_temporal_neighborhood(self, entry: StateEntry, window: int) -> list[StateEntry]
+    def size(self) -> int                           # number of active entries
+
+    # Rendering for LLM context
+    def render_neighborhood(self, entry_ids: list[str], depth: int = 1) -> str
+    def render_entries(self, entry_ids: list[str]) -> str
+
+    # Persistence
+    def save(self, path: str) -> None               # JSON dump (entries + associations + memory map)
+    def load(self, path: str) -> None
+```
+
+`render_neighborhood` is the bridge between the graph and the LLM's context. It produces a structured document showing entries and their associations:
+
+```
+Entry: "Alice has 7 apples" (fact, confidence 0.9, accessed 12 times)
+  Associations:
+    → "Bob received 3 apples from Alice" (related_to)
+        [apple trades] weight: 0.8, valid
+        [family]       weight: 0.1, INVALID — "not related by family"
+    → "Alice has 5 apples" (supersedes)
+        [apple tracking] weight: 0.9, valid
+```
+
+#### 2. Memory Map
+
+The memory map is a **compact routing layer** over the state graph. Its primary function is to provide **entry points** into the graph for a given objective. Without it, the cognitive step has no way into the graph.
+
+```python
+@dataclass
+class TopicEntry:
+    summary: str                      # what this topic covers
+    entry_points: list[str]           # entry IDs — where to start traversal
+    density: str                      # "dense" | "sparse" — how well-connected this region is
+
+class MemoryMap:
+    topics: dict[str, TopicEntry]     # topic_name → summary + entry points
+    recent_changes: list[str]         # what was recently added/invalidated/strengthened
+    contested_regions: list[str]      # topics with many invalidated associations
+    weakly_connected: list[str]       # entry IDs not yet linked to any topic
+
+    def render(self) -> str:
+        """Renders as structured document for LLM context."""
+        ...
+
+    def update(self, changes: dict) -> None:
+        """Incremental update — new topics, revised entry points, etc."""
+        ...
+
+    def get_entry_points(self, objective: str) -> list[str]:
+        """Given an objective, return candidate entry point IDs.
+        Currently returns all entry points (LLM selects during orient).
+        Will be optimized later with entity-based indexing when the
+        memory map grows too large for context."""
+        ...
+```
+
+Rendered for the LLM during orient:
+
+```
+Memory Map:
+  apple_trades: Exchanges of apples between Alice, Bob, Charlie.
+    Entry points: [entry_12, entry_45, entry_67]
+    Density: dense (well-consolidated)
+
+  family_relationships: Known family connections.
+    Entry points: [entry_3, entry_89]
+    Density: sparse (few associations)
+
+  Recent: Alice's apple count updated (step 30), new Bob-Charlie trade (step 42)
+  Contested: Charlie's reliability (3 invalidated associations)
+  Weakly connected: [entry_91, entry_92] (not yet linked to any topic)
+```
+
+**Scaling strategy (for later):** When the memory map grows too large for context, `get_entry_points` will use an entity index — extract entities from the objective, look up which topic clusters contain those entities, and only show relevant clusters to the LLM. This is cheap (set intersection), uses structure (entities, not keywords), and doesn't require embeddings.
+
+#### 3. Cognitive Step (`cognition/cognitive_step.py`)
+
+**The single recursive primitive.** Every cognitive act is an instance of this mechanism with a different objective.
+
+The cognitive step traverses the state graph with LLM-guided navigation. At each level, it orients (finds entry points via memory map), traverses (follows associations, reads/writes entries), and synthesizes results. The LLM plays an intelligent role in both navigation and termination.
+
+```python
 class CognitiveStep:
-    def __init__(self, llm: BaseLLM, max_depth: int = 3, max_width: int = 5):
+    def __init__(self, llm: BaseLLM, max_depth: int = 3,
+                 max_width: int = 5, max_steps: int = 20):
         self.llm = llm
-        self.max_depth = max_depth   # hard safety cap on recursion depth
-        self.max_width = max_width   # max sub-objectives per level
+        self.max_depth = max_depth     # hard cap on recursion depth
+        self.max_width = max_width     # hard cap on sub-objectives per level
+        self.max_steps = max_steps     # hard cap on traversal steps per level
 
     def execute(self, objective: str, state: StateStore,
-                context: dict, depth: int = 0) -> CognitiveResult:
-        """The single recursive primitive.
+                context: dict, depth: int = 0,
+                tracer: TraceLogger = None) -> CognitiveResult:
+        """The single recursive primitive."""
 
-        At every level:
-        1. Check termination (state size or depth cap)
-        2. Orient — consult memory map, decompose into sub-objectives
-        3. Recurse — execute each sub-objective (each can read/write state)
-        4. Synthesize — compile results for this level's objective
-        """
+        trace_id = tracer.begin(objective, depth) if tracer else None
 
-        # --- TERMINATION (structural, not LLM-decided) ---
-        if state.size() <= DIRECT_THRESHOLD or depth >= self.max_depth:
-            return self._direct_resolve(objective, state, context)
+        # --- HARD SAFETY CAP ---
+        if depth >= self.max_depth:
+            return self._direct_resolve(objective, state, context, tracer, trace_id)
 
         # --- ORIENT ---
-        # Consult the memory map (compact, always fits in context).
-        # LLM determines WHAT to explore (sub-objectives), never
-        # WHETHER to continue — that's decided by termination above.
+        # Consult memory map. LLM identifies entry points and
+        # decomposes objective into sub-objectives.
         orientation = self.llm.generate_structured(
             messages=build_orient_prompt(objective, state.memory_map, context),
             schema=OrientationSchema
         )
+        entry_points = orientation.entry_points
         sub_objectives = orientation.sub_objectives[:self.max_width]
 
-        # --- RECURSE ---
-        # Always recurse on every sub-objective. Each sub-call can
-        # read from and write to state. Later sub-calls benefit from
+        if tracer:
+            tracer.record_orient(trace_id, state.memory_map.render(), sub_objectives)
+
+        # --- RECURSE ON SUB-OBJECTIVES ---
+        # Each sub-call traverses the graph starting from entry points,
+        # reading and writing to state. Later sub-calls benefit from
         # state modifications made by earlier ones.
         for sub_objective in sub_objectives:
             self.execute(
                 objective=sub_objective,
                 state=state,
-                context=context,
-                depth=depth + 1
+                context={**context, "entry_points": entry_points},
+                depth=depth + 1,
+                tracer=tracer
             )
 
         # --- SYNTHESIZE ---
-        # State has been modified by all sub-calls. Compile a result
-        # for this level's objective given the current state.
-        return self.synthesize(objective, state, context)
+        result = self._synthesize(objective, state, context)
+
+        if tracer:
+            tracer.record_synthesis(trace_id, result.output)
+            tracer.end(trace_id)
+
+        return result
 
     def _direct_resolve(self, objective: str, state: StateStore,
-                        context: dict) -> CognitiveResult:
-        """Base case. State is small enough to work with directly.
+                        context: dict, tracer: TraceLogger = None,
+                        trace_id: str = None) -> CognitiveResult:
+        """Base case. Traverses the graph directly from entry points.
 
-        The LLM sees the objective + full active state (it fits in
-        context because state.size() <= DIRECT_THRESHOLD) and
-        performs the cognitive work in a single step:
-        - Reads relevant entries
-        - Reasons about them
-        - Writes new entries / invalidates old ones / updates memory map
-        - Returns result
+        The LLM navigates the graph step by step:
+        1. See current nodes + their associations
+        2. Decide which edges to follow, what to record, what to write
+        3. Assess termination: loop detected? objective satisfied? diverging?
+        4. Continue or stop (with explicit reasoning)
 
-        This is where actual state mutations happen. The higher levels
-        of recursion are purely about decomposition and navigation."""
+        This is where actual state mutations happen: new entries, new
+        associations, weight updates, invalidations, memory map updates."""
 
-        result = self.llm.generate_structured(
-            messages=build_direct_resolve_prompt(
-                objective=objective,
-                active_state=state.get_active(),
-                memory_map=state.memory_map,
-                context=context
-            ),
-            schema=DirectResolveSchema
-        )
+        entry_points = context.get("entry_points", [])
+        current_nodes = entry_points if entry_points else self._get_default_entry_points(state)
+        visited = set()
+        findings = []
 
-        # Execute state mutations
-        for entry in result.new_entries:
-            state.write(entry)
-        for invalidation in result.invalidations:
-            state.invalidate(invalidation.entry_id, invalidation.superseded_by)
-        state.memory_map.update(result.map_changes)
+        for step in range(self.max_steps):
+            # Render the local neighborhood for the LLM
+            neighborhood = state.render_neighborhood(current_nodes, depth=1)
 
-        return CognitiveResult(
-            output=result.output,
-            entries_written=result.new_entries,
-            entries_invalidated=result.invalidations
-        )
+            # LLM sees: current neighborhood, objective, traversal history
+            step_result = self.llm.generate_structured(
+                messages=build_traverse_prompt(
+                    objective=objective,
+                    neighborhood=neighborhood,
+                    visited=visited,
+                    findings=findings,
+                    context=context
+                ),
+                schema=TraversalStepSchema
+            )
 
-    def synthesize(self, objective: str, state: StateStore,
-                   context: dict) -> CognitiveResult:
-        """After all sub-objectives have recursed (modifying state),
-        synthesize a result for this level's objective."""
+            # Record findings
+            findings.extend(step_result.findings)
+            visited.update(current_nodes)
 
+            # Execute state mutations
+            for entry in step_result.new_entries:
+                state.write(entry)
+            for assoc in step_result.new_associations:
+                state.add_association(assoc)
+            for update in step_result.weight_updates:
+                if update.delta > 0:
+                    state.strengthen(update.assoc_id, update.delta, context.get("step_number", 0))
+                else:
+                    state.weaken(update.assoc_id, abs(update.delta), context.get("step_number", 0))
+            for inv in step_result.association_invalidations:
+                state.invalidate_association(inv.assoc_id, inv.reason, inv.invalidated_by)
+
+            # Update access tracking on touched nodes
+            for node_id in current_nodes:
+                state.access(node_id, context.get("step_number", 0))
+
+            if tracer:
+                tracer.record_traversal_step(trace_id, step, current_nodes,
+                                             step_result, visited, findings)
+
+            # Intelligent termination — LLM assesses with explicit reasoning
+            # Reasons: "loop_detected" | "objective_satisfied" |
+            #          "diverging_from_objective" | "no_relevant_edges"
+            if step_result.should_stop:
+                break
+
+            current_nodes = step_result.next_nodes
+
+        # Update memory map with what was learned during traversal
+        if step_result.map_changes:
+            state.memory_map.update(step_result.map_changes)
+
+        if tracer:
+            tracer.record_direct_resolve(trace_id, visited, findings,
+                                         step_result.new_entries,
+                                         step_result.association_invalidations)
+            tracer.end(trace_id)
+
+        return CognitiveResult(output=findings, entries_written=step_result.new_entries)
+
+    def _synthesize(self, objective: str, state: StateStore,
+                    context: dict) -> CognitiveResult:
+        """After all sub-objectives have executed, synthesize a result."""
         return self.llm.generate_structured(
             messages=build_synthesize_prompt(objective, state.memory_map, context),
             schema=SynthesisSchema
         )
+
+    def _get_default_entry_points(self, state: StateStore) -> list[str]:
+        """Fallback when no entry points provided — use recent entries."""
+        recent = state.get_recent(5)
+        return [e.id for e in recent]
 ```
 
 **Key properties:**
 
-- **Self-similar** — the same mechanism at every level. No special-cased read or write operations. Every cognitive act is orient → recurse → synthesize.
-- **Structurally recursive** — the recursion always happens. Termination is based on `state.size()` (intelligent) and `max_depth` (safety cap). The LLM decides **what** to explore, never **whether** to continue.
-- **State mutations happen at the base case** — `_direct_resolve` is where entries are actually read, written, and invalidated. Higher levels decompose and navigate; the leaves do the work. This means every recursive call can modify state, and later calls (at any level) see the updated state.
-- **Configurable width and depth** — `max_width` caps how many sub-objectives per level. `max_depth` caps recursion depth. Both are ablation knobs: `max_depth=0` degrades to flat single-step processing (baseline). Increasing depth/width tests whether recursive cognition helps.
+- **Self-similar** — the same mechanism at every level. No special-cased read or write operations.
+- **Graph traversal with LLM navigation** — at the base case, the LLM walks the graph step by step, seeing the local neighborhood and deciding which edges to follow. The LLM is the traversal intelligence.
+- **Intelligent termination** — the LLM assesses whether to stop at each traversal step, with explicit reasoning (loop detection, information sufficiency, divergence). Hard caps (`max_depth`, `max_steps`) are safety nets.
+- **State mutations during traversal** — entries and associations are created, weights are updated, associations are invalidated. The graph co-evolves with the cognitive process.
+- **Access tracking** — every node touched during traversal has its access metadata updated, informing future traversals about what's well-trodden.
 
 **How the three agent phases map to this primitive:**
 
-| Agent Phase | Objective | What the base case does |
+| Agent Phase | Objective | What traversal does |
 |---|---|---|
-| Recall | "What do I need to know for this input?" | Retrieves relevant entries, discovers associations, writes association links back to state |
-| Reason | "Given this input and recalled context, what should I do/respond?" | Reasons about the input, may write interim conclusions or hypotheses to state |
-| Integrate | "What new information should I remember from this output?" | Writes new entries, invalidates contradicted entries, updates memory map |
+| Recall | "What do I need to know for this input?" | Traverses from relevant entry points, follows associations, records findings. May discover and write new associations. |
+| Reason | "Given this input and recalled context, what should I do/respond?" | Traverses related entries, reasons about them, may write interim conclusions or hypotheses. |
+| Integrate | "What new information should I remember from this output?" | Writes new entries with initial associations to existing entries, invalidates contradicted entries/associations, updates memory map. |
 
-All three use `CognitiveStep.execute` — same code path, different objective string and context.
-
-#### 3. LLM Interface (`cognition/llm/`)
+#### 4. LLM Interface (`cognition/llm/`)
 
 ```python
 class BaseLLM(ABC):
@@ -307,55 +416,47 @@ class BaseLLM(ABC):
 
 class AnthropicLLM(BaseLLM): ...    # Uses anthropic SDK
 class OpenAILLM(BaseLLM): ...       # Uses openai SDK
-class OpenRouterLLM(BaseLLM): ...   # Uses OpenRouter API (OpenAI-compatible, access to many models)
+class OpenRouterLLM(BaseLLM): ...   # Uses OpenRouter API (OpenAI-compatible)
 ```
 
-OpenRouter uses an OpenAI-compatible API (`https://openrouter.ai/api/v1`) so `OpenRouterLLM` can extend `OpenAILLM` with a different base URL and auth header. This gives us access to a wide range of models (Llama, Mistral, Gemini, etc.) through a single provider.
+OpenRouter uses an OpenAI-compatible API (`https://openrouter.ai/api/v1`) so `OpenRouterLLM` can extend `OpenAILLM` with a different base URL and auth header.
 
-`generate_structured` is key — the cognitive step needs the LLM to return structured JSON (sub-objectives, state mutations, synthesis), not free-form text.
+`generate_structured` is key — the cognitive step needs the LLM to return structured JSON (sub-objectives, traversal decisions, state mutations), not free-form text.
 
-#### 4. Agent Loop (`cognition/agent.py`)
+#### 5. Agent Loop (`cognition/agent.py`)
 
-The agent loop sequences three phases of the Cognitive Step primitive. Each phase is the same `execute` call with a different objective. Between phases, state has been modified by the previous phase's recursive execution.
+The agent loop sequences three phases of the Cognitive Step. Each phase is the same `execute` call with a different objective.
 
 ```python
 class Agent:
     def __init__(self, llm: BaseLLM, state: StateStore,
-                 max_depth: int = 3, max_width: int = 5):
+                 max_depth: int = 3, max_width: int = 5, max_steps: int = 20):
         self.step_count = 0
         self.state = state
-        self.cognitive_step = CognitiveStep(llm, max_depth, max_width)
+        self.cognitive_step = CognitiveStep(llm, max_depth, max_width, max_steps)
+        self.tracer = TraceLogger()
 
     def step(self, input: str) -> str:
         context = {"input": input, "step_number": self.step_count}
 
         # Phase 1: RECALL — "what do I need to know?"
-        # Navigates state store, retrieves relevant entries,
-        # may write associations discovered during recall.
         recall_result = self.cognitive_step.execute(
-            objective="recall",
-            state=self.state,
-            context=context
+            objective="recall", state=self.state,
+            context=context, tracer=self.tracer
         )
 
         # Phase 2: REASON — "what should I do/respond?"
-        # State now contains everything recall surfaced.
-        # May write interim conclusions or hypotheses.
         context["recalled"] = recall_result
         reason_result = self.cognitive_step.execute(
-            objective="respond",
-            state=self.state,
-            context=context
+            objective="respond", state=self.state,
+            context=context, tracer=self.tracer
         )
 
         # Phase 3: INTEGRATE — "what should I remember?"
-        # Writes new entries, invalidates contradicted entries,
-        # updates memory map.
         context["output"] = reason_result
         self.cognitive_step.execute(
-            objective="integrate",
-            state=self.state,
-            context=context
+            objective="integrate", state=self.state,
+            context=context, tracer=self.tracer
         )
 
         self.step_count += 1
@@ -370,9 +471,86 @@ class Agent:
         return outputs
 ```
 
+#### 6. Tracing and Logging (`cognition/tracing.py`)
+
+Every cognitive step execution produces a **trace** — a structured record of the full recursion and traversal tree.
+
+```python
+@dataclass
+class TraversalStep:
+    """Record of a single graph traversal step."""
+    step_number: int
+    current_nodes: list[str]           # entry IDs being examined
+    edges_followed: list[str]          # association IDs followed
+    findings: list[str]                # what was found/recorded
+    state_mutations: dict              # entries written, associations added/updated/invalidated
+    stop_decision: Optional[str]       # if stopping, the reason
+    next_nodes: list[str]              # where to go next (if continuing)
+
+@dataclass
+class CognitiveTrace:
+    """A single node in the recursion tree."""
+    trace_id: str
+    parent_trace_id: Optional[str]
+    depth: int
+    objective: str
+    resolved_directly: bool            # True if hit base case (traversal)
+
+    # Orient phase
+    memory_map_snapshot: str
+    sub_objectives: list[str]
+    entry_points: list[str]
+
+    # Traversal (if resolved_directly)
+    traversal_steps: list[TraversalStep]
+    total_nodes_visited: int
+    total_state_mutations: int
+
+    # Synthesis output
+    synthesis_output: str
+
+    # Metadata
+    llm_calls: int
+    timestamp: datetime
+    duration_ms: float
+    children: list["CognitiveTrace"]
+
+class TraceLogger:
+    """Collects traces during execution and provides analysis."""
+
+    def begin(self, objective: str, depth: int,
+              parent_trace_id: str = None) -> str: ...
+    def record_orient(self, trace_id: str, memory_map: str,
+                      sub_objectives: list[str]) -> None: ...
+    def record_traversal_step(self, trace_id: str, step: int,
+                              current_nodes: list[str],
+                              step_result: dict,
+                              visited: set, findings: list) -> None: ...
+    def record_direct_resolve(self, trace_id: str, visited: set,
+                              findings: list, entries_written: list,
+                              invalidations: list) -> None: ...
+    def record_synthesis(self, trace_id: str, output: str) -> None: ...
+    def end(self, trace_id: str) -> None: ...
+
+    def get_tree(self) -> CognitiveTrace: ...
+    def get_flat(self) -> list[CognitiveTrace]: ...
+    def summary(self) -> dict: ...
+    def export_json(self, path: str) -> None: ...
+    def print_tree(self) -> None: ...
+```
+
+This gives us:
+- **Full recursion + traversal tree** — see how objectives were decomposed and how the graph was navigated at each leaf
+- **State mutation audit** — every write, association change, and invalidation traced to the specific traversal step that caused it
+- **Termination reasoning** — why traversal stopped at each base case (loop, satisfied, diverging)
+- **LLM call accounting** — total calls per step, per phase, per depth level
+- **Exportable JSON traces** — for post-hoc analysis and comparison across ablation runs
+
+Standard Python `logging` is used alongside tracing for operational logs (debug/info/warning).
+
 ### Toy Task for Validation (`experiments/toy_task.py`)
 
-**Entity tracking with updates and contradictions.** This is simple to evaluate (exact match) but clearly requires statefulness:
+**Entity tracking with updates and contradictions.** Simple to evaluate (exact match) but clearly requires statefulness:
 
 1. Feed the agent a stream of ~50 messages, each introducing or updating facts about named entities
 2. Intersperse recall questions ("How many apples does Alice have?")
@@ -392,26 +570,26 @@ Step 35: "Question: How many apples does Alice have?"  → expect "7"
 Step 40: "Question: How many oranges does Bob have?"   → expect "3"
 ```
 
-We evaluate: accuracy on recall questions, especially post-update accuracy (tests invalidation).
+Metrics: recall accuracy, post-update accuracy (tests invalidation), and via tracing: traversal depth, associations formed, association weight evolution.
 
-We also run the same task against a **baseline** — a plain LLM with all history stuffed into context (no scaffold) — to verify the scaffold at least matches it on short sequences, then show it handles sequences that overflow the baseline's context window.
+Baseline comparison: same task against a plain LLM with full history in context.
 
 ## Build Order
 
-1. **`types.py`** — shared dataclasses (`StateEntry`, `MemoryMap`, `CognitiveResult`, prompt/schema types)
-2. **`llm/base.py` + `llm/anthropic.py` + `llm/openai.py` + `llm/openrouter.py`** — LLM interface + providers (OpenRouter extends OpenAI with different base URL)
-3. **`tracing.py`** — CognitiveTrace, TraceLogger (built early so all subsequent components can use it)
-4. **`state.py`** — StateStore with read/write/invalidate, MemoryMap with render/update, JSON persistence
-5. **`cognitive_step.py`** — the single recursive primitive (orient → recurse → synthesize + direct_resolve base case), instrumented with TraceLogger
+1. **`types.py`** — shared dataclasses (`StateEntry`, `Association`, `MemoryMap`, `CognitiveResult`, schema types)
+2. **`llm/base.py` + `llm/anthropic.py` + `llm/openai.py` + `llm/openrouter.py`** — LLM interface + providers
+3. **`tracing.py`** — CognitiveTrace, TraversalStep, TraceLogger (built early so all subsequent components use it)
+4. **`state.py`** — StateStore (graph: entries + associations + memory map), rendering, persistence
+5. **`cognitive_step.py`** — the single recursive primitive with graph traversal at base case, instrumented with TraceLogger
 6. **`agent.py`** — agent loop: three phases (recall, reason, integrate) of CognitiveStep
-6. **`experiments/toy_task.py`** — toy task to validate end-to-end
-7. **Tests** for state store, cognitive step, and agent loop
+7. **`experiments/toy_task.py`** — toy task to validate end-to-end
+8. **Tests** for state store, cognitive step, and agent loop
 
 ## Verification
 
-- Unit tests for StateStore (write, read, invalidate, memory map update, persistence)
-- Unit tests for CognitiveStep with mock LLM (test recursion, termination conditions, state mutations at base case)
+- Unit tests for StateStore (entry CRUD, association CRUD with context-scoping, weight updates, invalidation, access tracking, memory map update, persistence)
+- Unit tests for CognitiveStep with mock LLM (test recursion, graph traversal, intelligent termination, state mutations)
+- Tracing verification: confirm traces capture full recursion tree and all state mutations
 - End-to-end: run toy task, check recall accuracy and post-update correctness
-- Ablation: run toy task with `max_depth=0` (flat baseline) vs increasing depths to measure whether recursion helps
+- Ablation: `max_depth=0` (flat baseline) vs increasing depths; vary `max_steps` and `max_width`
 - Compare against naive baseline (plain LLM with full history in context) on same task
-
