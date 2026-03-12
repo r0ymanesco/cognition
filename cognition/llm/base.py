@@ -8,9 +8,11 @@ Provider-agnostic abstraction. The cognitive step needs two capabilities:
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, Type
+from typing import TypeVar
 
 from pydantic import BaseModel
+
+T = TypeVar("T", bound=BaseModel)
 
 
 class BaseLLM(ABC):
@@ -29,9 +31,9 @@ class BaseLLM(ABC):
     async def generate_structured(
         self,
         messages: list[dict[str, str]],
-        response_model: Type[BaseModel],
+        response_model: type[T],
         system: str = "",
-    ) -> BaseModel:
+    ) -> T:
         """Generate a response conforming to a Pydantic model.
 
         The provider is responsible for ensuring the response parses

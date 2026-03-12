@@ -163,6 +163,7 @@ class TestDirectResolve:
         assert "Alice has 5 apples" in result.output
         # Alice should have been accessed
         alice = populated_store.get_entry("alice_1")
+        assert alice is not None
         assert alice.access_count == 1
 
     @pytest.mark.asyncio

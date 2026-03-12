@@ -242,7 +242,7 @@ class TraceLogger:
             if isinstance(obj, dict):
                 return {k: _serialize(v) for k, v in obj.items()}
             if isinstance(obj, set):
-                return sorted(_serialize(v) for v in obj)
+                return sorted(str(_serialize(v)) for v in obj)
             if isinstance(obj, datetime):
                 return obj.isoformat()
             return obj

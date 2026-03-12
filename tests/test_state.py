@@ -366,8 +366,12 @@ class TestPersistence:
         loaded.load(path)
 
         assert len(loaded.entries) == 2
-        assert loaded.get_entry(alice_entry.id).content == "Alice has 5 apples"
-        assert loaded.get_entry(bob_entry.id).content == "Bob has 3 oranges"
+        loaded_alice = loaded.get_entry(alice_entry.id)
+        loaded_bob = loaded.get_entry(bob_entry.id)
+        assert loaded_alice is not None
+        assert loaded_bob is not None
+        assert loaded_alice.content == "Alice has 5 apples"
+        assert loaded_bob.content == "Bob has 3 oranges"
 
         loaded_assocs = loaded.get_associations(alice_entry.id)
         assert len(loaded_assocs) == 1

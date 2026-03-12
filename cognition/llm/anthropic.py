@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-import json
 import logging
-from typing import Any, Type
+from typing import Any, TypeVar
 
 from pydantic import BaseModel
 
 from cognition.llm.base import BaseLLM
+
+T = TypeVar("T", bound=BaseModel)
 
 logger = logging.getLogger(__name__)
 
@@ -45,9 +46,9 @@ class AnthropicLLM(BaseLLM):
     async def generate_structured(
         self,
         messages: list[dict[str, str]],
-        response_model: Type[BaseModel],
+        response_model: type[T],
         system: str = "",
-    ) -> BaseModel:
+    ) -> T:
         schema = response_model.model_json_schema()
         tool_name = response_model.__name__
 
