@@ -25,11 +25,15 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import json
 import logging
 import sys
 import time
 from dataclasses import dataclass
+from typing import Any
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from cognition.agent import Agent
 from cognition.llm.base import BaseLLM
@@ -143,7 +147,7 @@ class QuestionResult:
 
 def evaluate_answer(expected: str, actual: str) -> bool:
     """Check if the expected value appears in the actual response."""
-    return expected.lower() in actual.lower()
+    return expected.strip().lower() in actual.strip().lower()
 
 
 # ---------------------------------------------------------------------------
@@ -151,16 +155,39 @@ def evaluate_answer(expected: str, actual: str) -> bool:
 # ---------------------------------------------------------------------------
 
 
-def create_llm(provider: str, model: str | None = None) -> BaseLLM:
+def parse_llm_kwargs(raw: list[str] | None) -> dict[str, Any]:
+    """Parse key=value pairs into a dict, coercing types."""
+    if not raw:
+        return {}
+    kwargs: dict[str, Any] = {}
+    for item in raw:
+        key, _, value = item.partition("=")
+        if not value:
+            raise ValueError(f"Invalid kwarg format: {item!r} (expected key=value)")
+        # Coerce types
+        if value.lower() in ("true", "false"):
+            kwargs[key] = value.lower() == "true"
+        elif value.replace(".", "", 1).replace("-", "", 1).isdigit():
+            kwargs[key] = float(value) if "." in value else int(value)
+        else:
+            kwargs[key] = value
+    return kwargs
+
+
+def create_llm(
+    provider: str,
+    model: str | None = None,
+    extra_kwargs: dict[str, Any] | None = None,
+) -> BaseLLM:
     if provider == "anthropic":
         from cognition.llm.anthropic import AnthropicLLM
-        return AnthropicLLM(model=model or "claude-sonnet-4-20250514")
+        return AnthropicLLM(model=model or "claude-sonnet-4-20250514", extra_kwargs=extra_kwargs)
     elif provider == "openai":
         from cognition.llm.openai import OpenAILLM
-        return OpenAILLM(model=model or "gpt-4o")
+        return OpenAILLM(model=model or "gpt-4o", extra_kwargs=extra_kwargs)
     elif provider == "openrouter":
         from cognition.llm.openrouter import OpenRouterLLM
-        return OpenRouterLLM(model=model or "anthropic/claude-sonnet-4")
+        return OpenRouterLLM(model=model or "anthropic/claude-sonnet-4", extra_kwargs=extra_kwargs)
     else:
         raise ValueError(f"Unknown provider: {provider}")
 
@@ -178,19 +205,31 @@ async def run_experiment(
     max_steps: int,
     trace_file: str | None,
     verbose: bool,
+    llm_kwargs: dict[str, Any] | None = None,
 ) -> None:
     if verbose:
         logging.basicConfig(level=logging.DEBUG, format="%(name)s %(levelname)s %(message)s")
     else:
         logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    llm = create_llm(provider, model)
+    llm = create_llm(provider, model, extra_kwargs=llm_kwargs)
     state = StateStore()
     tracer = TraceLogger()
+
+    system_prompt = (
+        "You are an inventory tracking assistant. People will tell you facts "
+        "about how many items various people have. Remember these facts accurately. "
+        "When asked a question, answer with the correct current value based on "
+        "everything you've been told, including any corrections or updates.\n\n"
+        "If someone tells you a corrected value, that replaces the old value — "
+        "always use the most recent information.\n\n"
+        "Keep your answers concise — just state the number."
+    )
 
     agent = Agent(
         llm=llm,
         state=state,
+        system_prompt=system_prompt,
         max_depth=max_depth,
         max_width=max_width,
         max_steps=max_steps,
@@ -293,6 +332,10 @@ def main() -> None:
     parser.add_argument("--max-steps", type=int, default=20, help="Max traversal steps per direct resolve")
     parser.add_argument("--trace-file", default=None, help="Path to export JSON trace")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
+    parser.add_argument(
+        "--llm-kwargs", nargs="*", metavar="KEY=VALUE",
+        help="Extra kwargs passed to every LLM call (e.g. temperature=0.5 max_tokens=8192)",
+    )
     args = parser.parse_args()
 
     asyncio.run(run_experiment(
@@ -303,6 +346,7 @@ def main() -> None:
         max_steps=args.max_steps,
         trace_file=args.trace_file,
         verbose=args.verbose,
+        llm_kwargs=parse_llm_kwargs(args.llm_kwargs),
     ))
 
 

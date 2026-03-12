@@ -7,3 +7,5 @@ build/
 *.json
 !pyproject.toml
 .python-version
+.env
+traces/

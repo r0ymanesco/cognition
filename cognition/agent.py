@@ -32,6 +32,7 @@ class Agent:
         self,
         llm: BaseLLM,
         state: StateStore | None = None,
+        system_prompt: str = "",
         max_depth: int = 3,
         max_width: int = 5,
         max_steps: int = 20,
@@ -39,6 +40,7 @@ class Agent:
     ):
         self.llm = llm
         self.state = state or StateStore()
+        self.system_prompt = system_prompt
         self.cognitive_step = CognitiveStep(llm, max_depth, max_width, max_steps)
         self.tracer = tracer or TraceLogger()
         self.step_count = 0
@@ -48,6 +50,7 @@ class Agent:
         context: dict[str, Any] = {
             "input": input_text,
             "step_number": self.step_count,
+            "system_prompt": self.system_prompt,
         }
 
         logger.info("agent.step %d: %s", self.step_count, input_text[:100])

@@ -13,7 +13,7 @@ to follow, assess termination, read/write state.
 from __future__ import annotations
 
 import logging
-from typing import Any, Type
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -22,12 +22,10 @@ from cognition.state import StateStore
 from cognition.tracing import TraceLogger, TraversalStepTrace
 from cognition.types import (
     Association,
-    AssociationInvalidation,
     CognitiveResult,
     EntryType,
     RelationshipType,
     StateEntry,
-    WeightUpdate,
 )
 
 logger = logging.getLogger(__name__)
@@ -218,7 +216,10 @@ class CognitiveStep:
         memory_map = state.memory_map.render()
         all_entry_points = state.memory_map.get_entry_points(objective)
 
+        task_prompt = _get_task_prompt(context)
         system = (
+            f"{task_prompt}\n\n" if task_prompt else ""
+        ) + (
             "You are a cognitive navigator. Given an objective and a memory map, "
             "identify which entry points to start from and decompose the objective "
             "into sub-objectives.\n\n"
@@ -288,7 +289,10 @@ class CognitiveStep:
             # Render the local neighborhood
             neighborhood = state.render_neighborhood(current_nodes, depth=1)
 
+            task_prompt = _get_task_prompt(context)
             system = (
+                f"{task_prompt}\n\n" if task_prompt else ""
+            ) + (
                 "You are a cognitive agent traversing a knowledge graph.\n\n"
                 "You see the local neighborhood around your current nodes. "
                 "For each step:\n"
@@ -443,7 +447,10 @@ class CognitiveStep:
         """After sub-objectives have executed, synthesize a result."""
         memory_map = state.memory_map.render()
 
+        task_prompt = _get_task_prompt(context)
         system = (
+            f"{task_prompt}\n\n" if task_prompt else ""
+        ) + (
             "You are synthesizing the results of a cognitive process. "
             "Sub-objectives have been pursued and state has been updated. "
             "Compile a coherent result for the overall objective, and "
@@ -480,11 +487,18 @@ class CognitiveStep:
         return CognitiveResult(output=result.output)
 
 
+def _get_task_prompt(context: dict[str, Any]) -> str:
+    """Extract the task-level system prompt from context, if any."""
+    return context.get("system_prompt", "")
+
+
 def _format_context(context: dict[str, Any]) -> str:
-    """Format context dict for LLM prompt, excluding large objects."""
+    """Format context dict for LLM prompt, excluding large objects and system_prompt."""
     parts: list[str] = []
     for key, val in context.items():
-        if key == "entry_points":
+        if key in ("system_prompt",):
+            continue  # handled separately
+        elif key == "entry_points":
             parts.append(f"entry_points: {val}")
         elif isinstance(val, CognitiveResult):
             parts.append(f"{key}: {val.output[:200]}...")

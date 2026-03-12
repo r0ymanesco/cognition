@@ -6,6 +6,8 @@ with access to many models (Llama, Mistral, Gemini, Claude, etc.).
 
 from __future__ import annotations
 
+from typing import Any
+
 from cognition.llm.openai import OpenAILLM
 
 
@@ -16,9 +18,11 @@ class OpenRouterLLM(OpenAILLM):
         self,
         model: str = "anthropic/claude-sonnet-4",
         api_key: str | None = None,
+        extra_kwargs: dict[str, Any] | None = None,
     ):
         super().__init__(
             model=model,
             api_key=api_key,
             base_url="https://openrouter.ai/api/v1",
+            extra_kwargs=extra_kwargs,
         )

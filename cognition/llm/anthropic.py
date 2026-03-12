@@ -19,9 +19,19 @@ class AnthropicLLM(BaseLLM):
 
     Uses tool_use for structured output — Claude is instructed to call
     a tool whose input schema matches the desired Pydantic model.
+
+    extra_kwargs are merged into every API call. Useful for:
+    - temperature, max_tokens
+    - thinking (extended thinking config)
     """
 
-    def __init__(self, model: str = "claude-sonnet-4-20250514", api_key: str | None = None):
+    def __init__(
+        self,
+        model: str = "claude-sonnet-4-20250514",
+        api_key: str | None = None,
+        extra_kwargs: dict[str, Any] | None = None,
+    ):
+        super().__init__(extra_kwargs=extra_kwargs)
         import anthropic
 
         self.model = model
@@ -36,6 +46,7 @@ class AnthropicLLM(BaseLLM):
             "model": self.model,
             "max_tokens": 4096,
             "messages": messages,
+            **self.extra_kwargs,
         }
         if system:
             kwargs["system"] = system
@@ -64,6 +75,7 @@ class AnthropicLLM(BaseLLM):
             "messages": messages,
             "tools": [tool],
             "tool_choice": {"type": "tool", "name": tool_name},
+            **self.extra_kwargs,
         }
         if system:
             kwargs["system"] = system

@@ -8,7 +8,7 @@ Provider-agnostic abstraction. The cognitive step needs two capabilities:
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from pydantic import BaseModel
 
@@ -16,7 +16,15 @@ T = TypeVar("T", bound=BaseModel)
 
 
 class BaseLLM(ABC):
-    """Abstract base for LLM providers."""
+    """Abstract base for LLM providers.
+
+    Accepts extra_kwargs that get merged into every API call.
+    Useful for provider-specific params like temperature, max_tokens,
+    reasoning effort, etc.
+    """
+
+    def __init__(self, extra_kwargs: dict[str, Any] | None = None):
+        self.extra_kwargs: dict[str, Any] = extra_kwargs or {}
 
     @abstractmethod
     async def generate(

@@ -19,6 +19,10 @@ class OpenAILLM(BaseLLM):
 
     Uses response_format with json_schema for structured output.
     Subclassed by OpenRouterLLM with a different base URL.
+
+    extra_kwargs are merged into every API call. Useful for:
+    - temperature, max_tokens
+    - reasoning_effort (for o-series models)
     """
 
     def __init__(
@@ -27,19 +31,21 @@ class OpenAILLM(BaseLLM):
         api_key: str | None = None,
         base_url: str | None = None,
         default_headers: dict[str, str] | None = None,
+        extra_kwargs: dict[str, Any] | None = None,
     ):
+        super().__init__(extra_kwargs=extra_kwargs)
         import openai
 
-        kwargs: dict[str, Any] = {}
+        client_kwargs: dict[str, Any] = {}
         if api_key:
-            kwargs["api_key"] = api_key
+            client_kwargs["api_key"] = api_key
         if base_url:
-            kwargs["base_url"] = base_url
+            client_kwargs["base_url"] = base_url
         if default_headers:
-            kwargs["default_headers"] = default_headers
+            client_kwargs["default_headers"] = default_headers
 
         self.model = model
-        self.client = openai.AsyncOpenAI(**kwargs)
+        self.client = openai.AsyncOpenAI(**client_kwargs)
 
     async def generate(
         self,
@@ -53,6 +59,7 @@ class OpenAILLM(BaseLLM):
         response = await self.client.chat.completions.create(
             model=self.model,
             messages=cast(Any, msgs),
+            **self.extra_kwargs,
         )
         return response.choices[0].message.content or ""
 
@@ -77,6 +84,7 @@ class OpenAILLM(BaseLLM):
                     "strict": True,
                 },
             }),
+            **self.extra_kwargs,
         )
         raw = response.choices[0].message.content or "{}"
         return response_model.model_validate_json(raw)
