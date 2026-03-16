@@ -33,7 +33,6 @@ class Agent:
         llm: BaseLLM,
         state: StateStore | None = None,
         system_prompt: str = "",
-        max_depth: int = 3,
         max_width: int = 5,
         max_steps: int = 20,
         tracer: TraceLogger | None = None,
@@ -41,7 +40,7 @@ class Agent:
         self.llm = llm
         self.state = state or StateStore()
         self.system_prompt = system_prompt
-        self.cognitive_step = CognitiveStep(llm, max_depth, max_width, max_steps)
+        self.cognitive_step = CognitiveStep(llm, max_width, max_steps)
         self.tracer = tracer or TraceLogger()
         self.step_count = 0
 

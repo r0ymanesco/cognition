@@ -334,7 +334,7 @@ class TestMemoryMap:
                 "b": TopicEntry(summary="B", entry_points=["e3"]),
             },
         ))
-        points = mm.get_entry_points("anything")
+        points = mm.get_entry_points()
         assert set(points) == {"e1", "e2", "e3"}
 
 

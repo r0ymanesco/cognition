@@ -137,7 +137,7 @@ class TestDirectResolve:
     @pytest.mark.asyncio
     async def test_single_step_traversal(self, mock_llm: MockLLM, populated_store: StateStore, tracer: TraceLogger):
         """Traversal stops immediately when LLM says objective_satisfied."""
-        step = CognitiveStep(mock_llm, max_depth=1, max_width=3, max_steps=10)
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=10)
 
         # Orient returns entry points, no sub-objectives (triggers direct resolve)
         mock_llm.set_response("OrientationResponse", OrientationResponse(
@@ -169,7 +169,7 @@ class TestDirectResolve:
     @pytest.mark.asyncio
     async def test_multi_step_traversal(self, mock_llm: MockLLM, populated_store: StateStore):
         """Traversal follows edges for multiple steps before stopping."""
-        step = CognitiveStep(mock_llm, max_depth=1, max_width=3, max_steps=10)
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=10)
 
         mock_llm.set_response("OrientationResponse", OrientationResponse(
             entry_points=["alice_1"],
@@ -203,7 +203,7 @@ class TestDirectResolve:
     @pytest.mark.asyncio
     async def test_state_mutations_during_traversal(self, mock_llm: MockLLM, populated_store: StateStore):
         """Traversal can create new entries and associations."""
-        step = CognitiveStep(mock_llm, max_depth=1, max_width=3, max_steps=10)
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=10)
 
         mock_llm.set_response("OrientationResponse", OrientationResponse(
             entry_points=["alice_1"],
@@ -253,7 +253,7 @@ class TestDirectResolve:
     @pytest.mark.asyncio
     async def test_max_steps_safety_cap(self, mock_llm: MockLLM, populated_store: StateStore):
         """Traversal stops at max_steps even if LLM never says stop."""
-        step = CognitiveStep(mock_llm, max_depth=1, max_width=3, max_steps=3)
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=3)
 
         mock_llm.set_response("OrientationResponse", OrientationResponse(
             entry_points=["alice_1"],
@@ -267,7 +267,7 @@ class TestDirectResolve:
             should_stop=False,
         ))
 
-        result = await step.execute(
+        await step.execute(
             objective="Infinite search",
             state=populated_store,
             context={"input": "test", "step_number": 0},
@@ -278,33 +278,19 @@ class TestDirectResolve:
         assert len(traversal_calls) == 3
 
 
-class TestRecursion:
-    """Tests for the recursive decomposition."""
+class TestDecomposition:
+    """Tests for orient → multi-traverse → synthesize."""
 
     @pytest.mark.asyncio
-    async def test_single_level_recursion(self, mock_llm: MockLLM, populated_store: StateStore, tracer: TraceLogger):
-        """Orient produces sub-objectives, each gets direct-resolved."""
-        step = CognitiveStep(mock_llm, max_depth=2, max_width=3, max_steps=5)
+    async def test_sub_objectives_each_get_traversed(self, mock_llm: MockLLM, populated_store: StateStore, tracer: TraceLogger):
+        """Orient produces sub-objectives, each gets its own graph traversal."""
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=5)
 
-        # Depth 0: orient produces 2 sub-objectives
-        # Depth 1: each sub-objective gets orient (no further sub-objectives) then direct resolve
-        mock_llm.set_response_sequence("OrientationResponse", [
-            # Depth 0
-            OrientationResponse(
-                entry_points=["alice_1", "bob_1"],
-                sub_objectives=["find alice's fruits", "find bob's fruits"],
-            ),
-            # Depth 1, sub-objective 1
-            OrientationResponse(
-                entry_points=["alice_1"],
-                sub_objectives=[],
-            ),
-            # Depth 1, sub-objective 2
-            OrientationResponse(
-                entry_points=["bob_1"],
-                sub_objectives=[],
-            ),
-        ])
+        # Orient decomposes into 2 sub-objectives
+        mock_llm.set_response("OrientationResponse", OrientationResponse(
+            entry_points=["alice_1", "bob_1"],
+            sub_objectives=["find alice's fruits", "find bob's fruits"],
+        ))
 
         mock_llm.set_response_sequence("TraversalStepResponse", [
             TraversalStepResponse(findings=["Alice has 5 apples"], should_stop=True, stop_reason="objective_satisfied"),
@@ -324,51 +310,22 @@ class TestRecursion:
 
         assert "Alice" in result.output or "Bob" in result.output
 
-        # Check trace structure
+        # Check trace: root has 2 children (one per sub-objective)
         roots = tracer.get_roots()
         assert len(roots) == 1
         root = roots[0]
         assert len(root.children) == 2
 
     @pytest.mark.asyncio
-    async def test_max_depth_forces_direct_resolve(self, mock_llm: MockLLM, populated_store: StateStore):
-        """At max_depth, always goes to direct resolve regardless of orient."""
-        step = CognitiveStep(mock_llm, max_depth=1, max_width=3, max_steps=5)
-
-        # Even though orient would produce sub-objectives, at depth=max_depth
-        # we skip orient entirely and go straight to direct resolve
-        mock_llm.set_response("TraversalStepResponse", TraversalStepResponse(
-            findings=["Found it"],
-            should_stop=True,
-            stop_reason="objective_satisfied",
-        ))
-
-        result = await step.execute(
-            objective="test",
-            state=populated_store,
-            context={"input": "test", "step_number": 0, "entry_points": ["alice_1"]},
-            depth=1,  # already at max_depth
-        )
-
-        # Should not have called orient at all
-        orient_calls = [c for c in mock_llm.call_log if c.get("model") == "OrientationResponse"]
-        assert len(orient_calls) == 0
-
-    @pytest.mark.asyncio
     async def test_max_width_limits_sub_objectives(self, mock_llm: MockLLM, populated_store: StateStore):
         """Only max_width sub-objectives are pursued."""
-        step = CognitiveStep(mock_llm, max_depth=2, max_width=2, max_steps=5)
+        step = CognitiveStep(mock_llm, max_width=2, max_steps=5)
 
         # Orient returns 5 sub-objectives but max_width=2
-        mock_llm.set_response_sequence("OrientationResponse", [
-            OrientationResponse(
-                entry_points=["alice_1"],
-                sub_objectives=["a", "b", "c", "d", "e"],
-            ),
-            # Only 2 sub-objectives will be pursued
-            OrientationResponse(entry_points=["alice_1"], sub_objectives=[]),
-            OrientationResponse(entry_points=["bob_1"], sub_objectives=[]),
-        ])
+        mock_llm.set_response("OrientationResponse", OrientationResponse(
+            entry_points=["alice_1"],
+            sub_objectives=["a", "b", "c", "d", "e"],
+        ))
 
         mock_llm.set_response("TraversalStepResponse", TraversalStepResponse(
             findings=["done"], should_stop=True, stop_reason="objective_satisfied",
@@ -385,13 +342,37 @@ class TestRecursion:
         traversal_calls = [c for c in mock_llm.call_log if c.get("model") == "TraversalStepResponse"]
         assert len(traversal_calls) == 2
 
+    @pytest.mark.asyncio
+    async def test_no_sub_objectives_skips_synthesis(self, mock_llm: MockLLM, populated_store: StateStore):
+        """When orient returns no sub-objectives, we traverse directly without synthesis."""
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=5)
+
+        mock_llm.set_response("OrientationResponse", OrientationResponse(
+            entry_points=["alice_1"],
+            sub_objectives=[],
+        ))
+
+        mock_llm.set_response("TraversalStepResponse", TraversalStepResponse(
+            findings=["Alice has 5 apples"], should_stop=True, stop_reason="objective_satisfied",
+        ))
+
+        await step.execute(
+            objective="test",
+            state=populated_store,
+            context={"input": "test", "step_number": 0},
+        )
+
+        # No synthesis call — went directly from orient to traversal
+        synthesis_calls = [c for c in mock_llm.call_log if c.get("model") == "SynthesisResponse"]
+        assert len(synthesis_calls) == 0
+
 
 class TestTracing:
     """Tests for trace capture during cognitive step execution."""
 
     @pytest.mark.asyncio
     async def test_trace_captures_full_tree(self, mock_llm: MockLLM, populated_store: StateStore, tracer: TraceLogger):
-        step = CognitiveStep(mock_llm, max_depth=1, max_width=3, max_steps=5)
+        step = CognitiveStep(mock_llm, max_width=3, max_steps=5)
 
         mock_llm.set_response("OrientationResponse", OrientationResponse(
             entry_points=["alice_1"], sub_objectives=[],

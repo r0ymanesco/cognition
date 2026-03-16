@@ -13,8 +13,7 @@ from __future__ import annotations
 import json
 import logging
 from collections import defaultdict
-from dataclasses import asdict, fields
-from datetime import datetime, timezone
+from datetime import datetime
 
 from cognition.types import (
     Association,
@@ -84,8 +83,11 @@ class MemoryMap:
 
         return "\n".join(lines)
 
-    def get_entry_points(self, objective: str) -> list[str]:
-        """Return candidate entry point IDs for a given objective.
+    def get_entry_points(self, store: "StateStore | None" = None) -> list[str]:
+        """Return candidate entry point IDs.
+
+        If a StateStore is provided, filters out stale references
+        (entries that no longer exist or are superseded).
 
         Currently returns all entry points across all topics (the LLM
         selects during orient). Will be optimized later with entity-based
@@ -94,7 +96,19 @@ class MemoryMap:
         points: list[str] = []
         for topic in self.data.topics.values():
             points.extend(topic.entry_points)
-        return points
+        # Include weakly connected entries as potential entry points
+        points.extend(self.data.weakly_connected)
+        # Deduplicate
+        seen: set[str] = set()
+        unique: list[str] = []
+        for p in points:
+            if p not in seen:
+                seen.add(p)
+                unique.append(p)
+        # Filter stale references if store provided
+        if store is not None:
+            unique = [p for p in unique if (e := store.get_entry(p)) is not None and e.is_active]
+        return unique
 
     def update(self, changes: dict) -> None:
         """Incremental update to the memory map.
@@ -171,6 +185,9 @@ class StateStore:
 
     def write(self, entry: StateEntry) -> None:
         self.entries[entry.id] = entry
+        # Auto-register in memory map as weakly connected so it's discoverable
+        if entry.id not in self.memory_map.data.weakly_connected:
+            self.memory_map.data.weakly_connected.append(entry.id)
         logger.debug("state.write entry_id=%s type=%s", entry.id, entry.entry_type)
 
     def get_entry(self, entry_id: str) -> StateEntry | None:
@@ -180,6 +197,13 @@ class StateStore:
         entry = self.entries.get(entry_id)
         if entry:
             entry.superseded_by = superseded_by
+            # Clean up memory map — remove from topic entry_points
+            for topic in self.memory_map.data.topics.values():
+                if entry_id in topic.entry_points:
+                    topic.entry_points.remove(entry_id)
+            # Remove from weakly_connected
+            if entry_id in self.memory_map.data.weakly_connected:
+                self.memory_map.data.weakly_connected.remove(entry_id)
             logger.debug("state.invalidate_entry entry_id=%s superseded_by=%s", entry_id, superseded_by)
 
     def access(self, entry_id: str, step: int) -> None:

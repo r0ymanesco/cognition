@@ -143,12 +143,10 @@ class CognitiveStep:
     def __init__(
         self,
         llm: BaseLLM,
-        max_depth: int = 3,
         max_width: int = 5,
         max_steps: int = 20,
     ):
         self.llm = llm
-        self.max_depth = max_depth
         self.max_width = max_width
         self.max_steps = max_steps
 
@@ -157,48 +155,51 @@ class CognitiveStep:
         objective: str,
         state: StateStore,
         context: dict[str, Any],
-        depth: int = 0,
         tracer: TraceLogger | None = None,
         parent_trace_id: str | None = None,
     ) -> CognitiveResult:
+        """Orient once → traverse per sub-objective → synthesize.
+
+        No recursive decomposition. Orient identifies entry points and
+        optionally splits the objective into focused sub-objectives.
+        Each sub-objective gets its own graph traversal. Synthesis
+        combines results and updates the memory map.
+        """
         trace_id = None
         if tracer:
-            trace_id = tracer.begin(objective, depth, parent_trace_id)
+            trace_id = tracer.begin(objective, 0, parent_trace_id)
 
         try:
-            # Hard safety cap — always go to direct resolve at max depth
-            if depth >= self.max_depth:
-                result = await self._direct_resolve(
-                    objective, state, context, tracer, trace_id
-                )
-                return result
-
-            # Orient: consult memory map, identify entry points and sub-objectives
+            # Orient: consult memory map, find entry points, decompose objective
             orientation = await self._orient(objective, state, context, tracer, trace_id)
 
             if not orientation.sub_objectives:
-                # No sub-objectives — direct resolve at this level
+                # Single focused objective — traverse directly
                 result = await self._direct_resolve(
                     objective, state,
                     {**context, "entry_points": orientation.entry_points},
                     tracer, trace_id,
                 )
-                return result
+            else:
+                # Multiple sub-objectives — traverse each separately
+                sub_objectives = orientation.sub_objectives[:self.max_width]
+                for sub_objective in sub_objectives:
+                    sub_trace_id = None
+                    if tracer:
+                        sub_trace_id = tracer.begin(sub_objective, 1, trace_id)
+                    try:
+                        await self._direct_resolve(
+                            sub_objective, state,
+                            {**context, "entry_points": orientation.entry_points},
+                            tracer, sub_trace_id,
+                        )
+                    finally:
+                        if tracer and sub_trace_id:
+                            tracer.end(sub_trace_id)
 
-            # Recurse on each sub-objective
-            sub_objectives = orientation.sub_objectives[:self.max_width]
-            for sub_objective in sub_objectives:
-                await self.execute(
-                    objective=sub_objective,
-                    state=state,
-                    context={**context, "entry_points": orientation.entry_points},
-                    depth=depth + 1,
-                    tracer=tracer,
-                    parent_trace_id=trace_id,
-                )
+                # Synthesize: combine results and update memory map
+                result = await self._synthesize(objective, state, context, tracer, trace_id)
 
-            # Synthesize
-            result = await self._synthesize(objective, state, context, tracer, trace_id)
             return result
 
         finally:
@@ -214,7 +215,7 @@ class CognitiveStep:
         trace_id: str | None,
     ) -> OrientationResponse:
         memory_map = state.memory_map.render()
-        all_entry_points = state.memory_map.get_entry_points(objective)
+        all_entry_points = state.memory_map.get_entry_points(store=state)
 
         task_prompt = _get_task_prompt(context)
         system = (
@@ -378,9 +379,7 @@ class CognitiveStep:
                 logger.debug("direct_resolve stopping: no next nodes")
                 break
 
-        # Apply memory map changes from the last step
-        if step_result.map_changes:
-            state.memory_map.update(step_result.map_changes.model_dump())
+        # Memory map updates happen in synthesis, not during traversal
 
         if tracer and trace_id:
             tracer.record_direct_resolve(

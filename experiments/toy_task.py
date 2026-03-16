@@ -200,7 +200,6 @@ def create_llm(
 async def run_experiment(
     provider: str,
     model: str | None,
-    max_depth: int,
     max_width: int,
     max_steps: int,
     trace_file: str | None,
@@ -230,7 +229,6 @@ async def run_experiment(
         llm=llm,
         state=state,
         system_prompt=system_prompt,
-        max_depth=max_depth,
         max_width=max_width,
         max_steps=max_steps,
         tracer=tracer,
@@ -242,7 +240,7 @@ async def run_experiment(
 
     print(f"Running toy task: {len(task)} steps")
     print(f"Provider: {provider}, Model: {model or 'default'}")
-    print(f"Config: max_depth={max_depth}, max_width={max_width}, max_steps={max_steps}")
+    print(f"Config: max_width={max_width}, max_steps={max_steps}")
     print("-" * 60)
 
     for i, step in enumerate(task):
@@ -327,9 +325,8 @@ def main() -> None:
         default="anthropic", help="LLM provider",
     )
     parser.add_argument("--model", default=None, help="Model name (provider-specific)")
-    parser.add_argument("--max-depth", type=int, default=3, help="Max recursion depth")
-    parser.add_argument("--max-width", type=int, default=5, help="Max sub-objectives per level")
-    parser.add_argument("--max-steps", type=int, default=20, help="Max traversal steps per direct resolve")
+    parser.add_argument("--max-width", type=int, default=5, help="Max sub-objectives per orient")
+    parser.add_argument("--max-steps", type=int, default=20, help="Max traversal steps per graph walk")
     parser.add_argument("--trace-file", default=None, help="Path to export JSON trace")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument(
@@ -341,7 +338,6 @@ def main() -> None:
     asyncio.run(run_experiment(
         provider=args.provider,
         model=args.model,
-        max_depth=args.max_depth,
         max_width=args.max_width,
         max_steps=args.max_steps,
         trace_file=args.trace_file,
