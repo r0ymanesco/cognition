@@ -73,18 +73,13 @@ class OpenAILLM(BaseLLM):
         if system:
             msgs = [{"role": "system", "content": system}] + msgs
 
-        response = await self.client.chat.completions.create(
+        response = await self.client.beta.chat.completions.parse(
             model=self.model,
             messages=cast(Any, msgs),
-            response_format=cast(Any, {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": response_model.__name__,
-                    "schema": response_model.model_json_schema(),
-                    "strict": True,
-                },
-            }),
+            response_format=response_model,
             **self.extra_kwargs,
         )
-        raw = response.choices[0].message.content or "{}"
-        return response_model.model_validate_json(raw)
+        parsed = response.choices[0].message.parsed
+        if parsed is None:
+            raise ValueError(f"Failed to parse response into {response_model.__name__}")
+        return parsed

@@ -132,15 +132,15 @@ class MemoryMap:
             for name, updates in changes["updated_topics"].items():
                 if name in self.data.topics:
                     topic = self.data.topics[name]
-                    if "summary" in updates:
+                    if updates.get("summary") is not None:
                         topic.summary = updates["summary"]
-                    if "entry_points" in updates:
+                    if updates.get("entry_points") is not None:
                         topic.entry_points = updates["entry_points"]
-                    if "add_entry_points" in updates:
+                    if updates.get("add_entry_points") is not None:
                         for ep in updates["add_entry_points"]:
                             if ep not in topic.entry_points:
                                 topic.entry_points.append(ep)
-                    if "density" in updates:
+                    if updates.get("density") is not None:
                         topic.density = updates["density"]
 
         if "recent_changes" in changes:

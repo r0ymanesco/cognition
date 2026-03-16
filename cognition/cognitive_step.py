@@ -80,9 +80,24 @@ class AssociationInvalidationSpec(BaseModel):
     invalidated_by: str | None = None
 
 
+class NamedTopicSpec(BaseModel):
+    name: str
+    summary: str = ""
+    entry_points: list[str] = Field(default_factory=list)
+    density: str = "sparse"
+
+
+class NamedTopicUpdateSpec(BaseModel):
+    name: str
+    summary: str | None = None
+    add_entry_points: list[str] = Field(default_factory=list)
+    entry_points: list[str] | None = None
+    density: str | None = None
+
+
 class MapChangesSpec(BaseModel):
-    new_topics: dict[str, dict] = Field(default_factory=dict)
-    updated_topics: dict[str, dict] = Field(default_factory=dict)
+    new_topics: list[NamedTopicSpec] = Field(default_factory=list)
+    updated_topics: list[NamedTopicUpdateSpec] = Field(default_factory=list)
     recent_changes: list[str] = Field(default_factory=list)
     contested_regions: list[str] = Field(default_factory=list)
     weakly_connected: list[str] = Field(default_factory=list)
@@ -394,9 +409,13 @@ class CognitiveStep:
         written_ids: list[str] = []
 
         for spec in step_result.new_entries:
+            try:
+                entry_type = EntryType(spec.entry_type)
+            except ValueError:
+                entry_type = EntryType.OBSERVATION
             entry = StateEntry(
                 content=spec.content,
-                entry_type=EntryType(spec.entry_type),
+                entry_type=entry_type,
                 confidence=spec.confidence,
                 step_created=step_number,
                 tags=spec.tags,
@@ -405,10 +424,14 @@ class CognitiveStep:
             written_ids.append(entry.id)
 
         for spec in step_result.new_associations:
+            try:
+                relationship = RelationshipType(spec.relationship)
+            except ValueError:
+                relationship = RelationshipType.RELATED_TO
             assoc = Association(
                 source_id=spec.source_id,
                 target_id=spec.target_id,
-                relationship=RelationshipType(spec.relationship),
+                relationship=relationship,
                 weight=spec.weight,
                 context=spec.context,
                 step_created=step_number,
@@ -464,12 +487,45 @@ class CognitiveStep:
         )
 
         if result.map_changes:
-            state.memory_map.update(result.map_changes.model_dump())
+            state.memory_map.update(_map_changes_to_dict(result.map_changes))
 
         if tracer and trace_id:
             tracer.record_synthesis(trace_id, result.output)
 
         return CognitiveResult(output=result.output)
+
+
+def _map_changes_to_dict(spec: MapChangesSpec) -> dict[str, Any]:
+    """Convert list-based MapChangesSpec to the dict format MemoryMap.update() expects."""
+    result: dict[str, Any] = {}
+    if spec.new_topics:
+        result["new_topics"] = {
+            t.name: {"summary": t.summary, "entry_points": t.entry_points, "density": t.density}
+            for t in spec.new_topics
+        }
+    if spec.updated_topics:
+        updates: dict[str, dict[str, Any]] = {}
+        for t in spec.updated_topics:
+            u: dict[str, Any] = {}
+            if t.summary is not None:
+                u["summary"] = t.summary
+            if t.entry_points is not None:
+                u["entry_points"] = t.entry_points
+            if t.add_entry_points:
+                u["add_entry_points"] = t.add_entry_points
+            if t.density is not None:
+                u["density"] = t.density
+            updates[t.name] = u
+        result["updated_topics"] = updates
+    if spec.recent_changes:
+        result["recent_changes"] = spec.recent_changes
+    if spec.contested_regions:
+        result["contested_regions"] = spec.contested_regions
+    if spec.weakly_connected:
+        result["weakly_connected"] = spec.weakly_connected
+    if spec.remove_weakly_connected:
+        result["remove_weakly_connected"] = spec.remove_weakly_connected
+    return result
 
 
 def _get_task_prompt(context: dict[str, Any]) -> str:
