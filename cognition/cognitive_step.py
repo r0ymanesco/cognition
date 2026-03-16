@@ -217,27 +217,22 @@ class CognitiveStep:
         memory_map = state.memory_map.render()
         all_entry_points = state.memory_map.get_entry_points(store=state)
 
-        task_prompt = _get_task_prompt(context)
-        system = (
-            f"{task_prompt}\n\n" if task_prompt else ""
-        ) + (
-            "You are a cognitive navigator. Given an objective and a memory map, "
-            "identify which entry points to start from and decompose the objective "
-            "into sub-objectives.\n\n"
-            "If the objective is narrow enough to address directly, return an empty "
-            "sub_objectives list — this signals direct resolution.\n\n"
-            "Entry points must be valid entry IDs from the memory map."
-        )
+        system = _get_task_prompt(context)
 
         messages = [
             {
                 "role": "user",
                 "content": (
+                    "Given the following objective and your memory map, "
+                    "identify which entry points to start from and optionally "
+                    "decompose the objective into sub-objectives.\n\n"
+                    "If the objective is narrow enough to address directly, return an empty "
+                    "sub_objectives list.\n\n"
+                    "Entry points must be valid entry IDs from the memory map.\n\n"
                     f"Objective: {objective}\n\n"
                     f"Memory Map:\n{memory_map}\n\n"
                     f"Available entry points: {all_entry_points}\n\n"
-                    f"Context: {_format_context(context)}\n\n"
-                    "Identify entry points and sub-objectives."
+                    f"Context: {_format_context(context)}"
                 ),
             }
         ]
@@ -290,29 +285,25 @@ class CognitiveStep:
             # Render the local neighborhood
             neighborhood = state.render_neighborhood(current_nodes, depth=1)
 
-            task_prompt = _get_task_prompt(context)
-            system = (
-                f"{task_prompt}\n\n" if task_prompt else ""
-            ) + (
-                "You are a cognitive agent traversing a knowledge graph.\n\n"
-                "You see the local neighborhood around your current nodes. "
-                "For each step:\n"
-                "1. Record findings relevant to the objective\n"
-                "2. Decide which edges to follow (next_nodes)\n"
-                "3. Create new entries or associations if you discover new information\n"
-                "4. Strengthen associations you find useful, weaken misleading ones\n"
-                "5. Decide whether to stop, with explicit reasoning:\n"
-                "   - loop_detected: you're revisiting nodes you've already seen\n"
-                "   - objective_satisfied: you have enough information\n"
-                "   - diverging_from_objective: the current path leads away from the goal\n"
-                "   - no_relevant_edges: no useful edges to follow from here\n"
-            )
+            system = _get_task_prompt(context)
 
             visited_list = sorted(visited)
             messages = [
                 {
                     "role": "user",
                     "content": (
+                        "You are traversing a knowledge graph. "
+                        "Below is the local neighborhood around your current nodes.\n\n"
+                        "For each step:\n"
+                        "1. Record findings relevant to the objective\n"
+                        "2. Decide which edges to follow (next_nodes)\n"
+                        "3. Create new entries or associations if you discover new information\n"
+                        "4. Strengthen associations you find useful, weaken misleading ones\n"
+                        "5. Decide whether to stop, with explicit reasoning:\n"
+                        "   - loop_detected: you're revisiting nodes you've already seen\n"
+                        "   - objective_satisfied: you have enough information\n"
+                        "   - diverging_from_objective: the current path leads away from the goal\n"
+                        "   - no_relevant_edges: no useful edges to follow from here\n\n"
                         f"Objective: {objective}\n\n"
                         f"Current neighborhood:\n{neighborhood}\n\n"
                         f"Already visited: {visited_list}\n\n"
@@ -446,24 +437,19 @@ class CognitiveStep:
         """After sub-objectives have executed, synthesize a result."""
         memory_map = state.memory_map.render()
 
-        task_prompt = _get_task_prompt(context)
-        system = (
-            f"{task_prompt}\n\n" if task_prompt else ""
-        ) + (
-            "You are synthesizing the results of a cognitive process. "
-            "Sub-objectives have been pursued and state has been updated. "
-            "Compile a coherent result for the overall objective, and "
-            "update the memory map if needed."
-        )
+        system = _get_task_prompt(context)
 
         messages = [
             {
                 "role": "user",
                 "content": (
+                    "Sub-objectives have been pursued and state has been updated. "
+                    "Compile a coherent result for the overall objective. "
+                    "Also update the memory map if the knowledge structure has changed "
+                    "(new topics, revised summaries, entries moved between topics).\n\n"
                     f"Objective: {objective}\n\n"
                     f"Current memory map:\n{memory_map}\n\n"
-                    f"Context: {_format_context(context)}\n\n"
-                    "Synthesize a result for this objective."
+                    f"Context: {_format_context(context)}"
                 ),
             }
         ]

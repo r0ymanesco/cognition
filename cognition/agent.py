@@ -1,11 +1,9 @@
-"""Agent loop — sequences three phases of the Cognitive Step.
+"""Agent — thin wrapper around the Cognitive Step.
 
-Each phase is the same execute() call with a different objective:
-1. Recall — "what do I need to know for this input?"
-2. Reason — "what should I do/respond?"
-3. Integrate — "what should I remember from this?"
-
-Same mechanism, different objectives.
+The agent receives inputs, passes them through a single cognitive step
+execution, and returns the result. The system prompt defines the agent's
+role; the cognitive step handles recall, reasoning, and integration
+naturally during graph traversal.
 """
 
 from __future__ import annotations
@@ -25,7 +23,9 @@ class Agent:
     """Stateful agent backed by a cognitive scaffold.
 
     Processes inputs one at a time, maintaining state across all steps.
-    Each step runs three phases of the cognitive primitive.
+    Each step is a single cognitive process — recall, reasoning, and
+    integration emerge naturally from the graph traversal rather than
+    being separate phases.
     """
 
     def __init__(
@@ -45,7 +45,7 @@ class Agent:
         self.step_count = 0
 
     async def step(self, input_text: str) -> str:
-        """Process a single input through the three cognitive phases."""
+        """Process a single input through the cognitive step."""
         context: dict[str, Any] = {
             "input": input_text,
             "step_number": self.step_count,
@@ -54,37 +54,15 @@ class Agent:
 
         logger.info("agent.step %d: %s", self.step_count, input_text[:100])
 
-        # Phase 1: RECALL — "what do I need to know?"
-        recall_result = await self.cognitive_step.execute(
-            objective=f"Recall relevant information for: {input_text}",
+        result = await self.cognitive_step.execute(
+            objective=input_text,
             state=self.state,
             context=context,
             tracer=self.tracer,
         )
-        logger.debug("agent.recall result=%s", recall_result.output[:200] if recall_result.output else "(empty)")
-
-        # Phase 2: REASON — "what should I do/respond?"
-        context["recalled"] = recall_result
-        reason_result = await self.cognitive_step.execute(
-            objective=f"Given the recalled context, respond to: {input_text}",
-            state=self.state,
-            context=context,
-            tracer=self.tracer,
-        )
-        logger.debug("agent.reason result=%s", reason_result.output[:200] if reason_result.output else "(empty)")
-
-        # Phase 3: INTEGRATE — "what should I remember?"
-        context["output"] = reason_result
-        await self.cognitive_step.execute(
-            objective=f"Integrate new information from this interaction into memory. Input was: {input_text}. Response was: {reason_result.output}",
-            state=self.state,
-            context=context,
-            tracer=self.tracer,
-        )
-        logger.debug("agent.integrate complete")
 
         self.step_count += 1
-        return reason_result.output
+        return result.output
 
     async def run(self, inputs: list[str]) -> list[str]:
         """Process a sequence of inputs, maintaining state across all steps."""
