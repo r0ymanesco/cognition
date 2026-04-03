@@ -81,5 +81,9 @@ class OpenAILLM(BaseLLM):
         )
         parsed = response.choices[0].message.parsed
         if parsed is None:
-            raise ValueError(f"Failed to parse response into {response_model.__name__}")
+            raw = response.choices[0].message.content or "(empty)"
+            raise ValueError(
+                f"Failed to parse response into {response_model.__name__}. "
+                f"Raw content: {raw[:500]}"
+            )
         return parsed

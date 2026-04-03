@@ -186,8 +186,10 @@ def create_llm(
         from cognition.llm.openai import OpenAILLM
         return OpenAILLM(model=model or "gpt-4o", extra_kwargs=extra_kwargs)
     elif provider == "openrouter":
+        import os
         from cognition.llm.openrouter import OpenRouterLLM
-        return OpenRouterLLM(model=model or "anthropic/claude-sonnet-4", extra_kwargs=extra_kwargs)
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+        return OpenRouterLLM(model=model or "anthropic/claude-sonnet-4", api_key=api_key, extra_kwargs=extra_kwargs)
     else:
         raise ValueError(f"Unknown provider: {provider}")
 

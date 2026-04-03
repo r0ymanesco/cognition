@@ -37,22 +37,43 @@ class AnthropicLLM(BaseLLM):
         self.model = model
         self.client = anthropic.AsyncAnthropic(api_key=api_key)
 
+        # If budget_tokens is set, configure extended thinking
+        self._thinking_budget: int | None = None
+        if "budget_tokens" in self.extra_kwargs:
+            self._thinking_budget = int(self.extra_kwargs.pop("budget_tokens"))
+
+    def _build_kwargs(self, messages: list[dict[str, str]], system: str) -> dict[str, Any]:
+        """Build API kwargs, handling extended thinking config."""
+        kwargs: dict[str, Any] = {
+            "model": self.model,
+            "messages": messages,
+            **self.extra_kwargs,
+        }
+        if self._thinking_budget:
+            kwargs["thinking"] = {
+                "type": "enabled",
+                "budget_tokens": self._thinking_budget,
+            }
+            # With thinking enabled, max_tokens must be > budget_tokens
+            kwargs["max_tokens"] = self._thinking_budget + 4096
+        else:
+            kwargs["max_tokens"] = kwargs.get("max_tokens", 4096)
+        if system:
+            kwargs["system"] = system
+        return kwargs
+
     async def generate(
         self,
         messages: list[dict[str, str]],
         system: str = "",
     ) -> str:
-        kwargs: dict[str, Any] = {
-            "model": self.model,
-            "max_tokens": 4096,
-            "messages": messages,
-            **self.extra_kwargs,
-        }
-        if system:
-            kwargs["system"] = system
-
+        kwargs = self._build_kwargs(messages, system)
         response = await self.client.messages.create(**kwargs)
-        return response.content[0].text
+        # With thinking enabled, the text block may not be first
+        for block in response.content:
+            if block.type == "text":
+                return block.text
+        return ""
 
     async def generate_structured(
         self,
@@ -69,16 +90,13 @@ class AnthropicLLM(BaseLLM):
             "input_schema": schema,
         }
 
-        kwargs: dict[str, Any] = {
-            "model": self.model,
-            "max_tokens": 4096,
-            "messages": messages,
-            "tools": [tool],
-            "tool_choice": {"type": "tool", "name": tool_name},
-            **self.extra_kwargs,
-        }
-        if system:
-            kwargs["system"] = system
+        kwargs = self._build_kwargs(messages, system)
+        kwargs["tools"] = [tool]
+        # Extended thinking doesn't support forced tool_choice
+        if self._thinking_budget:
+            kwargs["tool_choice"] = {"type": "auto"}
+        else:
+            kwargs["tool_choice"] = {"type": "tool", "name": tool_name}
 
         response = await self.client.messages.create(**kwargs)
 

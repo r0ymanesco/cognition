@@ -238,16 +238,20 @@ class CognitiveStep:
             {
                 "role": "user",
                 "content": (
-                    "Given the following objective and your memory map, "
-                    "identify which entry points to start from and optionally "
-                    "decompose the objective into sub-objectives.\n\n"
-                    "If the objective is narrow enough to address directly, return an empty "
-                    "sub_objectives list.\n\n"
-                    "Entry points must be valid entry IDs from the memory map.\n\n"
-                    f"Objective: {objective}\n\n"
+                    "You have a knowledge graph that stores information as entries (nodes) "
+                    "and associations (edges). You received the following input.\n\n"
+                    f"Input: {objective}\n\n"
                     f"Memory Map:\n{memory_map}\n\n"
                     f"Available entry points: {all_entry_points}\n\n"
-                    f"Context: {_format_context(context)}"
+                    "Based on the input and your memory map, identify:\n"
+                    "1. entry_points: Which existing entries are relevant to this input? "
+                    "Use entry IDs from the available entry points list. "
+                    "If the memory is empty or no entries are relevant, return an empty list.\n"
+                    "2. sub_objectives: If this input involves multiple distinct topics "
+                    "that should be handled separately, list them. "
+                    "Otherwise return an empty list.\n"
+                    "3. reasoning: Briefly explain your choices.\n\n"
+                    f"Agent context: {_format_context(context)}"
                 ),
             }
         ]
@@ -307,25 +311,29 @@ class CognitiveStep:
                 {
                     "role": "user",
                     "content": (
-                        "You are traversing a knowledge graph. "
-                        "Below is the local neighborhood around your current nodes.\n\n"
-                        "For each step:\n"
-                        "1. Record findings relevant to the objective\n"
-                        "2. Decide which edges to follow (next_nodes)\n"
-                        "3. Create new entries or associations if you discover new information\n"
-                        "4. Strengthen associations you find useful, weaken misleading ones\n"
-                        "5. Decide whether to stop, with explicit reasoning:\n"
-                        "   - loop_detected: you're revisiting nodes you've already seen\n"
-                        "   - objective_satisfied: you have enough information\n"
-                        "   - diverging_from_objective: the current path leads away from the goal\n"
-                        "   - no_relevant_edges: no useful edges to follow from here\n\n"
-                        f"Objective: {objective}\n\n"
+                        "You are processing an input using a knowledge graph. "
+                        "Your job is to:\n"
+                        "- STORE new information from the input as new entries in the graph\n"
+                        "- RETRIEVE existing entries relevant to the input\n"
+                        "- CONNECT related entries by creating associations\n"
+                        "- ANSWER questions using information found in the graph\n"
+                        "- UPDATE or INVALIDATE entries when corrections are provided\n\n"
+                        "IMPORTANT:\n"
+                        "- If the input contains a fact or statement, create a new entry for it.\n"
+                        "- If the input is a question, search the graph and put the answer in findings.\n"
+                        "- If the input corrects a previous fact, create the new entry AND "
+                        "invalidate the old one (add to association_invalidations).\n"
+                        "- If the graph is empty, create entries from the input — that IS the work.\n\n"
+                        f"Input: {objective}\n\n"
                         f"Current neighborhood:\n{neighborhood}\n\n"
                         f"Already visited: {visited_list}\n\n"
                         f"Findings so far: {findings}\n\n"
-                        f"Context: {_format_context(context)}\n\n"
-                        f"Traversal step {step + 1}/{self.max_steps}. "
-                        "Decide what to do."
+                        f"Agent context: {_format_context(context)}\n\n"
+                        f"Traversal step {step + 1}/{self.max_steps}.\n\n"
+                        "Decide what to do. Set should_stop=true when you have completed "
+                        "processing this input (stored the fact, answered the question, etc). "
+                        "Use stop_reason to explain why.\n"
+                        "Set next_nodes to follow edges to related entries if needed."
                     ),
                 }
             ]
@@ -466,13 +474,16 @@ class CognitiveStep:
             {
                 "role": "user",
                 "content": (
-                    "Sub-objectives have been pursued and state has been updated. "
-                    "Compile a coherent result for the overall objective. "
-                    "Also update the memory map if the knowledge structure has changed "
+                    "Multiple sub-tasks have been processed and the knowledge graph "
+                    "has been updated. Now:\n"
+                    "1. Compile a coherent response to the original input.\n"
+                    "2. Update the memory map to reflect any new knowledge structure "
                     "(new topics, revised summaries, entries moved between topics).\n\n"
-                    f"Objective: {objective}\n\n"
+                    f"Original input: {objective}\n\n"
                     f"Current memory map:\n{memory_map}\n\n"
-                    f"Context: {_format_context(context)}"
+                    "For the output field: provide the response to the input. "
+                    "If it was a statement, acknowledge it briefly. "
+                    "If it was a question, answer it based on what's in the graph."
                 ),
             }
         ]
