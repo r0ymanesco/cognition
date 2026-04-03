@@ -47,6 +47,20 @@ class OpenAILLM(BaseLLM):
         self.model = model
         self.client = openai.AsyncOpenAI(**client_kwargs)
 
+        # Separate known SDK params from provider-specific extras.
+        # Known params (temperature, max_tokens, etc.) go as kwargs.
+        # Everything else goes into extra_body for provider-specific APIs.
+        known_params = {"temperature", "max_tokens", "top_p", "frequency_penalty",
+                        "presence_penalty", "stop", "reasoning_effort"}
+        self._extra_body: dict[str, Any] = {}
+        filtered: dict[str, Any] = {}
+        for k, v in self.extra_kwargs.items():
+            if k in known_params:
+                filtered[k] = v
+            else:
+                self._extra_body[k] = v
+        self.extra_kwargs = filtered
+
     async def generate(
         self,
         messages: list[dict[str, str]],
@@ -59,6 +73,7 @@ class OpenAILLM(BaseLLM):
         response = await self.client.chat.completions.create(
             model=self.model,
             messages=cast(Any, msgs),
+            extra_body=self._extra_body or None,
             **self.extra_kwargs,
         )
         return response.choices[0].message.content or ""
@@ -77,6 +92,7 @@ class OpenAILLM(BaseLLM):
             model=self.model,
             messages=cast(Any, msgs),
             response_format=response_model,
+            extra_body=self._extra_body or None,
             **self.extra_kwargs,
         )
         parsed = response.choices[0].message.parsed
