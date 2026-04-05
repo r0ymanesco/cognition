@@ -153,6 +153,11 @@ class TestDirectResolve:
             stop_reason="objective_satisfied",
         ))
 
+        # Synthesis produces the final output
+        mock_llm.set_response("SynthesisResponse", SynthesisResponse(
+            output="Alice has 5 apples",
+        ))
+
         result = await step.execute(
             objective="How many apples does Alice have?",
             state=populated_store,
@@ -190,6 +195,10 @@ class TestDirectResolve:
                 stop_reason="objective_satisfied",
             ),
         ])
+
+        mock_llm.set_response("SynthesisResponse", SynthesisResponse(
+            output="Alice has 5 apples and Bob has 3 oranges",
+        ))
 
         result = await step.execute(
             objective="What fruits do people have?",
@@ -343,8 +352,8 @@ class TestDecomposition:
         assert len(traversal_calls) == 2
 
     @pytest.mark.asyncio
-    async def test_no_sub_objectives_skips_synthesis(self, mock_llm: MockLLM, populated_store: StateStore):
-        """When orient returns no sub-objectives, we traverse directly without synthesis."""
+    async def test_synthesis_always_runs(self, mock_llm: MockLLM, populated_store: StateStore):
+        """Synthesis runs even when orient returns no sub-objectives."""
         step = CognitiveStep(mock_llm, max_width=3, max_steps=5)
 
         mock_llm.set_response("OrientationResponse", OrientationResponse(
@@ -356,15 +365,17 @@ class TestDecomposition:
             findings=["Alice has 5 apples"], should_stop=True, stop_reason="objective_satisfied",
         ))
 
+        mock_llm.set_response("SynthesisResponse", SynthesisResponse(output="done"))
+
         await step.execute(
             objective="test",
             state=populated_store,
             context={"input": "test", "step_number": 0},
         )
 
-        # No synthesis call — went directly from orient to traversal
+        # Synthesis always runs — it's where memory map gets organized
         synthesis_calls = [c for c in mock_llm.call_log if c.get("model") == "SynthesisResponse"]
-        assert len(synthesis_calls) == 0
+        assert len(synthesis_calls) == 1
 
 
 class TestTracing:

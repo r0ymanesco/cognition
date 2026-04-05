@@ -160,10 +160,12 @@ class CognitiveStep:
         llm: BaseLLM,
         max_width: int = 5,
         max_steps: int = 20,
+        max_context_tokens: int | None = None,
     ):
         self.llm = llm
         self.max_width = max_width
         self.max_steps = max_steps
+        self.max_context_tokens = max_context_tokens
 
     async def execute(
         self,
@@ -188,13 +190,18 @@ class CognitiveStep:
             # Orient: consult memory map, find entry points, decompose objective
             orientation = await self._orient(objective, state, context, tracer, trace_id)
 
+            # Collect traversal findings to pass to synthesis
+            all_findings: list[str] = []
+
             if not orientation.sub_objectives:
                 # Single focused objective — traverse directly
-                result = await self._direct_resolve(
+                traverse_result = await self._direct_resolve(
                     objective, state,
                     {**context, "entry_points": orientation.entry_points},
                     tracer, trace_id,
                 )
+                if traverse_result.output:
+                    all_findings.append(traverse_result.output)
             else:
                 # Multiple sub-objectives — traverse each separately
                 sub_objectives = orientation.sub_objectives[:self.max_width]
@@ -203,18 +210,21 @@ class CognitiveStep:
                     if tracer:
                         sub_trace_id = tracer.begin(sub_objective, 1, trace_id)
                     try:
-                        await self._direct_resolve(
+                        traverse_result = await self._direct_resolve(
                             sub_objective, state,
                             {**context, "entry_points": orientation.entry_points},
                             tracer, sub_trace_id,
                         )
+                        if traverse_result.output:
+                            all_findings.append(traverse_result.output)
                     finally:
                         if tracer and sub_trace_id:
                             tracer.end(sub_trace_id)
 
-                # Synthesize: combine results and update memory map
-                result = await self._synthesize(objective, state, context, tracer, trace_id)
-
+            # Always synthesize — compile response and update memory map
+            result = await self._synthesize(
+                objective, state, context, all_findings, tracer, trace_id,
+            )
             return result
 
         finally:
@@ -230,6 +240,8 @@ class CognitiveStep:
         trace_id: str | None,
     ) -> OrientationResponse:
         memory_map = state.memory_map.render()
+        if self.max_context_tokens is not None:
+            _check_token_budget(memory_map, self.max_context_tokens, "orient/memory_map")
         all_entry_points = state.memory_map.get_entry_points(store=state)
 
         system = _get_task_prompt(context)
@@ -301,8 +313,10 @@ class CognitiveStep:
         step_number = context.get("step_number", 0)
 
         for step in range(self.max_steps):
-            # Render the local neighborhood
+            # Render the local neighborhood, respecting token budget
             neighborhood = state.render_neighborhood(current_nodes, depth=1)
+            if self.max_context_tokens is not None:
+                _check_token_budget(neighborhood, self.max_context_tokens, "traverse/neighborhood")
 
             system = _get_task_prompt(context)
 
@@ -462,11 +476,41 @@ class CognitiveStep:
         objective: str,
         state: StateStore,
         context: dict[str, Any],
+        findings: list[str],
         tracer: TraceLogger | None,
         trace_id: str | None,
     ) -> CognitiveResult:
-        """After sub-objectives have executed, synthesize a result."""
+        """After traversal, synthesize a response and organize the memory map."""
         memory_map = state.memory_map.render()
+
+        # Show traversal findings so the LLM can base its response on them
+        if findings:
+            findings_section = (
+                "Findings from graph traversal:\n"
+                + "\n".join(f"- {f}" for f in findings)
+                + "\n\n"
+            )
+        else:
+            findings_section = "No findings from traversal.\n\n"
+
+        # Show the actual content of weakly_connected entries so the LLM
+        # can reason about how to organize them into topics
+        weakly_connected = state.memory_map.data.weakly_connected
+        if weakly_connected:
+            wc_entries = state.render_entries(weakly_connected)
+            wc_section = (
+                f"Entries not yet organized into topics ({len(weakly_connected)}):\n"
+                f"{wc_entries}\n\n"
+                "IMPORTANT: Organize these entries into topics using map_changes. "
+                "For each group of related entries, create a new_topics entry with:\n"
+                "- A descriptive topic name\n"
+                "- A brief summary of what the topic covers\n"
+                "- The entry IDs that belong to this topic\n"
+                "Then list those entry IDs in remove_weakly_connected so they "
+                "are no longer unorganized.\n"
+            )
+        else:
+            wc_section = ""
 
         system = _get_task_prompt(context)
 
@@ -474,16 +518,16 @@ class CognitiveStep:
             {
                 "role": "user",
                 "content": (
-                    "Multiple sub-tasks have been processed and the knowledge graph "
-                    "has been updated. Now:\n"
-                    "1. Compile a coherent response to the original input.\n"
-                    "2. Update the memory map to reflect any new knowledge structure "
-                    "(new topics, revised summaries, entries moved between topics).\n\n"
-                    f"Original input: {objective}\n\n"
+                    "The knowledge graph has been traversed. Now:\n"
+                    "1. Compile a response to the input based on the findings below. "
+                    "If it was a statement, acknowledge briefly. "
+                    "If it was a question, answer it using the findings.\n"
+                    "2. Organize the memory map — group related entries into topics.\n\n"
+                    f"Input: {objective}\n\n"
+                    f"{findings_section}"
                     f"Current memory map:\n{memory_map}\n\n"
-                    "For the output field: provide the response to the input. "
-                    "If it was a statement, acknowledge it briefly. "
-                    "If it was a question, answer it based on what's in the graph."
+                    f"{wc_section}"
+                    f"Agent context: {_format_context(context)}"
                 ),
             }
         ]
@@ -537,6 +581,22 @@ def _map_changes_to_dict(spec: MapChangesSpec) -> dict[str, Any]:
     if spec.remove_weakly_connected:
         result["remove_weakly_connected"] = spec.remove_weakly_connected
     return result
+
+
+def _estimate_tokens(text: str) -> int:
+    """Approximate token count (~4 chars per token)."""
+    return len(text) // 4
+
+
+def _check_token_budget(text: str, max_tokens: int, label: str) -> None:
+    """Raise if text exceeds the token budget."""
+    estimated = _estimate_tokens(text)
+    if estimated > max_tokens:
+        raise RuntimeError(
+            f"Context budget exceeded in {label}: ~{estimated} tokens "
+            f"(budget: {max_tokens}). The graph neighborhood is too large "
+            f"for the configured max_context_tokens."
+        )
 
 
 def _get_task_prompt(context: dict[str, Any]) -> str:

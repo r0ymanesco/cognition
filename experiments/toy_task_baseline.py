@@ -1,24 +1,16 @@
-"""Toy task: entity tracking with updates and contradictions.
+"""Baseline: plain LLM with conversation history (no cognitive scaffold).
 
-Validates the scaffold end-to-end by feeding the agent a stream of
-messages that introduce facts about entities, update them, and ask
-recall questions. Tests whether the agent:
+Same task as toy_task.py but without the graph store, memory map, or
+cognitive step. The LLM sees the full conversation history in its
+context window and responds directly.
 
-1. Stores facts correctly
-2. Recalls facts across many steps
-3. Handles corrections (belief revision / invalidation)
-4. Returns the updated value after a correction
+This is the control experiment — if the scaffold doesn't beat this,
+it's not adding value.
 
 Usage:
-    python -m experiments.toy_task --provider anthropic --model claude-sonnet-4-20250514
-    python -m experiments.toy_task --provider openai --model gpt-4o
-    python -m experiments.toy_task --provider openrouter --model anthropic/claude-sonnet-4
-
-    # With tracing output
-    python -m experiments.toy_task --provider anthropic --trace-file trace.json
-
-    # Flat baseline (no recursion)
-    python -m experiments.toy_task --provider anthropic --max-depth 0
+    python -m experiments.toy_task_baseline --provider anthropic --model claude-sonnet-4-6
+    python -m experiments.toy_task_baseline --provider openai --model gpt-5.4
+    python -m experiments.toy_task_baseline --provider openai --model gpt-5.4 --llm-kwargs reasoning_effort=high
 """
 
 from __future__ import annotations
@@ -26,6 +18,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import logging
+import os
 import sys
 import time
 from dataclasses import dataclass
@@ -35,10 +28,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from cognition.agent import Agent
 from cognition.llm.base import BaseLLM
-from cognition.state import StateStore
-from cognition.tracing import TraceLogger
 from experiments.tasks import build_toy_task
 
 
@@ -46,7 +36,7 @@ from experiments.tasks import build_toy_task
 
 
 # ---------------------------------------------------------------------------
-# Evaluation
+# Evaluation (identical to toy_task.py)
 # ---------------------------------------------------------------------------
 
 
@@ -60,17 +50,15 @@ class QuestionResult:
 
 
 def evaluate_answer(expected: str, actual: str) -> bool:
-    """Check if the expected value appears in the actual response."""
-    return expected.strip().lower() in actual.strip().lower()
+    return expected.lower() in actual.lower()
 
 
 # ---------------------------------------------------------------------------
-# LLM provider factory
+# LLM factory (identical to toy_task.py)
 # ---------------------------------------------------------------------------
 
 
 def parse_llm_kwargs(raw: list[str] | None) -> dict[str, Any]:
-    """Parse key=value pairs into a dict, coercing types."""
     if not raw:
         return {}
     kwargs: dict[str, Any] = {}
@@ -78,7 +66,6 @@ def parse_llm_kwargs(raw: list[str] | None) -> dict[str, Any]:
         key, _, value = item.partition("=")
         if not value:
             raise ValueError(f"Invalid kwarg format: {item!r} (expected key=value)")
-        # Coerce types
         if value.lower() in ("true", "false"):
             kwargs[key] = value.lower() == "true"
         elif value.replace(".", "", 1).replace("-", "", 1).isdigit():
@@ -100,12 +87,77 @@ def create_llm(
         from cognition.llm.openai import OpenAILLM
         return OpenAILLM(model=model or "gpt-4o", extra_kwargs=extra_kwargs)
     elif provider == "openrouter":
-        import os
         from cognition.llm.openrouter import OpenRouterLLM
         api_key = os.environ.get("OPENROUTER_API_KEY")
         return OpenRouterLLM(model=model or "anthropic/claude-sonnet-4", api_key=api_key, extra_kwargs=extra_kwargs)
     else:
         raise ValueError(f"Unknown provider: {provider}")
+
+
+# ---------------------------------------------------------------------------
+# Baseline agent: plain conversation history
+# ---------------------------------------------------------------------------
+
+
+def estimate_tokens(text: str) -> int:
+    """Approximate token count (~4 chars per token)."""
+    return len(text) // 4
+
+
+class BaselineAgent:
+    """No scaffold — just conversation history in the LLM context.
+
+    If max_tokens is set, the conversation history is truncated from
+    the front (oldest messages dropped first) to fit within the token
+    budget. This simulates a constrained context window.
+
+    The system prompt is NOT counted against the budget — it's always
+    sent. This matches the scaffold, where the system prompt is always
+    present regardless of graph size.
+    """
+
+    def __init__(self, llm: BaseLLM, system_prompt: str = "",
+                 max_tokens: int | None = None):
+        self.llm = llm
+        self.system_prompt = system_prompt
+        self.history: list[dict[str, str]] = []
+        self.max_tokens = max_tokens
+        self.messages_dropped = 0
+
+    def _truncate_to_budget(self) -> list[dict[str, str]]:
+        """Return history truncated to fit within max_tokens."""
+        if self.max_tokens is None:
+            return list(self.history)
+
+        # Walk backwards, accumulating tokens until we hit the budget
+        budget = self.max_tokens
+        included: list[dict[str, str]] = []
+        for msg in reversed(self.history):
+            msg_tokens = estimate_tokens(msg["content"])
+            if budget - msg_tokens < 0 and included:
+                break
+            budget -= msg_tokens
+            included.append(msg)
+
+        dropped = len(self.history) - len(included)
+        if dropped > self.messages_dropped:
+            self.messages_dropped = dropped
+
+        included.reverse()
+        return included
+
+    async def step(self, input_text: str) -> str:
+        self.history.append({"role": "user", "content": input_text})
+
+        messages = self._truncate_to_budget()
+
+        response = await self.llm.generate(
+            messages=messages,
+            system=self.system_prompt,
+        )
+
+        self.history.append({"role": "assistant", "content": response})
+        return response
 
 
 # ---------------------------------------------------------------------------
@@ -116,10 +168,7 @@ def create_llm(
 async def run_experiment(
     provider: str,
     model: str | None,
-    max_width: int,
-    max_steps: int,
-    max_context_tokens: int | None,
-    trace_file: str | None,
+    max_tokens: int | None,
     verbose: bool,
     verbose_facts: bool = False,
     llm_kwargs: dict[str, Any] | None = None,
@@ -130,8 +179,6 @@ async def run_experiment(
         logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     llm = create_llm(provider, model, extra_kwargs=llm_kwargs)
-    state = StateStore()
-    tracer = TraceLogger()
 
     system_prompt = (
         "You are an inventory tracking assistant. People will tell you facts "
@@ -140,27 +187,19 @@ async def run_experiment(
         "everything you've been told, including any corrections or updates.\n\n"
         "If someone tells you a corrected value, that replaces the old value — "
         "always use the most recent information.\n\n"
-        "Keep your answers concise — just state the number."
+        "Keep your answers concise — just state the number and item."
     )
 
-    agent = Agent(
-        llm=llm,
-        state=state,
-        system_prompt=system_prompt,
-        max_width=max_width,
-        max_steps=max_steps,
-        max_context_tokens=max_context_tokens,
-        tracer=tracer,
-    )
+    agent = BaselineAgent(llm=llm, system_prompt=system_prompt, max_tokens=max_tokens)
 
     task = build_toy_task(verbose=verbose_facts)
     results: list[QuestionResult] = []
     total_start = time.monotonic()
 
-    print(f"Running toy task: {len(task)} steps")
+    print(f"Running toy task BASELINE (no scaffold): {len(task)} steps")
     print(f"Provider: {provider}, Model: {model or 'default'}")
-    ctx_str = f"{max_context_tokens} tokens" if max_context_tokens else "unlimited"
-    print(f"Config: max_width={max_width}, max_steps={max_steps}, context_budget={ctx_str}")
+    print(f"Context budget: {f'{max_tokens} tokens' if max_tokens else 'unlimited'}")
+    print(f"LLM kwargs: {llm_kwargs or 'none'}")
     print("-" * 60)
 
     for i, step in enumerate(task):
@@ -185,19 +224,18 @@ async def run_experiment(
 
     total_duration = (time.monotonic() - total_start) * 1000
 
-    # --- Results summary ---
+    # Results summary
     print()
     print("=" * 60)
-    print("RESULTS")
+    print("RESULTS (BASELINE — no scaffold)")
     print("=" * 60)
 
     total_questions = len(results)
     correct_count = sum(1 for r in results if r.correct)
     accuracy = correct_count / total_questions if total_questions > 0 else 0.0
 
-    # Split pre/post correction
-    pre_correction = [r for r in results if r.step_index < 17]  # before corrections
-    post_correction = [r for r in results if r.step_index >= 21]  # after corrections
+    pre_correction = [r for r in results if r.step_index < 17]
+    post_correction = [r for r in results if r.step_index >= 21]
 
     pre_correct = sum(1 for r in pre_correction if r.correct)
     post_correct = sum(1 for r in post_correction if r.correct)
@@ -209,19 +247,13 @@ async def run_experiment(
         print(f"Post-correction recall: {post_correct}/{len(post_correction)} ({post_correct / len(post_correction):.0%})")
 
     print(f"\nTotal duration: {total_duration:.0f}ms")
-    print(f"State: {state.size()} active entries, {len(state.associations)} associations")
+    print(f"LLM calls: {len(task)} (1 per step)")
+    print(f"Conversation history: {len(agent.history)} messages")
+    if max_tokens:
+        print(f"Context budget: {max_tokens} tokens")
+        print(f"Max messages dropped: {agent.messages_dropped}")
 
-    # Trace summary
-    trace_summary = tracer.summary()
-    print(f"LLM calls: {trace_summary['total_llm_calls']}")
-    print(f"Max recursion depth: {trace_summary['max_recursion_depth']}")
-    print(f"Total traversal steps: {trace_summary['total_traversal_steps']}")
-
-    if trace_file:
-        tracer.export_json(trace_file)
-        print(f"\nTrace exported to: {trace_file}")
-
-    # --- Failed questions ---
+    # Failed questions
     failed = [r for r in results if not r.correct]
     if failed:
         print(f"\nFailed questions ({len(failed)}):")
@@ -229,44 +261,35 @@ async def run_experiment(
             print(f"  Step {r.step_index}: {r.question}")
             print(f"    Expected: {r.expected} | Got: {r.actual[:100]}")
 
-    # --- Dump state for inspection ---
-    state.save("toy_task_state.json")
-    print(f"\nState saved to: toy_task_state.json")
-
-    # Exit code: 0 if all correct, 1 otherwise
     if not all(r.correct for r in results):
         sys.exit(1)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Cognition scaffold toy task")
+    parser = argparse.ArgumentParser(description="Cognition toy task BASELINE (no scaffold)")
     parser.add_argument(
         "--provider", choices=["anthropic", "openai", "openrouter"],
         default="anthropic", help="LLM provider",
     )
     parser.add_argument("--model", default=None, help="Model name (provider-specific)")
-    parser.add_argument("--max-width", type=int, default=5, help="Max sub-objectives per orient")
-    parser.add_argument("--max-steps", type=int, default=20, help="Max traversal steps per graph walk")
-    parser.add_argument("--max-context-tokens", type=int, default=None,
-                        help="Max tokens per LLM call for neighborhood/memory map rendering. "
-                             "Constrains the scaffold's context window for fair comparison with baseline.")
-    parser.add_argument("--trace-file", default=None, help="Path to export JSON trace")
+    parser.add_argument(
+        "--max-tokens", type=int, default=None,
+        help="Max tokens for conversation history (truncates oldest messages). "
+             "Simulates a constrained context window.",
+    )
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument("--verbose-facts", action="store_true",
                         help="Use verbose fact descriptions (higher token count per message)")
     parser.add_argument(
         "--llm-kwargs", nargs="*", metavar="KEY=VALUE",
-        help="Extra kwargs passed to every LLM call (e.g. temperature=0.5 max_tokens=8192)",
+        help="Extra kwargs passed to every LLM call (e.g. temperature=0.5 reasoning_effort=high)",
     )
     args = parser.parse_args()
 
     asyncio.run(run_experiment(
         provider=args.provider,
         model=args.model,
-        max_width=args.max_width,
-        max_steps=args.max_steps,
-        max_context_tokens=args.max_context_tokens,
-        trace_file=args.trace_file,
+        max_tokens=args.max_tokens,
         verbose=args.verbose,
         verbose_facts=args.verbose_facts,
         llm_kwargs=parse_llm_kwargs(args.llm_kwargs),
