@@ -39,7 +39,7 @@ from cognition.agent import Agent
 from cognition.llm.base import BaseLLM
 from cognition.state import StateStore
 from cognition.tracing import TraceLogger
-from experiments.tasks import build_toy_task
+from experiments.tasks import build_scaled_task, build_toy_task
 
 
 # Task definition imported from experiments.tasks
@@ -122,6 +122,8 @@ async def run_experiment(
     trace_file: str | None,
     verbose: bool,
     verbose_facts: bool = False,
+    scaled_entities: int | None = None,
+    seed: int = 42,
     llm_kwargs: dict[str, Any] | None = None,
 ) -> None:
     if verbose:
@@ -153,7 +155,10 @@ async def run_experiment(
         tracer=tracer,
     )
 
-    task = build_toy_task(verbose=verbose_facts)
+    if scaled_entities:
+        task = build_scaled_task(num_entities=scaled_entities, seed=seed)
+    else:
+        task = build_toy_task(verbose=verbose_facts)
     results: list[QuestionResult] = []
     total_start = time.monotonic()
 
@@ -254,6 +259,10 @@ def main() -> None:
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument("--verbose-facts", action="store_true",
                         help="Use verbose fact descriptions (higher token count per message)")
+    parser.add_argument("--scaled-entities", type=int, default=None,
+                        help="Use scaled task with N entities (overrides --verbose-facts)")
+    parser.add_argument("--seed", type=int, default=42,
+                        help="Random seed for scaled task generation (default: 42)")
     parser.add_argument(
         "--llm-kwargs", nargs="*", metavar="KEY=VALUE",
         help="Extra kwargs passed to every LLM call (e.g. temperature=0.5 max_tokens=8192)",
@@ -269,6 +278,8 @@ def main() -> None:
         trace_file=args.trace_file,
         verbose=args.verbose,
         verbose_facts=args.verbose_facts,
+        scaled_entities=args.scaled_entities,
+        seed=args.seed,
         llm_kwargs=parse_llm_kwargs(args.llm_kwargs),
     ))
 

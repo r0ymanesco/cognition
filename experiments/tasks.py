@@ -6,6 +6,7 @@ to ensure they use identical inputs.
 
 from __future__ import annotations
 
+import random
 from dataclasses import dataclass
 
 
@@ -196,5 +197,205 @@ def build_toy_task(verbose: bool = False) -> list[TaskStep]:
     steps.append(TaskStep("Question: How many oranges does Bob have?", expected_answer="3"))
     steps.append(TaskStep("Question: How many pears does Diana have?", expected_answer="2"))
     steps.append(TaskStep("Question: How many grapes does Eve have?", expected_answer="7"))
+
+    return steps
+
+
+# ---------------------------------------------------------------------------
+# Scaled task: parameterized entity tracking with verbose descriptions
+# ---------------------------------------------------------------------------
+
+_NAMES = [
+    "Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Henry",
+    "Iris", "Jack", "Karen", "Leo", "Mia", "Nathan", "Olivia", "Paul",
+    "Quinn", "Rachel", "Sam", "Tina", "Uma", "Victor", "Wendy", "Xavier",
+]
+
+_FRUITS = [
+    "apples", "oranges", "bananas", "pears", "grapes", "mangoes",
+    "peaches", "plums", "cherries", "strawberries", "blueberries",
+    "kiwis", "lemons", "limes", "watermelons", "papayas",
+    "figs", "dates", "coconuts", "pomegranates", "tangerines",
+    "nectarines", "apricots", "guavas",
+]
+
+_LOCATIONS = [
+    "the north warehouse near the loading dock",
+    "the refrigerated section on aisle 3",
+    "the south storage facility by the main entrance",
+    "the climate-controlled unit in building B",
+    "the overflow storage area behind the office",
+    "the fresh produce cooler on the ground floor",
+    "the temporary staging area near shipping",
+    "the secure storage vault in the basement",
+]
+
+_VARIETIES = [
+    "premium grade, hand-selected",
+    "standard commercial grade",
+    "organic certified, locally sourced",
+    "imported, high quality",
+    "mixed variety, various sizes",
+    "farm-fresh, delivered this morning",
+    "surplus stock from last week's order",
+    "specialty variety, limited availability",
+]
+
+_FILLER_TEMPLATES = [
+    "The maintenance team reported that {location} needs a new air filter replacement. "
+    "They submitted a work order last {day} and are waiting for parts to arrive from "
+    "the regional supply center. The estimated completion time is {n} business days, "
+    "though expedited shipping could cut that down to {m} days if approved by management.",
+
+    "According to the latest logistics report, delivery route {route} has been experiencing "
+    "delays of approximately {n} minutes due to road construction on Highway {hw}. The "
+    "transportation coordinator suggested rerouting through {alt_route} as a temporary "
+    "measure until the construction project wraps up at the end of {month}.",
+
+    "The quality assurance team completed their quarterly inspection of {location} and "
+    "found that all storage conditions meet or exceed regulatory requirements. Temperature "
+    "was measured at {temp} degrees Celsius, humidity at {humid}%, and ventilation rated "
+    "as satisfactory. The next inspection is scheduled for {month}.",
+
+    "A memo from corporate headquarters announced that the annual inventory reconciliation "
+    "will take place during the week of {month} {n}th. All department heads are asked to "
+    "ensure their records are up to date and that any discrepancies from the previous "
+    "quarter have been resolved. The reconciliation team will need access to all facilities.",
+
+    "The employee training session on the new barcode scanning system has been rescheduled "
+    "from {day} to next {next_day}. The session will cover the basics of the updated "
+    "handheld devices, the new software interface, and integration with the central "
+    "inventory database. Attendance is mandatory for all warehouse staff.",
+
+    "Market analysis from the research department indicates that consumer demand for "
+    "fresh produce is expected to increase by {n}% over the next quarter. This is "
+    "driven primarily by seasonal trends and the growing popularity of farm-to-table "
+    "dining. The procurement team should plan accordingly for increased order volumes.",
+]
+
+_CORRECTION_TEMPLATES = [
+    "Important correction from the recount team: after a thorough recheck of "
+    "{location}, it turns out that {name} now has {new_count} {fruit}, not the "
+    "{old_count} we originally recorded. {reason}",
+
+    "Update to the inventory records: {name}'s {fruit} count has been revised. "
+    "A reconciliation between the physical count and the database showed that "
+    "{name} now has {new_count} {fruit}. The previous figure of {old_count} "
+    "was incorrect due to {reason}",
+]
+
+_CORRECTION_REASONS = [
+    "Additional crates were delivered after the initial count and hadn't been logged.",
+    "some items were moved to a different storage area for a promotional event.",
+    "a data entry error in the old system has been corrected.",
+    "a batch was returned from a customer and added back to inventory.",
+    "the original count included items that were already allocated elsewhere.",
+]
+
+
+def _make_filler(rng: random.Random) -> str:
+    template = rng.choice(_FILLER_TEMPLATES)
+    return template.format(
+        location=rng.choice(_LOCATIONS),
+        day=rng.choice(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]),
+        next_day=rng.choice(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]),
+        n=rng.randint(2, 15),
+        m=rng.randint(1, 5),
+        route=rng.choice(["Alpha", "Beta", "Gamma", "Delta"]),
+        hw=rng.randint(1, 99),
+        alt_route=rng.choice(["Oak Street bypass", "Riverside connector", "Industrial park loop"]),
+        month=rng.choice(["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"]),
+        temp=rng.randint(2, 8),
+        humid=rng.randint(40, 70),
+    )
+
+
+def build_scaled_task(
+    num_entities: int = 15,
+    filler_per_phase: int = 5,
+    num_corrections: int = 5,
+    seed: int = 42,
+) -> list[TaskStep]:
+    """Build a scaled entity tracking task with verbose descriptions.
+
+    Args:
+        num_entities: Number of person-fruit pairs to track
+        filler_per_phase: Number of filler messages between each phase
+        num_corrections: Number of entities to correct
+        seed: Random seed for reproducibility
+    """
+    rng = random.Random(seed)
+
+    num_entities = min(num_entities, len(_NAMES))
+    num_corrections = min(num_corrections, num_entities)
+
+    # Assign entities
+    names = _NAMES[:num_entities]
+    fruits = _FRUITS[:num_entities]
+    locations = [rng.choice(_LOCATIONS) for _ in range(num_entities)]
+    varieties = [rng.choice(_VARIETIES) for _ in range(num_entities)]
+    counts = [rng.randint(2, 20) for _ in range(num_entities)]
+
+    steps: list[TaskStep] = []
+
+    # Phase 1: Establish facts
+    for i in range(num_entities):
+        steps.append(TaskStep(
+            f"I just finished checking {locations[i]}. After carefully counting "
+            f"and verifying against the manifest, I can confirm that {names[i]} "
+            f"has {counts[i]} {fruits[i]} stored there. They are {varieties[i]}, "
+            f"and all in good condition based on today's inspection."
+        ))
+
+    # Phase 2: Filler
+    for _ in range(filler_per_phase):
+        steps.append(TaskStep(_make_filler(rng)))
+
+    # Phase 3: Pre-correction recall (ask about half the entities)
+    recall_indices = rng.sample(range(num_entities), min(num_entities // 2, num_entities))
+    for i in recall_indices:
+        steps.append(TaskStep(
+            f"Question: How many {fruits[i]} does {names[i]} have?",
+            expected_answer=str(counts[i]),
+        ))
+
+    # Phase 4: More filler
+    for _ in range(filler_per_phase):
+        steps.append(TaskStep(_make_filler(rng)))
+
+    # Phase 5: Corrections
+    correction_indices = rng.sample(range(num_entities), num_corrections)
+    new_counts = dict(zip(correction_indices, [rng.randint(1, 25) for _ in range(num_corrections)]))
+    # Ensure new counts are different from old
+    for idx in correction_indices:
+        while new_counts[idx] == counts[idx]:
+            new_counts[idx] = rng.randint(1, 25)
+
+    for idx in correction_indices:
+        template = rng.choice(_CORRECTION_TEMPLATES)
+        reason = rng.choice(_CORRECTION_REASONS)
+        steps.append(TaskStep(
+            template.format(
+                name=names[idx],
+                fruit=fruits[idx],
+                old_count=counts[idx],
+                new_count=new_counts[idx],
+                location=locations[idx],
+                reason=reason,
+            )
+        ))
+
+    # Phase 6: More filler
+    for _ in range(filler_per_phase):
+        steps.append(TaskStep(_make_filler(rng)))
+
+    # Phase 7: Post-correction recall (ask about ALL entities)
+    for i in range(num_entities):
+        expected = str(new_counts[i]) if i in new_counts else str(counts[i])
+        steps.append(TaskStep(
+            f"Question: How many {fruits[i]} does {names[i]} have?",
+            expected_answer=expected,
+        ))
 
     return steps
