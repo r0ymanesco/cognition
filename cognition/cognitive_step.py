@@ -161,11 +161,13 @@ class CognitiveStep:
         max_width: int = 5,
         max_steps: int = 20,
         max_context_tokens: int | None = None,
+        max_map_tokens: int | None = None,
     ):
         self.llm = llm
         self.max_width = max_width
         self.max_steps = max_steps
         self.max_context_tokens = max_context_tokens
+        self.max_map_tokens = max_map_tokens
 
     async def execute(
         self,
@@ -512,6 +514,20 @@ class CognitiveStep:
         else:
             wc_section = ""
 
+        # Memory map budget info — always shown so the LLM manages size proactively
+        current_map_tokens = state.memory_map.token_size()
+        if self.max_map_tokens is not None:
+            budget_section = (
+                f"Memory map budget: {current_map_tokens}/{self.max_map_tokens} tokens used.\n"
+                "Keep the memory map within this budget. To save space:\n"
+                "- Merge related topics into broader categories\n"
+                "- Shorten topic summaries to essential info only\n"
+                "- Drop low-value topics (filler, one-time observations)\n"
+                "- Combine entry points when topics overlap\n\n"
+            )
+        else:
+            budget_section = f"Memory map size: ~{current_map_tokens} tokens.\n\n"
+
         system = _get_task_prompt(context)
 
         messages = [
@@ -522,10 +538,12 @@ class CognitiveStep:
                     "1. Compile a response to the input based on the findings below. "
                     "If it was a statement, acknowledge briefly. "
                     "If it was a question, answer it using the findings.\n"
-                    "2. Organize the memory map — group related entries into topics.\n\n"
+                    "2. Organize the memory map — group related entries into topics "
+                    "while respecting the token budget.\n\n"
                     f"Input: {objective}\n\n"
                     f"{findings_section}"
                     f"Current memory map:\n{memory_map}\n\n"
+                    f"{budget_section}"
                     f"{wc_section}"
                     f"Agent context: {_format_context(context)}"
                 ),

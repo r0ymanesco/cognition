@@ -40,6 +40,10 @@ class MemoryMap:
     def __init__(self, data: MemoryMapData | None = None) -> None:
         self.data = data or MemoryMapData()
 
+    def token_size(self) -> int:
+        """Approximate token count of the rendered memory map (~4 chars/token)."""
+        return len(self.render()) // 4
+
     @property
     def topics(self) -> dict[str, TopicEntry]:
         return self.data.topics

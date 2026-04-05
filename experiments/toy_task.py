@@ -119,6 +119,7 @@ async def run_experiment(
     max_width: int,
     max_steps: int,
     max_context_tokens: int | None,
+    max_map_tokens: int | None,
     trace_file: str | None,
     verbose: bool,
     verbose_facts: bool = False,
@@ -152,6 +153,7 @@ async def run_experiment(
         max_width=max_width,
         max_steps=max_steps,
         max_context_tokens=max_context_tokens,
+        max_map_tokens=max_map_tokens,
         tracer=tracer,
     )
 
@@ -255,6 +257,9 @@ def main() -> None:
     parser.add_argument("--max-context-tokens", type=int, default=None,
                         help="Max tokens per LLM call for neighborhood/memory map rendering. "
                              "Constrains the scaffold's context window for fair comparison with baseline.")
+    parser.add_argument("--max-map-tokens", type=int, default=None,
+                        help="Token budget for the memory map. Synthesis will compress "
+                             "topics to stay within this limit.")
     parser.add_argument("--trace-file", default=None, help="Path to export JSON trace")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument("--verbose-facts", action="store_true",
@@ -275,6 +280,7 @@ def main() -> None:
         max_width=args.max_width,
         max_steps=args.max_steps,
         max_context_tokens=args.max_context_tokens,
+        max_map_tokens=args.max_map_tokens,
         trace_file=args.trace_file,
         verbose=args.verbose,
         verbose_facts=args.verbose_facts,
