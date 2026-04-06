@@ -160,6 +160,77 @@ class BaselineAgent:
         return response
 
 
+class CompactionAgent:
+    """Baseline with LLM-driven compaction.
+
+    When the conversation history exceeds max_tokens, the LLM is asked
+    to summarize all messages so far into a compact summary. The summary
+    replaces the history, preserving information (lossily) instead of
+    dropping it entirely. This is the approach used by systems like
+    MemGPT/Letta and most production chat applications.
+    """
+
+    def __init__(self, llm: BaseLLM, system_prompt: str = "",
+                 max_tokens: int | None = None):
+        self.llm = llm
+        self.system_prompt = system_prompt
+        self.history: list[dict[str, str]] = []
+        self.max_tokens = max_tokens
+        self.compaction_count = 0
+        self.total_llm_calls = 0
+
+    def _history_tokens(self) -> int:
+        return sum(estimate_tokens(m["content"]) for m in self.history)
+
+    async def _compact(self) -> None:
+        """Summarize the conversation history into a compact message."""
+        if not self.history:
+            return
+
+        # Build the compaction prompt
+        history_text = "\n".join(
+            f"{m['role'].upper()}: {m['content']}" for m in self.history
+        )
+
+        summary = await self.llm.generate(
+            messages=[{
+                "role": "user",
+                "content": (
+                    "Summarize the following conversation into a compact summary. "
+                    "Preserve ALL factual information — especially names, numbers, "
+                    "and any corrections/updates to previous facts. "
+                    "Use the most recent value for any corrected facts.\n\n"
+                    f"{history_text}"
+                ),
+            }],
+            system=self.system_prompt,
+        )
+        self.total_llm_calls += 1
+
+        # Replace history with the summary
+        self.history = [{"role": "user", "content": f"Summary of prior conversation: {summary}"}]
+        self.compaction_count += 1
+
+    async def step(self, input_text: str) -> str:
+        self.history.append({"role": "user", "content": input_text})
+
+        # Compact if over budget — summarize everything before the current message
+        if self.max_tokens is not None and self._history_tokens() > self.max_tokens:
+            # Remove current message before compacting, then re-add after
+            current_msg = self.history.pop()
+            await self._compact()
+            self.history.append(current_msg)
+
+        response = await self.llm.generate(
+            messages=list(self.history),
+            system=self.system_prompt,
+        )
+        self.total_llm_calls += 1
+
+        self.history.append({"role": "assistant", "content": response})
+        return response
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -169,6 +240,7 @@ async def run_experiment(
     provider: str,
     model: str | None,
     max_tokens: int | None,
+    strategy: str,
     verbose: bool,
     verbose_facts: bool = False,
     scaled_entities: int | None = None,
@@ -192,7 +264,12 @@ async def run_experiment(
         "Keep your answers concise — just state the number and item."
     )
 
-    agent = BaselineAgent(llm=llm, system_prompt=system_prompt, max_tokens=max_tokens)
+    if strategy == "compaction":
+        agent: BaselineAgent | CompactionAgent = CompactionAgent(
+            llm=llm, system_prompt=system_prompt, max_tokens=max_tokens,
+        )
+    else:
+        agent = BaselineAgent(llm=llm, system_prompt=system_prompt, max_tokens=max_tokens)
 
     if scaled_entities:
         task = build_scaled_task(num_entities=scaled_entities, seed=seed)
@@ -201,8 +278,9 @@ async def run_experiment(
     results: list[QuestionResult] = []
     total_start = time.monotonic()
 
-    print(f"Running toy task BASELINE (no scaffold): {len(task)} steps")
+    print(f"Running toy task BASELINE ({strategy}): {len(task)} steps")
     print(f"Provider: {provider}, Model: {model or 'default'}")
+    print(f"Strategy: {strategy}")
     print(f"Context budget: {f'{max_tokens} tokens' if max_tokens else 'unlimited'}")
     print(f"LLM kwargs: {llm_kwargs or 'none'}")
     print("-" * 60)
@@ -252,11 +330,16 @@ async def run_experiment(
         print(f"Post-correction recall: {post_correct}/{len(post_correction)} ({post_correct / len(post_correction):.0%})")
 
     print(f"\nTotal duration: {total_duration:.0f}ms")
-    print(f"LLM calls: {len(task)} (1 per step)")
     print(f"Conversation history: {len(agent.history)} messages")
+    if isinstance(agent, CompactionAgent):
+        print(f"LLM calls: {agent.total_llm_calls}")
+        print(f"Compactions: {agent.compaction_count}")
+    else:
+        print(f"LLM calls: {len(task)} (1 per step)")
     if max_tokens:
         print(f"Context budget: {max_tokens} tokens")
-        print(f"Max messages dropped: {agent.messages_dropped}")
+        if isinstance(agent, BaselineAgent):
+            print(f"Max messages dropped: {agent.messages_dropped}")
 
     # Failed questions
     failed = [r for r in results if not r.correct]
@@ -279,8 +362,13 @@ def main() -> None:
     parser.add_argument("--model", default=None, help="Model name (provider-specific)")
     parser.add_argument(
         "--max-tokens", type=int, default=None,
-        help="Max tokens for conversation history (truncates oldest messages). "
-             "Simulates a constrained context window.",
+        help="Max tokens for conversation history. "
+             "With truncation: drops oldest messages. "
+             "With compaction: summarizes history when exceeded.",
+    )
+    parser.add_argument(
+        "--strategy", choices=["truncation", "compaction"], default="truncation",
+        help="Context management strategy (default: truncation)",
     )
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument("--verbose-facts", action="store_true",
@@ -299,6 +387,7 @@ def main() -> None:
         provider=args.provider,
         model=args.model,
         max_tokens=args.max_tokens,
+        strategy=args.strategy,
         verbose=args.verbose,
         verbose_facts=args.verbose_facts,
         scaled_entities=args.scaled_entities,
