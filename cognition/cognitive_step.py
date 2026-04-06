@@ -58,6 +58,11 @@ class NewEntrySpec(BaseModel):
     entry_type: str = "observation"
     confidence: float = 1.0
     tags: list[str] = Field(default_factory=list)
+    supersedes_entry_id: str | None = Field(
+        default=None,
+        description="If this entry replaces/corrects an existing entry, "
+        "put the old entry's ID here. The old entry will be marked as superseded.",
+    )
 
 
 class NewAssociationSpec(BaseModel):
@@ -160,14 +165,48 @@ class CognitiveStep:
         llm: BaseLLM,
         max_width: int = 5,
         max_steps: int = 20,
-        max_context_tokens: int | None = None,
-        max_map_tokens: int | None = None,
+        context_budget: int | None = None,
     ):
         self.llm = llm
         self.max_width = max_width
         self.max_steps = max_steps
-        self.max_context_tokens = max_context_tokens
-        self.max_map_tokens = max_map_tokens
+        self.context_budget = context_budget
+
+    def _enforce_budget(self, messages: list[dict[str, str]], system: str, label: str) -> None:
+        """Raise if total message content exceeds the context budget.
+
+        Checks the full message (system + all user/assistant messages),
+        matching what the baseline constrains — total tokens sent to the LLM.
+        """
+        if self.context_budget is None:
+            return
+        total = system + " ".join(m.get("content", "") for m in messages)
+        estimated = _estimate_tokens(total)
+        if estimated > self.context_budget:
+            raise RuntimeError(
+                f"Context budget exceeded in {label}: ~{estimated} tokens "
+                f"(budget: {self.context_budget})."
+            )
+
+    def _budget_section(self, total_tokens: int) -> str:
+        """Build a context budget awareness section for an LLM prompt.
+
+        Shows the total assembled message size vs budget so the LLM can
+        manage context proactively.
+        """
+        if self.context_budget is None:
+            return ""
+
+        remaining = self.context_budget - total_tokens
+        return (
+            f"CONTEXT BUDGET: ~{total_tokens}/{self.context_budget} tokens used. "
+            f"~{remaining} tokens remaining.\n"
+            "Stay within budget. To manage context:\n"
+            "- Keep memory map topics concise (merge related topics, shorten summaries)\n"
+            "- Follow only the most relevant edges during traversal\n"
+            "- Create compact entries (essential facts only, not verbose descriptions)\n"
+            "- Drop low-value information (filler, one-time observations)\n\n"
+        )
 
     async def execute(
         self,
@@ -242,33 +281,37 @@ class CognitiveStep:
         trace_id: str | None,
     ) -> OrientationResponse:
         memory_map = state.memory_map.render()
-        if self.max_context_tokens is not None:
-            _check_token_budget(memory_map, self.max_context_tokens, "orient/memory_map")
         all_entry_points = state.memory_map.get_entry_points(store=state)
 
         system = _get_task_prompt(context)
 
+        content_without_budget = (
+            "You have a knowledge graph that stores information as entries (nodes) "
+            "and associations (edges). You received the following input.\n\n"
+            f"Input: {objective}\n\n"
+            f"Memory Map:\n{memory_map}\n\n"
+            f"Available entry points: {all_entry_points}\n\n"
+            "Based on the input and your memory map, identify:\n"
+            "1. entry_points: Which existing entries are relevant to this input? "
+            "Use entry IDs from the available entry points list. "
+            "If the memory is empty or no entries are relevant, return an empty list.\n"
+            "2. sub_objectives: If this input involves multiple distinct topics "
+            "that should be handled separately, list them. "
+            "Otherwise return an empty list.\n"
+            "3. reasoning: Briefly explain your choices.\n\n"
+            f"Agent context: {_format_context(context)}"
+        )
+        total_tokens = _estimate_tokens(system + content_without_budget)
+        budget_section = self._budget_section(total_tokens)
+
         messages = [
             {
                 "role": "user",
-                "content": (
-                    "You have a knowledge graph that stores information as entries (nodes) "
-                    "and associations (edges). You received the following input.\n\n"
-                    f"Input: {objective}\n\n"
-                    f"Memory Map:\n{memory_map}\n\n"
-                    f"Available entry points: {all_entry_points}\n\n"
-                    "Based on the input and your memory map, identify:\n"
-                    "1. entry_points: Which existing entries are relevant to this input? "
-                    "Use entry IDs from the available entry points list. "
-                    "If the memory is empty or no entries are relevant, return an empty list.\n"
-                    "2. sub_objectives: If this input involves multiple distinct topics "
-                    "that should be handled separately, list them. "
-                    "Otherwise return an empty list.\n"
-                    "3. reasoning: Briefly explain your choices.\n\n"
-                    f"Agent context: {_format_context(context)}"
-                ),
+                "content": content_without_budget + budget_section,
             }
         ]
+
+        self._enforce_budget(messages, system, "orient")
 
         if tracer and trace_id:
             tracer.record_llm_call(trace_id)
@@ -315,44 +358,49 @@ class CognitiveStep:
         step_number = context.get("step_number", 0)
 
         for step in range(self.max_steps):
-            # Render the local neighborhood, respecting token budget
+            # Render the local neighborhood
             neighborhood = state.render_neighborhood(current_nodes, depth=1)
-            if self.max_context_tokens is not None:
-                _check_token_budget(neighborhood, self.max_context_tokens, "traverse/neighborhood")
 
             system = _get_task_prompt(context)
 
             visited_list = sorted(visited)
+            content_without_budget = (
+                "You are processing an input using a knowledge graph. "
+                "Your job is to:\n"
+                "- STORE new information from the input as new entries in the graph\n"
+                "- RETRIEVE existing entries relevant to the input\n"
+                "- CONNECT related entries by creating associations\n"
+                "- ANSWER questions using information found in the graph\n"
+                "- UPDATE or INVALIDATE entries when corrections are provided\n\n"
+                "IMPORTANT:\n"
+                "- If the input contains a fact or statement, create a new entry for it.\n"
+                "- If the input is a question, search the graph and put the answer in findings.\n"
+                "- If the input corrects a previous fact, create a new entry with "
+                "supersedes_entry_id set to the old entry's ID. This marks the old "
+                "entry as superseded and links it to the replacement.\n"
+                "- If the graph is empty, create entries from the input — that IS the work.\n\n"
+                f"Input: {objective}\n\n"
+                f"Current neighborhood:\n{neighborhood}\n\n"
+                f"Already visited: {visited_list}\n\n"
+                f"Findings so far: {findings}\n\n"
+                f"Agent context: {_format_context(context)}\n\n"
+                f"Traversal step {step + 1}/{self.max_steps}.\n\n"
+                "Decide what to do. Set should_stop=true when you have completed "
+                "processing this input (stored the fact, answered the question, etc). "
+                "Use stop_reason to explain why.\n"
+                "Set next_nodes to follow edges to related entries if needed."
+            )
+            total_tokens = _estimate_tokens(system + content_without_budget)
+            budget_section = self._budget_section(total_tokens)
+
             messages = [
                 {
                     "role": "user",
-                    "content": (
-                        "You are processing an input using a knowledge graph. "
-                        "Your job is to:\n"
-                        "- STORE new information from the input as new entries in the graph\n"
-                        "- RETRIEVE existing entries relevant to the input\n"
-                        "- CONNECT related entries by creating associations\n"
-                        "- ANSWER questions using information found in the graph\n"
-                        "- UPDATE or INVALIDATE entries when corrections are provided\n\n"
-                        "IMPORTANT:\n"
-                        "- If the input contains a fact or statement, create a new entry for it.\n"
-                        "- If the input is a question, search the graph and put the answer in findings.\n"
-                        "- If the input corrects a previous fact, create the new entry AND "
-                        "invalidate the old one (add to association_invalidations).\n"
-                        "- If the graph is empty, create entries from the input — that IS the work.\n\n"
-                        f"Input: {objective}\n\n"
-                        f"Current neighborhood:\n{neighborhood}\n\n"
-                        f"Already visited: {visited_list}\n\n"
-                        f"Findings so far: {findings}\n\n"
-                        f"Agent context: {_format_context(context)}\n\n"
-                        f"Traversal step {step + 1}/{self.max_steps}.\n\n"
-                        "Decide what to do. Set should_stop=true when you have completed "
-                        "processing this input (stored the fact, answered the question, etc). "
-                        "Use stop_reason to explain why.\n"
-                        "Set next_nodes to follow edges to related entries if needed."
-                    ),
+                    "content": content_without_budget + budget_section,
                 }
             ]
+
+            self._enforce_budget(messages, system, "traverse")
 
             if tracer and trace_id:
                 tracer.record_llm_call(trace_id)
@@ -447,6 +495,10 @@ class CognitiveStep:
             state.write(entry)
             written_ids.append(entry.id)
 
+            # If this entry supersedes an old one, invalidate it
+            if spec.supersedes_entry_id:
+                state.invalidate_entry(spec.supersedes_entry_id, superseded_by=entry.id)
+
         for spec in step_result.new_associations:
             try:
                 relationship = RelationshipType(spec.relationship)
@@ -514,41 +566,32 @@ class CognitiveStep:
         else:
             wc_section = ""
 
-        # Memory map budget info — always shown so the LLM manages size proactively
-        current_map_tokens = state.memory_map.token_size()
-        if self.max_map_tokens is not None:
-            budget_section = (
-                f"Memory map budget: {current_map_tokens}/{self.max_map_tokens} tokens used.\n"
-                "Keep the memory map within this budget. To save space:\n"
-                "- Merge related topics into broader categories\n"
-                "- Shorten topic summaries to essential info only\n"
-                "- Drop low-value topics (filler, one-time observations)\n"
-                "- Combine entry points when topics overlap\n\n"
-            )
-        else:
-            budget_section = f"Memory map size: ~{current_map_tokens} tokens.\n\n"
-
         system = _get_task_prompt(context)
+
+        content_without_budget = (
+            "The knowledge graph has been traversed. Now:\n"
+            "1. Compile a response to the input based on the findings below. "
+            "If it was a statement, acknowledge briefly. "
+            "If it was a question, answer it using the findings.\n"
+            "2. Organize the memory map — group related entries into topics "
+            "while respecting the token budget.\n\n"
+            f"Input: {objective}\n\n"
+            f"{findings_section}"
+            f"Current memory map:\n{memory_map}\n\n"
+            f"{wc_section}"
+            f"Agent context: {_format_context(context)}"
+        )
+        total_tokens = _estimate_tokens(system + content_without_budget)
+        budget_section = self._budget_section(total_tokens)
 
         messages = [
             {
                 "role": "user",
-                "content": (
-                    "The knowledge graph has been traversed. Now:\n"
-                    "1. Compile a response to the input based on the findings below. "
-                    "If it was a statement, acknowledge briefly. "
-                    "If it was a question, answer it using the findings.\n"
-                    "2. Organize the memory map — group related entries into topics "
-                    "while respecting the token budget.\n\n"
-                    f"Input: {objective}\n\n"
-                    f"{findings_section}"
-                    f"Current memory map:\n{memory_map}\n\n"
-                    f"{budget_section}"
-                    f"{wc_section}"
-                    f"Agent context: {_format_context(context)}"
-                ),
+                "content": content_without_budget + budget_section,
             }
         ]
+
+        self._enforce_budget(messages, system, "synthesis")
 
         if tracer and trace_id:
             tracer.record_llm_call(trace_id)
@@ -604,17 +647,6 @@ def _map_changes_to_dict(spec: MapChangesSpec) -> dict[str, Any]:
 def _estimate_tokens(text: str) -> int:
     """Approximate token count (~4 chars per token)."""
     return len(text) // 4
-
-
-def _check_token_budget(text: str, max_tokens: int, label: str) -> None:
-    """Raise if text exceeds the token budget."""
-    estimated = _estimate_tokens(text)
-    if estimated > max_tokens:
-        raise RuntimeError(
-            f"Context budget exceeded in {label}: ~{estimated} tokens "
-            f"(budget: {max_tokens}). The graph neighborhood is too large "
-            f"for the configured max_context_tokens."
-        )
 
 
 def _get_task_prompt(context: dict[str, Any]) -> str:

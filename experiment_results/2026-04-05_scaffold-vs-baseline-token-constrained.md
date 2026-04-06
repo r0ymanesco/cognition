@@ -135,6 +135,90 @@ This is cognitive organization, not mechanical storage. The LLM decides how to g
 
 6. **Next step: unified context budget.** Currently `max_map_tokens` and `max_context_tokens` are separate parameters. The observation that token pressure improves representations suggests a single context budget should be communicated throughout the cognitive process — in orient, traverse, AND synthesis. This would let the LLM manage all aspects of context usage (map compaction, neighborhood focus, traversal breadth) holistically rather than through separate hard limits.
 
+## Addendum: Unified Context Budget (2026-04-06)
+
+### Changes
+
+The separate `max_context_tokens` and `max_map_tokens` parameters were replaced with a single `context_budget` parameter:
+
+1. **Unified budget** — one `--context-budget` parameter applies to the total message content (system prompt + all user/assistant messages) at every LLM call. This matches exactly what the baseline's `--max-tokens` constrains.
+
+2. **Budget communicated at every step** — the LLM is told the budget and current usage in orient, traverse, AND synthesis prompts. It manages all aspects of context holistically: map compaction, traversal focus, entry compactness.
+
+3. **Hard enforcement** — if the total assembled message exceeds the budget before any LLM call, a RuntimeError is raised. The LLM gets soft pressure (told the budget) and there's a hard safety net (error if it fails to comply).
+
+### Results
+
+| Condition | Budget (full message) | Accuracy | Post-correction | Failures |
+|---|---|---|---|---|
+| **Scaffold** (unified budget) | 3000 | **20/22 (91%)** | **19/21 (90%)** | Eve (old value), Nathan (old value) |
+| **Baseline** | 3000 | 15/22 (68%) | 14/21 (67%) | 7 entities lost from context |
+
+The scaffold beats the baseline by **23 percentage points** under identical token constraints.
+
+### Failure mode comparison
+
+The two approaches fail differently:
+- **Scaffold**: returns stale pre-correction values for Eve (10 instead of 3) and Nathan (13 instead of 8). The entities exist in the graph but the correction wasn't applied — a belief revision failure.
+- **Baseline**: returns "I don't have any record of X" for 7 entities. The facts were dropped from conversation history entirely — total memory loss.
+
+The scaffold's failure mode (stale value) is qualitatively better than the baseline's (total forgetting). The scaffold remembers the entity exists but missed a correction; the baseline doesn't remember the entity at all.
+
+### Root cause: belief revision failures
+
+Graph inspection reveals why Eve and Nathan returned old values:
+
+**Both old and new entries are active** — the correction step creates a new entry ("Eve has 3 grapes") but the old entry ("Eve has 10 grapes") is never invalidated (superseded_by stays None). Both remain active in the graph.
+
+**Entry points reference old entries** — Eve's memory map topic correctly summarizes "Grapes: 3 (corrected from 10)" but the entry_point still references the old entry ID. Traversal follows that entry point and finds the old value first.
+
+**Nathan's summary is inverted** — the LLM confused which value was the correction, summarizing "Limes: 13 (most recent, superseding earlier value of 8)" when 8 was actually the correction. This is a reasoning error in the synthesis step.
+
+These are not storage problems (the corrected values ARE in the graph) but **navigation and invalidation** problems:
+- The traversal prompt tells the LLM to "invalidate the old one" on corrections, but the LLM doesn't reliably produce the invalidation in its structured output
+- Memory map entry points aren't updated to reference the new entry after a correction
+- Under token pressure, the LLM's reasoning about which entry is newer can fail
+
+### Scaffold state at 3000 token budget (initial run, before fixes below)
+
+- 41 active entries, 35 associations
+- Memory map stayed within budget (LLM-managed compaction)
+- 174 LLM calls, ~750s duration
+
+## Addendum: Invalidation Fix + Full Budget Awareness (2026-04-06)
+
+### Changes
+
+Two further improvements to the scaffold:
+
+1. **Unified entry invalidation via `supersedes_entry_id`** — Previously `TraversalStepResponse` had no mechanism to mark entries as superseded. There was an `association_invalidations` field but no `entry_invalidations`. The LLM was told to "invalidate the old entry" but had no structured field to do it — the schema didn't capture it. The fix: `NewEntrySpec` now has an optional `supersedes_entry_id` field. When the LLM creates a corrected entry, it sets this to the old entry's ID. `_apply_mutations` writes the new entry, gets its ID, then calls `state.invalidate_entry(old_id, superseded_by=new_id)`. One schema, one operation.
+
+2. **Total-message budget awareness in all steps** — Previously the budget section reported component sizes (e.g., "memory_map: ~2000 tokens") but not the total assembled message. The LLM might keep the map within budget while the full message (map + instructions + findings + context) exceeded it. Now all three steps (orient, traverse, synthesis) compute the total message size and show `~X/3000 tokens used, ~Y remaining`. The LLM manages the full message holistically.
+
+### Results
+
+| Condition | Budget | Accuracy | Post-correction | Entries | Associations |
+|---|---|---|---|---|---|
+| **Scaffold** (with fixes) | 3000 | **22/22 (100%)** | **21/21 (100%)** | 29 | 32 |
+| Scaffold (before fixes) | 3000 | 20/22 (91%) | 19/21 (90%) | 41 | 35 |
+| **Baseline** | 3000 | 15/22 (68%) | 14/21 (67%) | N/A | N/A |
+
+The scaffold now achieves **100% accuracy** vs the baseline's **68%** — a 32 percentage point gap under identical token constraints.
+
+### Why the fixes helped
+
+The invalidation fix resolved the Eve and Nathan failures directly. Both entities had old and new values coexisting as active entries. With `supersedes_entry_id`, the old entries are now marked as superseded when corrections are created, so traversal only finds current values.
+
+The graph is also leaner: 29 active entries vs 41 previously. Superseded entries are excluded from `get_active()` and removed from memory map entry points automatically (the StateStore's mechanical cleanup from earlier). This means less clutter in the neighborhood rendering, less budget pressure, and more reliable traversal.
+
+### Progression summary
+
+| Version | Accuracy at 3000 tokens | Key change |
+|---|---|---|
+| Separate map/context budgets, no invalidation schema | Crashed (map exceeded budget) | — |
+| Unified budget (soft), no invalidation schema | 20/22 (91%) | LLM-managed map compaction |
+| Unified budget (soft+hard), `supersedes_entry_id`, total-message awareness | **22/22 (100%)** | Entry invalidation + full budget awareness |
+
 ## Reproduction
 
 ```bash
@@ -143,12 +227,12 @@ pyenv virtualenv 3.12.9 cognition && pyenv local cognition
 pip install -e ".[dev]"
 # Set API keys in .env
 
-# Scaffold (token-constrained)
+# Scaffold (token-constrained, current version)
 python -m experiments.toy_task \
     --provider anthropic --model claude-sonnet-4-6 \
     --scaled-entities 15 --seed 42 \
     --max-steps 5 --max-width 3 \
-    --max-context-tokens 3000 --max-map-tokens 2000
+    --context-budget 3000
 
 # Baseline (same token budget)
 python -m experiments.toy_task_baseline \

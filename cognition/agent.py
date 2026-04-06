@@ -35,16 +35,13 @@ class Agent:
         system_prompt: str = "",
         max_width: int = 5,
         max_steps: int = 20,
-        max_context_tokens: int | None = None,
-        max_map_tokens: int | None = None,
+        context_budget: int | None = None,
         tracer: TraceLogger | None = None,
     ):
         self.llm = llm
         self.state = state or StateStore()
         self.system_prompt = system_prompt
-        self.cognitive_step = CognitiveStep(
-            llm, max_width, max_steps, max_context_tokens, max_map_tokens,
-        )
+        self.cognitive_step = CognitiveStep(llm, max_width, max_steps, context_budget)
         self.tracer = tracer or TraceLogger()
         self.step_count = 0
 

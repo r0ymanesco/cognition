@@ -118,8 +118,7 @@ async def run_experiment(
     model: str | None,
     max_width: int,
     max_steps: int,
-    max_context_tokens: int | None,
-    max_map_tokens: int | None,
+    context_budget: int | None,
     trace_file: str | None,
     verbose: bool,
     verbose_facts: bool = False,
@@ -152,8 +151,7 @@ async def run_experiment(
         system_prompt=system_prompt,
         max_width=max_width,
         max_steps=max_steps,
-        max_context_tokens=max_context_tokens,
-        max_map_tokens=max_map_tokens,
+        context_budget=context_budget,
         tracer=tracer,
     )
 
@@ -166,7 +164,7 @@ async def run_experiment(
 
     print(f"Running toy task: {len(task)} steps")
     print(f"Provider: {provider}, Model: {model or 'default'}")
-    ctx_str = f"{max_context_tokens} tokens" if max_context_tokens else "unlimited"
+    ctx_str = f"{context_budget} tokens" if context_budget else "unlimited"
     print(f"Config: max_width={max_width}, max_steps={max_steps}, context_budget={ctx_str}")
     print("-" * 60)
 
@@ -254,12 +252,10 @@ def main() -> None:
     parser.add_argument("--model", default=None, help="Model name (provider-specific)")
     parser.add_argument("--max-width", type=int, default=5, help="Max sub-objectives per orient")
     parser.add_argument("--max-steps", type=int, default=20, help="Max traversal steps per graph walk")
-    parser.add_argument("--max-context-tokens", type=int, default=None,
-                        help="Max tokens per LLM call for neighborhood/memory map rendering. "
-                             "Constrains the scaffold's context window for fair comparison with baseline.")
-    parser.add_argument("--max-map-tokens", type=int, default=None,
-                        help="Token budget for the memory map. Synthesis will compress "
-                             "topics to stay within this limit.")
+    parser.add_argument("--context-budget", type=int, default=None,
+                        help="Token budget for the cognitive process. The LLM is told this "
+                             "budget at every step and manages map size, traversal breadth, "
+                             "and entry compactness to stay within it.")
     parser.add_argument("--trace-file", default=None, help="Path to export JSON trace")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument("--verbose-facts", action="store_true",
@@ -279,8 +275,7 @@ def main() -> None:
         model=args.model,
         max_width=args.max_width,
         max_steps=args.max_steps,
-        max_context_tokens=args.max_context_tokens,
-        max_map_tokens=args.max_map_tokens,
+        context_budget=args.context_budget,
         trace_file=args.trace_file,
         verbose=args.verbose,
         verbose_facts=args.verbose_facts,
