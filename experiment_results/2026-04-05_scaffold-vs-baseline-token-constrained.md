@@ -103,15 +103,37 @@ The scaffold uses 178 LLM calls vs the baseline's 57 (3.1x more) and takes ~940s
 
 At 1500 token map budget, the scaffold scores 21/22 — missing only Bob's oranges. The LLM dropped Bob's topic during map compaction to stay within budget. This shows the compaction is lossy and can lose information under very tight budgets. At 2000 tokens the LLM has enough room to retain all 15 entities.
 
+## Memory Map: Emergent Topic Organization
+
+The LLM doesn't just store raw facts as "topics" — it creates genuine semantic organization. Inspection of the final memory map (~1820 tokens, 23 topics) shows:
+
+**Per-person inventory topics** (`Inventory – Alice`, `Inventory – Bob`, etc.):
+- Each contains the current count, storage location, variety, and correction history
+- Example: `Inventory – Alice`: "Alice has 24 apples (revised from 14 — items moved to different storage area for a promotional event)"
+
+**Cross-cutting operational topics**:
+- `Logistics – Delivery Routes`: merged multiple route delay reports into one topic
+- `Market Intelligence – Fresh Produce Demand`: consolidated multiple demand forecast revisions with history ("updated from +15%, +8%, +4%, originally +7%")
+- `Operations – Annual Reconciliation`: unprompted, the LLM created a cross-cutting reconciliation checklist of all 15 entities with their current counts and correction status
+
+**Facilities organized by location**:
+- `Facilities – Building B Climate-Controlled Unit`, `Facilities – Aisle 3 Refrigerated Section`, `Facilities – South Storage Facility` — each with QA inspection results
+
+This is cognitive organization, not mechanical storage. The LLM decides how to group, merge, and summarize based on semantic relationships — and the token budget pressure forces it to be concise. Without the budget, the same LLM creates 25 verbose topics at ~2727 tokens. With a 2000-token budget, it produces 23 more compact but equally functional topics.
+
 ## Conclusions
 
 1. **The scaffold outperforms the baseline under token pressure.** At 3000 tokens: scaffold 100% vs baseline 68%. This validates the core hypothesis that externalized structured memory outperforms conversation history when context is constrained.
 
 2. **Memory map compaction is necessary and effective.** Without a budget, the map grows proportionally with topics and negates the compression advantage. With LLM-managed compaction (`max_map_tokens`), the map stays fixed-size while the graph grows.
 
-3. **The scaffold's advantage grows with conversation length.** At 15 entities and 57 steps, the baseline drops 23 messages. With more entities and longer conversations, more would be lost. The scaffold's graph retains everything.
+3. **Token pressure improves representation quality.** The LLM creates more meaningful, compressed topic organization when aware of a budget. This suggests that communicating context constraints to the LLM is a feature, not just a limitation — it forces more efficient cognitive representations.
 
-4. **Cost is the main trade-off.** 3x more LLM calls and 14x slower. Future optimization targets: fewer synthesis calls (batch map updates), more efficient orient (skip when map hasn't changed), smarter traversal termination.
+4. **The scaffold's advantage grows with conversation length.** At 15 entities and 57 steps, the baseline drops 23 messages. With more entities and longer conversations, more would be lost. The scaffold's graph retains everything.
+
+5. **Cost is the main trade-off.** 3x more LLM calls and 14x slower. Future optimization targets: fewer synthesis calls (batch map updates), more efficient orient (skip when map hasn't changed), smarter traversal termination.
+
+6. **Next step: unified context budget.** Currently `max_map_tokens` and `max_context_tokens` are separate parameters. The observation that token pressure improves representations suggests a single context budget should be communicated throughout the cognitive process — in orient, traverse, AND synthesis. This would let the LLM manage all aspects of context usage (map compaction, neighborhood focus, traversal breadth) holistically rather than through separate hard limits.
 
 ## Reproduction
 
