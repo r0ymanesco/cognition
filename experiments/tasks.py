@@ -399,3 +399,218 @@ def build_scaled_task(
         ))
 
     return steps
+
+
+# ---------------------------------------------------------------------------
+# Trading network task: relationships, history, multi-hop reasoning
+# ---------------------------------------------------------------------------
+
+
+def build_trading_task(
+    num_entities: int = 20,
+    num_trades: int = 15,
+    num_corrections: int = 3,
+    filler_per_phase: int = 3,
+    seed: int = 42,
+) -> list[TaskStep]:
+    """Build a trading network task with relationships and historical queries.
+
+    This task tests capabilities that compaction struggles with:
+    - Multi-hop reasoning: following trade chains between entities
+    - Historical queries: asking about values BEFORE a trade or correction
+    - Cascading corrections: a correction to one entity affects trades downstream
+    - Relationship tracking: who traded with whom, and how much
+
+    Args:
+        num_entities: Number of person-fruit pairs
+        num_trades: Number of trades between entities
+        num_corrections: Number of initial count corrections
+        filler_per_phase: Filler messages between phases
+        seed: Random seed for reproducibility
+    """
+    rng = random.Random(seed)
+    num_entities = min(num_entities, len(_NAMES))
+
+    names = _NAMES[:num_entities]
+    fruits = _FRUITS[:num_entities]
+    locations = [rng.choice(_LOCATIONS) for _ in range(num_entities)]
+    varieties = [rng.choice(_VARIETIES) for _ in range(num_entities)]
+    initial_counts = [rng.randint(8, 25) for _ in range(num_entities)]
+
+    # Track current state for generating correct expected answers
+    current_counts = list(initial_counts)
+    # Track trade history: list of (from_idx, to_idx, amount, from_fruit)
+    trade_history: list[tuple[int, int, int, str]] = []
+    # Track corrections: list of (idx, old_count, new_count)
+    correction_history: list[tuple[int, int, int]] = []
+
+    steps: list[TaskStep] = []
+
+    # --- Phase 1: Establish initial inventory (verbose) ---
+    for i in range(num_entities):
+        steps.append(TaskStep(
+            f"I just finished checking {locations[i]}. After carefully counting "
+            f"and verifying against the manifest, I can confirm that {names[i]} "
+            f"has {initial_counts[i]} {fruits[i]} stored there. They are "
+            f"{varieties[i]}, and all in good condition based on today's inspection."
+        ))
+
+    # --- Phase 2: Filler ---
+    for _ in range(filler_per_phase):
+        steps.append(TaskStep(_make_filler(rng)))
+
+    # --- Phase 3: Pre-trade recall (sample of entities) ---
+    recall_indices = rng.sample(range(num_entities), min(5, num_entities))
+    for i in recall_indices:
+        steps.append(TaskStep(
+            f"Question: How many {fruits[i]} does {names[i]} have?",
+            expected_answer=str(current_counts[i]),
+        ))
+
+    # --- Phase 4: Trades ---
+    for t in range(num_trades):
+        # Pick two different entities
+        from_idx = rng.randint(0, num_entities - 1)
+        to_idx = rng.randint(0, num_entities - 1)
+        while to_idx == from_idx:
+            to_idx = rng.randint(0, num_entities - 1)
+
+        # Trade amount: 1 to a third of sender's current count
+        max_trade = max(1, current_counts[from_idx] // 3)
+        amount = rng.randint(1, max_trade)
+
+        # Update state
+        current_counts[from_idx] -= amount
+        current_counts[to_idx] += amount
+        trade_history.append((from_idx, to_idx, amount, fruits[from_idx]))
+
+        steps.append(TaskStep(
+            f"Trade completed: {names[from_idx]} gave {amount} {fruits[from_idx]} "
+            f"to {names[to_idx]}. The transfer was verified by the logistics team "
+            f"and recorded in the inventory system. {names[from_idx]} now has "
+            f"{current_counts[from_idx]} {fruits[from_idx]} remaining, and "
+            f"{names[to_idx]} now has {current_counts[to_idx]} items total "
+            f"(including the {amount} {fruits[from_idx]} just received)."
+        ))
+
+        # Intersperse filler every few trades
+        if (t + 1) % 5 == 0:
+            steps.append(TaskStep(_make_filler(rng)))
+
+    # --- Phase 5: Post-trade questions (current state + history + multi-hop) ---
+
+    # Current state questions
+    post_trade_recall = rng.sample(range(num_entities), min(5, num_entities))
+    for i in post_trade_recall:
+        steps.append(TaskStep(
+            f"Question: How many {fruits[i]} does {names[i]} currently have?",
+            expected_answer=str(current_counts[i]),
+        ))
+
+    # Historical questions — ask about pre-trade values
+    for trade_idx in rng.sample(range(len(trade_history)), min(5, len(trade_history))):
+        from_idx, to_idx, amount, fruit = trade_history[trade_idx]
+        # Calculate what the sender had before this specific trade
+        pre_trade_count = initial_counts[from_idx]
+        for prev_t in range(trade_idx):
+            prev_from, prev_to, prev_amount, _ = trade_history[prev_t]
+            if prev_from == from_idx:
+                pre_trade_count -= prev_amount
+            if prev_to == from_idx:
+                pre_trade_count += prev_amount
+
+        steps.append(TaskStep(
+            f"Question: How many {fruits[from_idx]} did {names[from_idx]} have "
+            f"right before the trade with {names[to_idx]} "
+            f"(where {amount} {fruit} were transferred)?",
+            expected_answer=str(pre_trade_count),
+        ))
+
+    # Multi-hop questions — follow trade chains
+    # Find entities that received items from someone who received from someone else
+    chains_found = 0
+    for t1_idx in range(len(trade_history)):
+        if chains_found >= 3:
+            break
+        from1, to1, amt1, fruit1 = trade_history[t1_idx]
+        for t2_idx in range(t1_idx + 1, len(trade_history)):
+            from2, to2, amt2, fruit2 = trade_history[t2_idx]
+            if to1 == from2:  # B received from A, then B gave to C
+                steps.append(TaskStep(
+                    f"Question: {names[from1]} gave {fruits[from1]} to "
+                    f"{names[to1]}, and later {names[from2]} gave "
+                    f"{fruits[from2]} to {names[to2]}. "
+                    f"How many {fruits[from2]} does {names[to2]} currently have?",
+                    expected_answer=str(current_counts[to2]),
+                ))
+                chains_found += 1
+                break
+
+    # --- Phase 6: Filler ---
+    for _ in range(filler_per_phase):
+        steps.append(TaskStep(_make_filler(rng)))
+
+    # --- Phase 7: Corrections to initial counts ---
+    correction_indices = rng.sample(range(num_entities), num_corrections)
+    for idx in correction_indices:
+        old_count = initial_counts[idx]
+        new_count = old_count + rng.choice([-3, -2, -1, 1, 2, 3])
+        new_count = max(1, new_count)
+        while new_count == old_count:
+            new_count = old_count + rng.choice([-3, -2, -1, 1, 2, 3])
+
+        # Calculate the cascading effect on current count
+        delta = new_count - old_count
+        current_counts[idx] += delta
+        correction_history.append((idx, old_count, new_count))
+
+        steps.append(TaskStep(
+            f"Important correction: the initial count for {names[idx]}'s "
+            f"{fruits[idx]} was wrong. The recount team confirmed {names[idx]} "
+            f"originally had {new_count} {fruits[idx]}, not {old_count}. "
+            f"This means after accounting for all trades, {names[idx]} now has "
+            f"{current_counts[idx]} {fruits[idx]}."
+        ))
+
+    # --- Phase 8: More filler ---
+    for _ in range(filler_per_phase):
+        steps.append(TaskStep(_make_filler(rng)))
+
+    # --- Phase 9: Final recall — all question types ---
+
+    # Current state after corrections
+    final_recall = rng.sample(range(num_entities), min(8, num_entities))
+    for i in final_recall:
+        steps.append(TaskStep(
+            f"Question: How many {fruits[i]} does {names[i]} currently have?",
+            expected_answer=str(current_counts[i]),
+        ))
+
+    # Historical: what was the ORIGINAL count before any corrections?
+    for idx, old_count, new_count in correction_history:
+        steps.append(TaskStep(
+            f"Question: What was {names[idx]}'s ORIGINAL {fruits[idx]} count "
+            f"before the correction was applied?",
+            expected_answer=str(old_count),
+        ))
+
+    # Relationship: who did entity X trade with?
+    trade_counts: dict[int, int] = {}
+    for from_idx, to_idx, _, _ in trade_history:
+        trade_counts[from_idx] = trade_counts.get(from_idx, 0) + 1
+        trade_counts[to_idx] = trade_counts.get(to_idx, 0) + 1
+    busy_entities = [idx for idx, count in trade_counts.items() if count >= 2]
+    if busy_entities:
+        entity_idx = rng.choice(busy_entities)
+        partners = set()
+        for from_idx, to_idx, _, _ in trade_history:
+            if from_idx == entity_idx:
+                partners.add(names[to_idx])
+            elif to_idx == entity_idx:
+                partners.add(names[from_idx])
+        steps.append(TaskStep(
+            f"Question: How many different people did {names[entity_idx]} trade with?",
+            expected_answer=str(len(partners)),
+        ))
+
+    return steps

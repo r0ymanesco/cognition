@@ -197,9 +197,9 @@ class CompactionAgent:
                 "role": "user",
                 "content": (
                     "Summarize the following conversation into a compact summary. "
-                    "Preserve ALL factual information — especially names, numbers, "
-                    "and any corrections/updates to previous facts. "
-                    "Use the most recent value for any corrected facts.\n\n"
+                    "Preserve ALL factual information — names, numbers, "
+                    "relationships between entities, corrections, and any "
+                    "historical context that might be needed for future questions.\n\n"
                     f"{history_text}"
                 ),
             }],

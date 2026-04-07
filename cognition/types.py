@@ -9,23 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from enum import Enum
 from uuid import uuid4
-
-
-class EntryType(str, Enum):
-    FACT = "fact"
-    HYPOTHESIS = "hypothesis"
-    DECISION = "decision"
-    OBSERVATION = "observation"
-
-
-class RelationshipType(str, Enum):
-    SUPPORTS = "supports"
-    CONTRADICTS = "contradicts"
-    SUPERSEDES = "supersedes"
-    RELATED_TO = "related_to"
-    PART_OF = "part_of"
 
 
 # ---------------------------------------------------------------------------
@@ -38,44 +22,33 @@ class StateEntry:
     """A node in the state graph. Represents a piece of information."""
 
     content: str
-    entry_type: EntryType
+    entry_type: str = "observation"
     confidence: float = 1.0
     step_created: int = 0
     step_last_accessed: int = 0
     access_count: int = 0
-    superseded_by: str | None = None
     tags: list[str] = field(default_factory=list)
     id: str = field(default_factory=lambda: str(uuid4()))
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-
-    @property
-    def is_active(self) -> bool:
-        return self.superseded_by is None
 
 
 @dataclass
 class Association:
     """An edge in the state graph. Represents a relationship between entries.
 
-    Associations are first-class, context-scoped, and have a lifecycle:
-    - Created with initial weight
-    - Strengthened when found useful during cognitive traversal
-    - Weakened when found misleading
-    - Invalidated when contradicted by new evidence
+    Relationships are free-form strings — the LLM creates whatever
+    relationship types make sense for the domain (e.g., "traded_with",
+    "supersedes", "corrected_by", "received_from", "part_of").
 
     Multiple associations can exist between the same pair of entries,
-    each in a different context (e.g., "Alice-Bob" can be linked in
-    "apple trades" context and separately in "family" context).
+    each with a different relationship or context.
     """
 
     source_id: str
     target_id: str
-    relationship: RelationshipType
-    weight: float
-    context: str
-    valid: bool = True
-    invalidation_reason: str | None = None
-    invalidated_by_entry: str | None = None
+    relationship: str
+    weight: float = 0.5
+    context: str = ""
     step_created: int = 0
     step_last_accessed: int = 0
     id: str = field(default_factory=lambda: str(uuid4()))
@@ -104,6 +77,7 @@ class MemoryMapData:
     recent_changes: list[str] = field(default_factory=list)
     contested_regions: list[str] = field(default_factory=list)
     weakly_connected: list[str] = field(default_factory=list)
+    relationship_types: list[str] = field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -120,46 +94,3 @@ class CognitiveResult:
     entries_invalidated: list[str] = field(default_factory=list)
     associations_created: list[str] = field(default_factory=list)
     associations_invalidated: list[str] = field(default_factory=list)
-
-
-@dataclass
-class OrientationResult:
-    """Output of the orient phase — entry points and sub-objectives."""
-
-    entry_points: list[str] = field(default_factory=list)
-    sub_objectives: list[str] = field(default_factory=list)
-
-
-@dataclass
-class TraversalStepResult:
-    """Output of a single graph traversal step during direct resolve."""
-
-    findings: list[str] = field(default_factory=list)
-    next_nodes: list[str] = field(default_factory=list)
-    should_stop: bool = False
-    stop_reason: str | None = None
-
-    # State mutations
-    new_entries: list[StateEntry] = field(default_factory=list)
-    new_associations: list[Association] = field(default_factory=list)
-    weight_updates: list[WeightUpdate] = field(default_factory=list)
-    association_invalidations: list[AssociationInvalidation] = field(default_factory=list)
-    map_changes: dict = field(default_factory=dict)
-
-
-@dataclass
-class WeightUpdate:
-    """A weight adjustment on an existing association."""
-
-    assoc_id: str
-    delta: float  # positive = strengthen, negative = weaken
-    reason: str = ""
-
-
-@dataclass
-class AssociationInvalidation:
-    """An invalidation of an existing association."""
-
-    assoc_id: str
-    reason: str
-    invalidated_by: str | None = None

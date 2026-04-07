@@ -17,9 +17,7 @@ from datetime import datetime
 
 from cognition.types import (
     Association,
-    EntryType,
     MemoryMapData,
-    RelationshipType,
     StateEntry,
     TopicEntry,
 )
@@ -81,6 +79,9 @@ class MemoryMap:
         if self.data.contested_regions:
             lines.append(f"  Contested: {', '.join(self.data.contested_regions)}")
 
+        if self.data.relationship_types:
+            lines.append(f"  Relationship types: {', '.join(self.data.relationship_types)}")
+
         if self.data.weakly_connected:
             wc = ", ".join(self.data.weakly_connected[:10])
             lines.append(f"  Weakly connected: [{wc}]")
@@ -111,7 +112,7 @@ class MemoryMap:
                 unique.append(p)
         # Filter stale references if store provided
         if store is not None:
-            unique = [p for p in unique if (e := store.get_entry(p)) is not None and e.is_active]
+            unique = [p for p in unique if store.get_entry(p) is not None and not store.is_superseded(p)]
         return unique
 
     def update(self, changes: dict) -> None:
@@ -197,18 +198,37 @@ class StateStore:
     def get_entry(self, entry_id: str) -> StateEntry | None:
         return self.entries.get(entry_id)
 
-    def invalidate_entry(self, entry_id: str, superseded_by: str) -> None:
-        entry = self.entries.get(entry_id)
-        if entry:
-            entry.superseded_by = superseded_by
-            # Clean up memory map — remove from topic entry_points
-            for topic in self.memory_map.data.topics.values():
-                if entry_id in topic.entry_points:
-                    topic.entry_points.remove(entry_id)
-            # Remove from weakly_connected
-            if entry_id in self.memory_map.data.weakly_connected:
-                self.memory_map.data.weakly_connected.remove(entry_id)
-            logger.debug("state.invalidate_entry entry_id=%s superseded_by=%s", entry_id, superseded_by)
+    def supersede_entry(self, old_entry_id: str, new_entry_id: str, step: int = 0) -> None:
+        """Mark an entry as superseded by creating a 'supersedes' association
+        and cleaning up the memory map."""
+        old_entry = self.entries.get(old_entry_id)
+        if not old_entry:
+            return
+        # Create supersedes association: new → old
+        assoc = Association(
+            source_id=new_entry_id,
+            target_id=old_entry_id,
+            relationship="supersedes",
+            weight=1.0,
+            context="correction",
+            step_created=step,
+        )
+        self.add_association(assoc)
+        # Clean up memory map — remove superseded entry from topic entry_points
+        for topic in self.memory_map.data.topics.values():
+            if old_entry_id in topic.entry_points:
+                topic.entry_points.remove(old_entry_id)
+        if old_entry_id in self.memory_map.data.weakly_connected:
+            self.memory_map.data.weakly_connected.remove(old_entry_id)
+        logger.debug("state.supersede_entry old=%s new=%s", old_entry_id, new_entry_id)
+
+    def is_superseded(self, entry_id: str) -> bool:
+        """Check if an entry has been superseded (has an incoming 'supersedes' association)."""
+        for assoc_id in self._assoc_by_target.get(entry_id, []):
+            assoc = self.associations.get(assoc_id)
+            if assoc and assoc.relationship == "supersedes":
+                return True
+        return False
 
     def access(self, entry_id: str, step: int) -> None:
         entry = self.entries.get(entry_id)
@@ -222,6 +242,9 @@ class StateStore:
         self.associations[assoc.id] = assoc
         self._assoc_by_source[assoc.source_id].append(assoc.id)
         self._assoc_by_target[assoc.target_id].append(assoc.id)
+        # Track relationship type in memory map vocabulary
+        if assoc.relationship not in self.memory_map.data.relationship_types:
+            self.memory_map.data.relationship_types.append(assoc.relationship)
         logger.debug(
             "state.add_association %s -> %s (%s, context=%r, weight=%.2f)",
             assoc.source_id, assoc.target_id, assoc.relationship, assoc.context, assoc.weight,
@@ -250,23 +273,20 @@ class StateStore:
             assoc.step_last_accessed = step
             logger.debug("state.weaken assoc_id=%s new_weight=%.2f", assoc_id, assoc.weight)
 
-    def invalidate_association(
-        self,
-        assoc_id: str,
-        reason: str,
-        invalidated_by: str | None = None,
-    ) -> None:
+    def append_association_context(self, assoc_id: str, text: str) -> None:
+        """Append text to an association's context — recording new events or reasons."""
         assoc = self.associations.get(assoc_id)
         if assoc:
-            assoc.valid = False
-            assoc.invalidation_reason = reason
-            assoc.invalidated_by_entry = invalidated_by
-            logger.debug("state.invalidate_association assoc_id=%s reason=%r", assoc_id, reason)
+            if assoc.context:
+                assoc.context += f" | {text}"
+            else:
+                assoc.context = text
+            logger.debug("state.append_context assoc_id=%s context=%r", assoc_id, assoc.context[:80])
 
     # --- Navigation ---
 
     def get_neighbors(self, entry_id: str, max_hops: int = 1) -> list[StateEntry]:
-        """Get entries reachable within max_hops via valid associations."""
+        """Get entries reachable within max_hops via any association."""
         visited: set[str] = set()
         current: set[str] = {entry_id}
 
@@ -274,8 +294,6 @@ class StateStore:
             next_level: set[str] = set()
             for eid in current:
                 for assoc in self.get_associations(eid):
-                    if not assoc.valid:
-                        continue
                     neighbor = assoc.target_id if assoc.source_id == eid else assoc.source_id
                     if neighbor not in visited and neighbor != entry_id:
                         next_level.add(neighbor)
@@ -287,7 +305,8 @@ class StateStore:
         return [self.entries[eid] for eid in visited if eid in self.entries]
 
     def get_active(self) -> list[StateEntry]:
-        return [e for e in self.entries.values() if e.is_active]
+        """Get entries that haven't been superseded."""
+        return [e for e in self.entries.values() if not self.is_superseded(e.id)]
 
     def get_recent(self, n: int) -> list[StateEntry]:
         active = self.get_active()
@@ -306,69 +325,60 @@ class StateStore:
 
     # --- Rendering for LLM context ---
 
-    def render_neighborhood(self, entry_ids: list[str], depth: int = 1) -> str:
-        """Render entries and their associations as a structured document
-        for inclusion in LLM context."""
+    def render_neighborhood(
+        self,
+        entry_ids: list[str],
+        relationship_filter: list[str] | None = None,
+    ) -> str:
+        """Render current entries fully + compact edge list for available connections.
+
+        The LLM sees the content of the current nodes, plus a list of
+        edges it can follow (relationship + target summary). This keeps
+        the prompt small regardless of how connected the graph is.
+        The LLM picks which edges to follow via next_nodes.
+
+        If relationship_filter is provided, only edges with matching
+        relationship types are shown.
+        """
         if not entry_ids:
             return "(no entries to render)"
 
         lines: list[str] = []
-        rendered: set[str] = set()
 
         for entry_id in entry_ids:
-            self._render_entry(entry_id, lines, rendered, depth)
+            entry = self.entries.get(entry_id)
+            if not entry:
+                continue
+
+            superseded = " [SUPERSEDED]" if self.is_superseded(entry_id) else ""
+            lines.append(
+                f'Entry [{entry.id[:8]}]: "{entry.content}" '
+                f"({entry.entry_type}, confidence {entry.confidence}, "
+                f"accessed {entry.access_count}x{superseded})"
+            )
+
+            # Compact edge list — show relationship + target summary, not full content
+            associations = self.get_associations(entry_id)
+            if relationship_filter:
+                associations = [a for a in associations if a.relationship in relationship_filter]
+            if associations:
+                lines.append("  Edges:")
+                for assoc in associations:
+                    other_id = assoc.target_id if assoc.source_id == entry_id else assoc.source_id
+                    direction = "->" if assoc.source_id == entry_id else "<-"
+                    other = self.entries.get(other_id)
+                    if other:
+                        # Compact: just the first 60 chars of content
+                        summary = other.content[:60]
+                        if len(other.content) > 60:
+                            summary += "..."
+                        sup = " [SUPERSEDED]" if self.is_superseded(other_id) else ""
+                        lines.append(
+                            f"    {direction} [{other_id[:8]}] \"{summary}\"{sup} "
+                            f"({assoc.relationship}, w={assoc.weight:.1f})"
+                        )
 
         return "\n".join(lines)
-
-    def _render_entry(
-        self,
-        entry_id: str,
-        lines: list[str],
-        rendered: set[str],
-        depth: int,
-    ) -> None:
-        if entry_id in rendered:
-            return
-        rendered.add(entry_id)
-
-        entry = self.entries.get(entry_id)
-        if not entry:
-            return
-
-        active = "active" if entry.is_active else f"superseded by {entry.superseded_by}"
-        lines.append(
-            f'Entry [{entry.id[:8]}]: "{entry.content}" '
-            f"({entry.entry_type.value}, confidence {entry.confidence}, "
-            f"accessed {entry.access_count}x, {active})"
-        )
-
-        associations = self.get_associations(entry_id)
-        if associations:
-            lines.append("  Associations:")
-            # Group by target
-            by_target: dict[str, list[Association]] = defaultdict(list)
-            for assoc in associations:
-                other_id = assoc.target_id if assoc.source_id == entry_id else assoc.source_id
-                by_target[other_id].append(assoc)
-
-            for other_id, assocs in by_target.items():
-                other = self.entries.get(other_id)
-                other_desc = f'"{other.content}"' if other else f"[{other_id[:8]}]"
-                for assoc in assocs:
-                    valid_str = "valid" if assoc.valid else f"INVALID — {assoc.invalidation_reason}"
-                    lines.append(
-                        f"    -> {other_desc} ({assoc.relationship.value})"
-                    )
-                    lines.append(
-                        f"        [{assoc.context}] weight: {assoc.weight:.1f}, {valid_str}"
-                    )
-
-        # Recurse into neighbors if depth > 0
-        if depth > 0:
-            for assoc in associations:
-                if assoc.valid:
-                    other_id = assoc.target_id if assoc.source_id == entry_id else assoc.source_id
-                    self._render_entry(other_id, lines, rendered, depth - 1)
 
     def render_entries(self, entry_ids: list[str]) -> str:
         """Render just the entries (no associations) as structured text."""
@@ -376,10 +386,10 @@ class StateStore:
         for entry_id in entry_ids:
             entry = self.entries.get(entry_id)
             if entry:
-                active = "active" if entry.is_active else f"superseded by {entry.superseded_by}"
+                superseded = " [SUPERSEDED]" if self.is_superseded(entry_id) else ""
                 lines.append(
                     f'[{entry.id[:8]}] "{entry.content}" '
-                    f"({entry.entry_type.value}, conf {entry.confidence}, {active})"
+                    f"({entry.entry_type}, conf {entry.confidence}{superseded})"
                 )
         return "\n".join(lines)
 
@@ -401,7 +411,8 @@ class StateStore:
 
         self.entries = {}
         for eid, edata in data.get("entries", {}).items():
-            edata["entry_type"] = EntryType(edata["entry_type"])
+            # Remove legacy fields from old state files
+            edata.pop("superseded_by", None)
             if isinstance(edata.get("created_at"), str):
                 edata["created_at"] = datetime.fromisoformat(edata["created_at"])
             self.entries[eid] = StateEntry(**edata)
@@ -410,7 +421,6 @@ class StateStore:
         self._assoc_by_source = defaultdict(list)
         self._assoc_by_target = defaultdict(list)
         for aid, adata in data.get("associations", {}).items():
-            adata["relationship"] = RelationshipType(adata["relationship"])
             assoc = Association(**adata)
             self.associations[aid] = assoc
             self._assoc_by_source[assoc.source_id].append(aid)
@@ -436,12 +446,11 @@ def _entry_to_dict(entry: StateEntry) -> dict:
     return {
         "id": entry.id,
         "content": entry.content,
-        "entry_type": entry.entry_type.value,
+        "entry_type": entry.entry_type,
         "confidence": entry.confidence,
         "step_created": entry.step_created,
         "step_last_accessed": entry.step_last_accessed,
         "access_count": entry.access_count,
-        "superseded_by": entry.superseded_by,
         "tags": entry.tags,
         "created_at": entry.created_at.isoformat(),
     }
@@ -452,12 +461,9 @@ def _assoc_to_dict(assoc: Association) -> dict:
         "id": assoc.id,
         "source_id": assoc.source_id,
         "target_id": assoc.target_id,
-        "relationship": assoc.relationship.value,
+        "relationship": assoc.relationship,
         "weight": assoc.weight,
         "context": assoc.context,
-        "valid": assoc.valid,
-        "invalidation_reason": assoc.invalidation_reason,
-        "invalidated_by_entry": assoc.invalidated_by_entry,
         "step_created": assoc.step_created,
         "step_last_accessed": assoc.step_last_accessed,
     }

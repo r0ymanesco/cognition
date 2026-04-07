@@ -23,8 +23,6 @@ from cognition.tracing import TraceLogger, TraversalStepTrace
 from cognition.types import (
     Association,
     CognitiveResult,
-    EntryType,
-    RelationshipType,
     StateEntry,
 )
 
@@ -46,6 +44,12 @@ class OrientationResponse(BaseModel):
     sub_objectives: list[str] = Field(
         default_factory=list,
         description="Sub-objectives to pursue — narrower aspects of the main objective",
+    )
+    relationship_filter: list[str] = Field(
+        default_factory=list,
+        description="Relationship types to show during traversal. "
+        "Pick from the relationship types listed in the memory map. "
+        "Empty list means show all relationships.",
     )
     reasoning: str = Field(
         default="",
@@ -73,16 +77,15 @@ class NewAssociationSpec(BaseModel):
     context: str = ""
 
 
-class WeightUpdateSpec(BaseModel):
+class AssociationUpdateSpec(BaseModel):
+    """Update an existing association's weight and/or context."""
     assoc_id: str
-    delta: float
-    reason: str = ""
-
-
-class AssociationInvalidationSpec(BaseModel):
-    assoc_id: str
-    reason: str
-    invalidated_by: str | None = None
+    delta: float = 0.0
+    append_context: str | None = Field(
+        default=None,
+        description="Text to append to the association's context. "
+        "Use this to record new events or reasons related to this association.",
+    )
 
 
 class NamedTopicSpec(BaseModel):
@@ -132,8 +135,7 @@ class TraversalStepResponse(BaseModel):
     # State mutations
     new_entries: list[NewEntrySpec] = Field(default_factory=list)
     new_associations: list[NewAssociationSpec] = Field(default_factory=list)
-    weight_updates: list[WeightUpdateSpec] = Field(default_factory=list)
-    association_invalidations: list[AssociationInvalidationSpec] = Field(default_factory=list)
+    association_updates: list[AssociationUpdateSpec] = Field(default_factory=list)
     map_changes: MapChangesSpec = Field(default_factory=MapChangesSpec)
 
 
@@ -234,12 +236,16 @@ class CognitiveStep:
             # Collect traversal findings to pass to synthesis
             all_findings: list[str] = []
 
+            traverse_context = {
+                **context,
+                "entry_points": orientation.entry_points,
+                "relationship_filter": orientation.relationship_filter,
+            }
+
             if not orientation.sub_objectives:
                 # Single focused objective — traverse directly
                 traverse_result = await self._direct_resolve(
-                    objective, state,
-                    {**context, "entry_points": orientation.entry_points},
-                    tracer, trace_id,
+                    objective, state, traverse_context, tracer, trace_id,
                 )
                 if traverse_result.output:
                     all_findings.append(traverse_result.output)
@@ -252,8 +258,7 @@ class CognitiveStep:
                         sub_trace_id = tracer.begin(sub_objective, 1, trace_id)
                     try:
                         traverse_result = await self._direct_resolve(
-                            sub_objective, state,
-                            {**context, "entry_points": orientation.entry_points},
+                            sub_objective, state, traverse_context,
                             tracer, sub_trace_id,
                         )
                         if traverse_result.output:
@@ -351,44 +356,54 @@ class CognitiveStep:
             entry_points = [e.id for e in recent]
 
         current_nodes = list(entry_points)
+        relationship_filter = context.get("relationship_filter", [])
         visited: set[str] = set()
         findings: list[str] = []
         all_entries_written: list[str] = []
-        all_assocs_invalidated: list[str] = []
         step_number = context.get("step_number", 0)
 
         for step in range(self.max_steps):
             # Render the local neighborhood
-            neighborhood = state.render_neighborhood(current_nodes, depth=1)
+            neighborhood = state.render_neighborhood(
+                current_nodes, relationship_filter=relationship_filter,
+            )
 
             system = _get_task_prompt(context)
 
             visited_list = sorted(visited)
             content_without_budget = (
-                "You are processing an input using a knowledge graph. "
-                "Your job is to:\n"
-                "- STORE new information from the input as new entries in the graph\n"
-                "- RETRIEVE existing entries relevant to the input\n"
-                "- CONNECT related entries by creating associations\n"
-                "- ANSWER questions using information found in the graph\n"
-                "- UPDATE or INVALIDATE entries when corrections are provided\n\n"
-                "IMPORTANT:\n"
-                "- If the input contains a fact or statement, create a new entry for it.\n"
-                "- If the input is a question, search the graph and put the answer in findings.\n"
-                "- If the input corrects a previous fact, create a new entry with "
-                "supersedes_entry_id set to the old entry's ID. This marks the old "
-                "entry as superseded and links it to the replacement.\n"
-                "- If the graph is empty, create entries from the input — that IS the work.\n\n"
+                "You are processing an input using a knowledge graph.\n\n"
+                "THE GRAPH:\n"
+                "- Entries are nodes (facts, observations, decisions, etc.)\n"
+                "- Associations are edges with free-form relationship types "
+                "(e.g., 'traded_with', 'received_from', 'supersedes', 'part_of')\n"
+                "- Each association has a weight (0-1) and a context string that "
+                "records WHY the association exists and any subsequent events\n"
+                "- Two entries can have multiple associations with different relationships\n"
+                "- REUSE existing relationship types from the memory map when possible "
+                "— avoid creating near-duplicates like 'traded_with' and 'gave_items_to'\n"
+                "- When creating associations, provide meaningful context explaining "
+                "what led to this association (e.g., 'Trade at step 15: Alice gave "
+                "3 apples to Bob')\n"
+                "- You see the current entries fully + a compact edge list showing "
+                "available connections. Use next_nodes to follow edges.\n\n"
+                "YOUR JOB:\n"
+                "- STORE: create new entries for new information from the input\n"
+                "- CONNECT: create associations between related entries. Name the "
+                "relationship descriptively (not just 'related_to')\n"
+                "- RETRIEVE: follow edges to find information relevant to the input\n"
+                "- ANSWER: if the input is a question, put the answer in findings\n"
+                "- CORRECT: if the input corrects a previous fact, create a new entry "
+                "with supersedes_entry_id set to the old entry's ID\n"
+                "- If the graph is empty, create entries from the input — that IS the work\n\n"
                 f"Input: {objective}\n\n"
                 f"Current neighborhood:\n{neighborhood}\n\n"
                 f"Already visited: {visited_list}\n\n"
                 f"Findings so far: {findings}\n\n"
                 f"Agent context: {_format_context(context)}\n\n"
                 f"Traversal step {step + 1}/{self.max_steps}.\n\n"
-                "Decide what to do. Set should_stop=true when you have completed "
-                "processing this input (stored the fact, answered the question, etc). "
-                "Use stop_reason to explain why.\n"
-                "Set next_nodes to follow edges to related entries if needed."
+                "Decide what to do. Set should_stop=true when done processing "
+                "this input. Use next_nodes to follow edges to related entries."
             )
             total_tokens = _estimate_tokens(system + content_without_budget)
             budget_section = self._budget_section(total_tokens)
@@ -419,9 +434,6 @@ class CognitiveStep:
             written_ids = self._apply_mutations(state, step_result, step_number)
             all_entries_written.extend(written_ids)
 
-            inv_ids = [inv.assoc_id for inv in step_result.association_invalidations]
-            all_assocs_invalidated.extend(inv_ids)
-
             # Update access tracking
             for node_id in current_nodes:
                 state.access(node_id, step_number)
@@ -436,8 +448,8 @@ class CognitiveStep:
                         findings=step_result.findings,
                         entries_written=written_ids,
                         associations_created=[a.source_id + "->" + a.target_id for a in step_result.new_associations],
-                        weight_updates=[{"id": w.assoc_id, "delta": w.delta} for w in step_result.weight_updates],
-                        associations_invalidated=inv_ids,
+                        weight_updates=[{"id": u.assoc_id, "delta": u.delta} for u in step_result.association_updates],
+                        associations_invalidated=[],
                         stop_decision=step_result.stop_reason,
                         next_nodes=step_result.next_nodes,
                     ),
@@ -462,13 +474,13 @@ class CognitiveStep:
         if tracer and trace_id:
             tracer.record_direct_resolve(
                 trace_id, visited, findings,
-                all_entries_written, all_assocs_invalidated,
+                all_entries_written, [],
             )
 
         return CognitiveResult(
             output="\n".join(findings) if findings else "",
             entries_written=all_entries_written,
-            associations_invalidated=all_assocs_invalidated,
+            associations_invalidated=[],
         )
 
     def _apply_mutations(
@@ -481,13 +493,9 @@ class CognitiveStep:
         written_ids: list[str] = []
 
         for spec in step_result.new_entries:
-            try:
-                entry_type = EntryType(spec.entry_type)
-            except ValueError:
-                entry_type = EntryType.OBSERVATION
             entry = StateEntry(
                 content=spec.content,
-                entry_type=entry_type,
+                entry_type=spec.entry_type,
                 confidence=spec.confidence,
                 step_created=step_number,
                 tags=spec.tags,
@@ -495,33 +503,28 @@ class CognitiveStep:
             state.write(entry)
             written_ids.append(entry.id)
 
-            # If this entry supersedes an old one, invalidate it
+            # If this entry supersedes an old one, create a supersedes association
             if spec.supersedes_entry_id:
-                state.invalidate_entry(spec.supersedes_entry_id, superseded_by=entry.id)
+                state.supersede_entry(spec.supersedes_entry_id, entry.id, step_number)
 
         for spec in step_result.new_associations:
-            try:
-                relationship = RelationshipType(spec.relationship)
-            except ValueError:
-                relationship = RelationshipType.RELATED_TO
             assoc = Association(
                 source_id=spec.source_id,
                 target_id=spec.target_id,
-                relationship=relationship,
+                relationship=spec.relationship,
                 weight=spec.weight,
                 context=spec.context,
                 step_created=step_number,
             )
             state.add_association(assoc)
 
-        for spec in step_result.weight_updates:
+        for spec in step_result.association_updates:
             if spec.delta > 0:
                 state.strengthen(spec.assoc_id, spec.delta, step_number)
-            else:
+            elif spec.delta < 0:
                 state.weaken(spec.assoc_id, abs(spec.delta), step_number)
-
-        for spec in step_result.association_invalidations:
-            state.invalidate_association(spec.assoc_id, spec.reason, spec.invalidated_by)
+            if spec.append_context:
+                state.append_association_context(spec.assoc_id, spec.append_context)
 
         return written_ids
 
@@ -569,12 +572,17 @@ class CognitiveStep:
         system = _get_task_prompt(context)
 
         content_without_budget = (
-            "The knowledge graph has been traversed. Now:\n"
+            "The knowledge graph has been traversed. During traversal, "
+            "new entries and associations may have been created, and old "
+            "entries may have been superseded.\n\n"
+            "Now:\n"
             "1. Compile a response to the input based on the findings below. "
             "If it was a statement, acknowledge briefly. "
             "If it was a question, answer it using the findings.\n"
-            "2. Organize the memory map — group related entries into topics "
-            "while respecting the token budget.\n\n"
+            "2. Organize the memory map — group related entries into topics. "
+            "Topics should reflect the graph's structure: entities, "
+            "relationships between entities, trade histories, corrections, etc. "
+            "Keep topic summaries concise and include relevant entry point IDs.\n\n"
             f"Input: {objective}\n\n"
             f"{findings_section}"
             f"Current memory map:\n{memory_map}\n\n"

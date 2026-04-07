@@ -21,7 +21,7 @@ from cognition.cognitive_step import (
     TraversalStepResponse,
     NewEntrySpec,
     NewAssociationSpec,
-    WeightUpdateSpec,
+    AssociationUpdateSpec,
     MapChangesSpec,
 )
 from cognition.llm.base import BaseLLM
@@ -29,9 +29,7 @@ from cognition.state import StateStore
 from cognition.tracing import TraceLogger
 from cognition.types import (
     Association,
-    EntryType,
     MemoryMapData,
-    RelationshipType,
     StateEntry,
     TopicEntry,
 )
@@ -101,11 +99,11 @@ def populated_store() -> StateStore:
 
     alice = StateEntry(
         id="alice_1", content="Alice has 5 apples",
-        entry_type=EntryType.FACT, step_created=1, tags=["alice", "apples"],
+        entry_type="fact", step_created=1, tags=["alice", "apples"],
     )
     bob = StateEntry(
         id="bob_1", content="Bob has 3 oranges",
-        entry_type=EntryType.FACT, step_created=2, tags=["bob", "oranges"],
+        entry_type="fact", step_created=2, tags=["bob", "oranges"],
     )
     s.write(alice)
     s.write(bob)
@@ -113,7 +111,7 @@ def populated_store() -> StateStore:
     assoc = Association(
         id="assoc_1",
         source_id="alice_1", target_id="bob_1",
-        relationship=RelationshipType.RELATED_TO,
+        relationship="related_to",
         weight=0.5, context="fruit inventory",
     )
     s.add_association(assoc)
@@ -236,10 +234,9 @@ class TestDirectResolve:
                 weight=0.6,
                 context="apple trade",
             )],
-            weight_updates=[WeightUpdateSpec(
+            association_updates=[AssociationUpdateSpec(
                 assoc_id="assoc_1",
                 delta=0.2,
-                reason="relevant to fruit trade investigation",
             )],
         ))
 
