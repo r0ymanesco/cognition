@@ -1,0 +1,46 @@
+agent.step 0: Alice has 5 apples.
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/tzeyang/workspace/cognition/experiments/toy_task.py", line 350, in <module>
+    main()
+  File "/home/tzeyang/workspace/cognition/experiments/toy_task.py", line 338, in main
+    asyncio.run(run_experiment(
+  File "/home/tzeyang/.pyenv/versions/3.12.9/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/.pyenv/versions/3.12.9/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/.pyenv/versions/3.12.9/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/tzeyang/workspace/cognition/experiments/toy_task.py", line 248, in run_experiment
+    output = await agent.step(step.input_text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/workspace/cognition/cognition/agent.py", line 57, in step
+    result = await self.cognitive_step.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/workspace/cognition/cognition/cognitive_step.py", line 174, in execute
+    orientation = await self._orient(objective, state, context, tracer, trace_id)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/workspace/cognition/cognition/cognitive_step.py", line 243, in _orient
+    result = await self.llm.generate_structured(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/workspace/cognition/cognition/llm/openai.py", line 76, in generate_structured
+    response = await self.client.chat.completions.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/.pyenv/versions/cognition/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2714, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/.pyenv/versions/cognition/lib/python3.12/site-packages/openai/_base_client.py", line 1884, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tzeyang/.pyenv/versions/cognition/lib/python3.12/site-packages/openai/_base_client.py", line 1669, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': "Invalid schema for response_format 'OrientationResponse': In context=(), 'additionalProperties' is required to be supplied and to be false.", 'type': 'invalid_request_error', 'param': 'response_format', 'code': None}}
+Running toy task: 26 steps
+Provider: openai, Model: gpt-5-nano
+Config: max_width=3, max_steps=5
+------------------------------------------------------------

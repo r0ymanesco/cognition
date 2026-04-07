@@ -26,8 +26,10 @@ from __future__ import annotations
 import argparse
 import asyncio
 import logging
+import os
 import sys
 import time
+from datetime import datetime
 from dataclasses import dataclass
 from typing import Any
 
@@ -131,6 +133,13 @@ async def run_experiment(
     else:
         logging.basicConfig(level=logging.INFO, format="%(message)s")
 
+    # Auto-generate trace path if not provided
+    if trace_file is None:
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        trace_dir = os.path.join("traces", "toy_task", ts)
+        os.makedirs(trace_dir, exist_ok=True)
+        trace_file = os.path.join(trace_dir, "trace.json")
+
     llm = create_llm(provider, model, extra_kwargs=llm_kwargs)
     state = StateStore()
     tracer = TraceLogger()
@@ -222,10 +231,6 @@ async def run_experiment(
     print(f"Max recursion depth: {trace_summary['max_recursion_depth']}")
     print(f"Total traversal steps: {trace_summary['total_traversal_steps']}")
 
-    if trace_file:
-        tracer.export_json(trace_file)
-        print(f"\nTrace exported to: {trace_file}")
-
     # --- Failed questions ---
     failed = [r for r in results if not r.correct]
     if failed:
@@ -234,9 +239,68 @@ async def run_experiment(
             print(f"  Step {r.step_index}: {r.question}")
             print(f"    Expected: {r.expected} | Got: {r.actual[:100]}")
 
-    # --- Dump state for inspection ---
-    state.save("toy_task_state.json")
-    print(f"\nState saved to: toy_task_state.json")
+    # --- Save trace, state, run summary, and memory map to trace directory ---
+    trace_dir = os.path.dirname(trace_file)
+    tracer.export_json(trace_file)
+    state.save(os.path.join(trace_dir, "state.json"))
+
+    # Save rendered memory map for quick inspection
+    with open(os.path.join(trace_dir, "memory_map.txt"), "w") as f:
+        f.write(state.memory_map.render())
+
+    # Save run summary
+    import json
+    run_summary = {
+        "config": {
+            "provider": provider,
+            "model": model,
+            "max_width": max_width,
+            "max_steps": max_steps,
+            "context_budget": context_budget,
+            "verbose_facts": verbose_facts,
+            "scaled_entities": scaled_entities,
+            "seed": seed,
+            "llm_kwargs": llm_kwargs or {},
+        },
+        "results": {
+            "total_questions": total_questions,
+            "correct": correct_count,
+            "accuracy": f"{accuracy:.0%}",
+            "pre_correction": {
+                "correct": pre_correct,
+                "total": len(pre_correction),
+            },
+            "post_correction": {
+                "correct": post_correct,
+                "total": len(post_correction),
+            },
+        },
+        "failures": [
+            {
+                "step_index": r.step_index,
+                "question": r.question,
+                "expected": r.expected,
+                "actual": r.actual[:200],
+            }
+            for r in failed
+        ],
+        "performance": {
+            "duration_ms": round(total_duration),
+            "llm_calls": trace_summary["total_llm_calls"],
+            "traversal_steps": trace_summary["total_traversal_steps"],
+        },
+        "state_summary": {
+            "entries": len(state.entries),
+            "active_entries": state.size(),
+            "associations": len(state.associations),
+            "topics": len(state.memory_map.data.topics),
+            "memory_map_tokens": state.memory_map.token_size(),
+        },
+    }
+    with open(os.path.join(trace_dir, "run.json"), "w") as f:
+        json.dump(run_summary, f, indent=2)
+
+    print(f"\nOutput: {trace_dir}")
 
     # Exit code: 0 if all correct, 1 otherwise
     if not all(r.correct for r in results):

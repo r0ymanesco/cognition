@@ -221,6 +221,15 @@ class CompactionAgent:
             await self._compact()
             self.history.append(current_msg)
 
+            # Verify summary + current message fits within budget
+            total_after = self._history_tokens()
+            if total_after > self.max_tokens:
+                raise RuntimeError(
+                    f"Post-compaction history exceeds budget: "
+                    f"~{total_after} tokens (budget: {self.max_tokens}). "
+                    f"The LLM's summary was not compact enough."
+                )
+
         response = await self.llm.generate(
             messages=list(self.history),
             system=self.system_prompt,

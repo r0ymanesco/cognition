@@ -6,6 +6,6 @@ build/
 .pytest_cache/
 *.json
 !pyproject.toml
+!traces/**/*.json
 .python-version
 .env
-traces/

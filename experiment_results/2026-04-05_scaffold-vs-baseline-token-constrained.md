@@ -219,6 +219,47 @@ The graph is also leaner: 29 active entries vs 41 previously. Superseded entries
 | Unified budget (soft), no invalidation schema | 20/22 (91%) | LLM-managed map compaction |
 | Unified budget (soft+hard), `supersedes_entry_id`, total-message awareness | **22/22 (100%)** | Entry invalidation + full budget awareness |
 
+## Addendum: Compaction Baseline (2026-04-06)
+
+### Motivation
+
+The truncation baseline is a strawman — it drops old messages entirely, which no production system does. A more realistic baseline uses **LLM-driven compaction**: when the conversation exceeds the token budget, the LLM summarizes all prior messages into a compact summary that preserves factual content. This is the approach used by systems like MemGPT/Letta and most production chat applications.
+
+### Setup
+
+The `CompactionAgent` works as follows:
+1. Conversation history accumulates normally (user/assistant messages)
+2. When history exceeds `max_tokens`, the LLM is asked to summarize all messages into a compact summary
+3. The summary replaces the full history as a single user message
+4. The current input is appended after the summary
+5. A post-compaction check verifies the summary + current message fits within budget
+
+The compaction prompt instructs the LLM to preserve ALL factual information, especially names, numbers, and corrections, using the most recent value for any corrected facts.
+
+### Results
+
+| Condition | Budget | Accuracy | LLM calls | Duration | Compactions |
+|---|---|---|---|---|---|
+| **Scaffold** | 3000 | **22/22 (100%)** | 176 | ~796s | N/A |
+| **Compaction baseline** | 3000 | **22/22 (100%)** | 58 | ~70s | 1 |
+| Truncation baseline | 3000 | 15/22 (68%) | 57 | ~66s | N/A |
+
+### Analysis
+
+The compaction baseline matches the scaffold at 100% accuracy — with 3x fewer LLM calls and 11x less time. Only 1 compaction was needed across 57 steps, and the summary preserved all 15 entity facts including corrections.
+
+**Why compaction works well here:** The 15 entity facts are independent (no relationships between entities), corrections are straightforward (old value → new value), and a flat summary captures everything without structural loss. The compaction prompt explicitly asks to preserve names, numbers, and corrections — which maps directly to what this task tests.
+
+**Where compaction should struggle (not tested yet):**
+- **Many entities with complex relationships** — a flat summary can't capture graph structure (which entity traded with which, which corrections depend on which observations)
+- **Selective retrieval** — when only 1-2 of 50 entities are relevant to a question, the summary includes all 50 (wasting tokens), while the scaffold traverses directly to the relevant entries
+- **Incremental updates** — the scaffold updates individual graph entries; compaction re-summarizes everything from scratch each time
+- **Multi-hop reasoning** — "who did Alice trade with, and how many items does that person have now?" requires following associations, not scanning a summary
+
+### Implication for the scaffold
+
+The scaffold's advantage is structural — not in storing more facts (compaction does that too at this scale) but in **organizing facts into a navigable structure** with typed relationships, belief revision, and selective retrieval. Demonstrating this advantage requires a task with richer structure than independent entity-count tracking.
+
 ## Reproduction
 
 ```bash
@@ -234,11 +275,17 @@ python -m experiments.toy_task \
     --max-steps 5 --max-width 3 \
     --context-budget 3000
 
-# Baseline (same token budget)
+# Baseline — truncation (same token budget)
 python -m experiments.toy_task_baseline \
     --provider anthropic --model claude-sonnet-4-6 \
     --scaled-entities 15 --seed 42 \
     --max-tokens 3000
+
+# Baseline — compaction (same token budget)
+python -m experiments.toy_task_baseline \
+    --provider anthropic --model claude-sonnet-4-6 \
+    --scaled-entities 15 --seed 42 \
+    --max-tokens 3000 --strategy compaction
 
 # Scaffold (unconstrained, for reference)
 python -m experiments.toy_task \
