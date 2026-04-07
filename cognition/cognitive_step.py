@@ -303,7 +303,11 @@ class CognitiveStep:
             "2. sub_objectives: If this input involves multiple distinct topics "
             "that should be handled separately, list them. "
             "Otherwise return an empty list.\n"
-            "3. reasoning: Briefly explain your choices.\n\n"
+            "3. relationship_filter: Which relationship types are relevant to this "
+            "input? Pick from the types listed in the memory map. "
+            "This filters which edges are shown during traversal. "
+            "Include multiple types if needed. Empty list means show all.\n"
+            "4. reasoning: Briefly explain your choices.\n\n"
             f"Agent context: {_format_context(context)}"
         )
         total_tokens = _estimate_tokens(system + content_without_budget)
@@ -371,22 +375,30 @@ class CognitiveStep:
             system = _get_task_prompt(context)
 
             visited_list = sorted(visited)
+            existing_types = state.memory_map.data.relationship_types
+            if existing_types:
+                vocab_section = (
+                    f"Existing relationship types: {', '.join(existing_types)}\n"
+                    "IMPORTANT: Reuse these types when they fit. Do NOT create "
+                    "near-duplicates (e.g., don't create 'stored_at_same_location' "
+                    "if 'co_located' already exists).\n\n"
+                )
+            else:
+                vocab_section = ""
+
             content_without_budget = (
                 "You are processing an input using a knowledge graph.\n\n"
                 "THE GRAPH:\n"
                 "- Entries are nodes (facts, observations, decisions, etc.)\n"
-                "- Associations are edges with free-form relationship types "
-                "(e.g., 'traded_with', 'received_from', 'supersedes', 'part_of')\n"
+                "- Associations are edges with free-form relationship types\n"
                 "- Each association has a weight (0-1) and a context string that "
                 "records WHY the association exists and any subsequent events\n"
                 "- Two entries can have multiple associations with different relationships\n"
-                "- REUSE existing relationship types from the memory map when possible "
-                "— avoid creating near-duplicates like 'traded_with' and 'gave_items_to'\n"
                 "- When creating associations, provide meaningful context explaining "
-                "what led to this association (e.g., 'Trade at step 15: Alice gave "
-                "3 apples to Bob')\n"
+                "what led to this association\n"
                 "- You see the current entries fully + a compact edge list showing "
                 "available connections. Use next_nodes to follow edges.\n\n"
+                f"{vocab_section}"
                 "YOUR JOB:\n"
                 "- STORE: create new entries for new information from the input\n"
                 "- CONNECT: create associations between related entries. Name the "
