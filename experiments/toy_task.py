@@ -41,7 +41,7 @@ from cognition.agent import Agent
 from cognition.llm.base import BaseLLM
 from cognition.state import StateStore
 from cognition.tracing import TraceLogger
-from experiments.tasks import build_scaled_task, build_toy_task
+from experiments.tasks import build_scaled_task, build_toy_task, build_trading_task
 
 
 # Task definition imported from experiments.tasks
@@ -125,6 +125,10 @@ async def run_experiment(
     verbose: bool,
     verbose_facts: bool = False,
     scaled_entities: int | None = None,
+    trading: bool = False,
+    num_trades: int = 15,
+    filler_per_phase: int = 3,
+    num_corrections: int = 3,
     seed: int = 42,
     llm_kwargs: dict[str, Any] | None = None,
 ) -> None:
@@ -164,7 +168,12 @@ async def run_experiment(
         tracer=tracer,
     )
 
-    if scaled_entities:
+    if trading:
+        task = build_trading_task(
+            num_trades=num_trades, filler_per_phase=filler_per_phase,
+            num_corrections=num_corrections, seed=seed,
+        )
+    elif scaled_entities:
         task = build_scaled_task(num_entities=scaled_entities, seed=seed)
     else:
         task = build_toy_task(verbose=verbose_facts)
@@ -326,6 +335,11 @@ def main() -> None:
                         help="Use verbose fact descriptions (higher token count per message)")
     parser.add_argument("--scaled-entities", type=int, default=None,
                         help="Use scaled task with N entities (overrides --verbose-facts)")
+    parser.add_argument("--trading", action="store_true",
+                        help="Use trading network task (relationships, history, multi-hop)")
+    parser.add_argument("--num-trades", type=int, default=15, help="Number of trades (trading task)")
+    parser.add_argument("--filler-per-phase", type=int, default=3, help="Filler messages per phase")
+    parser.add_argument("--num-corrections", type=int, default=3, help="Number of corrections")
     parser.add_argument("--seed", type=int, default=42,
                         help="Random seed for scaled task generation (default: 42)")
     parser.add_argument(
@@ -344,6 +358,10 @@ def main() -> None:
         verbose=args.verbose,
         verbose_facts=args.verbose_facts,
         scaled_entities=args.scaled_entities,
+        trading=args.trading,
+        num_trades=args.num_trades,
+        filler_per_phase=args.filler_per_phase,
+        num_corrections=args.num_corrections,
         seed=args.seed,
         llm_kwargs=parse_llm_kwargs(args.llm_kwargs),
     ))

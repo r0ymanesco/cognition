@@ -1,0 +1,1550 @@
+{
+  "entries": {
+    "1aefbc23-889b-4154-ad75-1e9902fb3570": {
+      "id": "1aefbc23-889b-4154-ad75-1e9902fb3570",
+      "content": "Alice has 14 apples",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 0,
+      "step_last_accessed": 36,
+      "access_count": 11,
+      "tags": [
+        "alice",
+        "apples",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:10:26.799516+00:00"
+    },
+    "8b25fe14-aed7-492f-8d8c-5c65ec6f072e": {
+      "id": "8b25fe14-aed7-492f-8d8c-5c65ec6f072e",
+      "content": "Bob has 5 oranges (north warehouse, near loading dock; surplus from last week's order; good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 1,
+      "step_last_accessed": 43,
+      "access_count": 9,
+      "tags": [
+        "bob",
+        "oranges",
+        "inventory",
+        "north_warehouse"
+      ],
+      "created_at": "2026-04-07T19:10:41.656571+00:00"
+    },
+    "7354b8f2-7cfb-480e-a5d2-9a9fdea8441c": {
+      "id": "7354b8f2-7cfb-480e-a5d2-9a9fdea8441c",
+      "content": "Charlie has 13 bananas (overflow storage behind office; imported, high quality, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 2,
+      "step_last_accessed": 44,
+      "access_count": 5,
+      "tags": [
+        "charlie",
+        "bananas",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:10:54.248101+00:00"
+    },
+    "a22d27b8-cb2e-4e45-85c1-74e48e5629ed": {
+      "id": "a22d27b8-cb2e-4e45-85c1-74e48e5629ed",
+      "content": "Diana has 13 pears (climate-controlled unit, building B; specialty variety, limited availability, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 3,
+      "step_last_accessed": 35,
+      "access_count": 10,
+      "tags": [
+        "diana",
+        "pears",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:11:07.590151+00:00"
+    },
+    "e40bc20c-7dbe-465e-a594-b8a39cf74791": {
+      "id": "e40bc20c-7dbe-465e-a594-b8a39cf74791",
+      "content": "Eve has 10 grapes (climate-controlled unit, building B; mixed variety, various sizes, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 4,
+      "step_last_accessed": 34,
+      "access_count": 10,
+      "tags": [
+        "Eve",
+        "grapes",
+        "building B",
+        "climate-controlled"
+      ],
+      "created_at": "2026-04-07T19:11:26.031173+00:00"
+    },
+    "17888b99-ace0-4fd3-9494-15d43a955b1a": {
+      "id": "17888b99-ace0-4fd3-9494-15d43a955b1a",
+      "content": "Frank has 3 mangoes (south storage facility, main entrance; premium grade, hand-selected, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 5,
+      "step_last_accessed": 47,
+      "access_count": 5,
+      "tags": [
+        "frank",
+        "mangoes",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:11:37.917853+00:00"
+    },
+    "dfa1a60f-7c3a-447b-92ca-5748a5125008": {
+      "id": "dfa1a60f-7c3a-447b-92ca-5748a5125008",
+      "content": "Grace has 16 peaches",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 6,
+      "step_last_accessed": 48,
+      "access_count": 8,
+      "tags": [
+        "Grace",
+        "peaches",
+        "inventory",
+        "organic",
+        "aisle3"
+      ],
+      "created_at": "2026-04-07T19:11:51.917839+00:00"
+    },
+    "9897c805-35ea-4e2b-a159-d395ef4c8bc1": {
+      "id": "9897c805-35ea-4e2b-a159-d395ef4c8bc1",
+      "content": "Henry has 19 plums (aisle 3 refrigerated, surplus, good condition)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 7,
+      "step_last_accessed": 49,
+      "access_count": 6,
+      "tags": [
+        "inventory",
+        "henry",
+        "plums",
+        "refrigerated",
+        "surplus"
+      ],
+      "created_at": "2026-04-07T19:12:04.086748+00:00"
+    },
+    "2858807c-95d6-4e0f-8e15-c8dfadcf292e": {
+      "id": "2858807c-95d6-4e0f-8e15-c8dfadcf292e",
+      "content": "Iris has 5 cherries (temporary staging area near shipping, farm-fresh, good condition)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 8,
+      "step_last_accessed": 50,
+      "access_count": 4,
+      "tags": [
+        "inventory",
+        "iris",
+        "cherries"
+      ],
+      "created_at": "2026-04-07T19:12:12.688076+00:00"
+    },
+    "e99e2d49-e4d1-4fdc-b4be-7986b55944bb": {
+      "id": "e99e2d49-e4d1-4fdc-b4be-7986b55944bb",
+      "content": "Jack has 14 strawberries (north warehouse, near loading dock; mixed variety, various sizes; good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 9,
+      "step_last_accessed": 51,
+      "access_count": 6,
+      "tags": [
+        "jack",
+        "strawberries",
+        "north_warehouse",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:12:27.414793+00:00"
+    },
+    "f32959e4-c037-48de-9f9c-29254ec9180f": {
+      "id": "f32959e4-c037-48de-9f9c-29254ec9180f",
+      "content": "Karen has 4 blueberries (north warehouse, near loading dock; organic certified, locally sourced; good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 10,
+      "step_last_accessed": 52,
+      "access_count": 5,
+      "tags": [
+        "karen",
+        "blueberries",
+        "north_warehouse",
+        "loading_dock"
+      ],
+      "created_at": "2026-04-07T19:12:42.794056+00:00"
+    },
+    "46512464-1bb6-489a-8a94-cc960ef3c732": {
+      "id": "46512464-1bb6-489a-8a94-cc960ef3c732",
+      "content": "Leo has 19 kiwis (aisle 3 refrigerated, imported, high quality, good condition)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 11,
+      "step_last_accessed": 53,
+      "access_count": 6,
+      "tags": [
+        "inventory",
+        "leo",
+        "kiwis",
+        "aisle3",
+        "refrigerated"
+      ],
+      "created_at": "2026-04-07T19:13:01.346336+00:00"
+    },
+    "9e7d5ec3-b896-4e74-8d16-0bae644ac3c4": {
+      "id": "9e7d5ec3-b896-4e74-8d16-0bae644ac3c4",
+      "content": "Mia has 11 lemons (climate-controlled unit, building B; farm-fresh, delivered this morning, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 12,
+      "step_last_accessed": 33,
+      "access_count": 8,
+      "tags": [
+        "Mia",
+        "lemons",
+        "building_B",
+        "climate-controlled"
+      ],
+      "created_at": "2026-04-07T19:13:20.479034+00:00"
+    },
+    "bea09d95-a513-4d67-93ba-6f367bca3723": {
+      "id": "bea09d95-a513-4d67-93ba-6f367bca3723",
+      "content": "Nathan has 13 limes (climate-controlled unit, building B; standard commercial grade, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 13,
+      "step_last_accessed": 32,
+      "access_count": 5,
+      "tags": [
+        "inventory",
+        "limes",
+        "building_B",
+        "nathan"
+      ],
+      "created_at": "2026-04-07T19:13:38.584363+00:00"
+    },
+    "eb68f47d-839f-4e28-b1fa-6563483d09b5": {
+      "id": "eb68f47d-839f-4e28-b1fa-6563483d09b5",
+      "content": "Nathan has 13 limes (climate-controlled unit, building B; standard commercial grade, good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 13,
+      "step_last_accessed": 32,
+      "access_count": 3,
+      "tags": [
+        "nathan",
+        "limes",
+        "building_b",
+        "climate-controlled"
+      ],
+      "created_at": "2026-04-07T19:13:45.172117+00:00"
+    },
+    "4da0cb12-af1a-40a3-ad62-d7af045b9cbd": {
+      "id": "4da0cb12-af1a-40a3-ad62-d7af045b9cbd",
+      "content": "Olivia has 20 watermelons (north warehouse, near loading dock; standard commercial grade; good condition as of today's inspection)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 14,
+      "step_last_accessed": 56,
+      "access_count": 5,
+      "tags": [
+        "olivia",
+        "watermelons",
+        "north_warehouse",
+        "loading_dock"
+      ],
+      "created_at": "2026-04-07T19:13:58.468145+00:00"
+    },
+    "cd042e86-f4cb-4d43-8a4c-d363ac082911": {
+      "id": "cd042e86-f4cb-4d43-8a4c-d363ac082911",
+      "content": "Delivery route Alpha delay: ~14 min delay due to Highway 30 road construction. Temporary reroute via Oak Street bypass recommended. Construction ends end of July.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 15,
+      "step_last_accessed": 40,
+      "access_count": 3,
+      "tags": [
+        "delivery",
+        "route_alpha",
+        "delay",
+        "logistics",
+        "highway_30",
+        "oak_street_bypass"
+      ],
+      "created_at": "2026-04-07T19:14:13.012931+00:00"
+    },
+    "289afacf-66bb-4773-b94e-fee3932911b9": {
+      "id": "289afacf-66bb-4773-b94e-fee3932911b9",
+      "content": "Market forecast: fresh produce demand +7% next quarter, driven by seasonal trends and farm-to-table dining popularity. Procurement should plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 16,
+      "step_last_accessed": 17,
+      "access_count": 1,
+      "tags": [
+        "market_forecast",
+        "fresh_produce",
+        "demand",
+        "procurement"
+      ],
+      "created_at": "2026-04-07T19:14:36.888507+00:00"
+    },
+    "b06ec75d-83cd-4eb9-9b2c-513a383e9771": {
+      "id": "b06ec75d-83cd-4eb9-9b2c-513a383e9771",
+      "content": "PROCUREMENT REVIEW FLAG: All fresh produce inventories flagged for procurement review due to anticipated 7% increase in consumer demand next quarter (seasonal trends + farm-to-table growth). Flagged items: Alice/apples(14), Bob/oranges(5), Charlie/bananas(13), Diana/pears(13), Eve/grapes(10), Frank/mangoes(3), Grace/peaches(16), Henry/plums(19), Iris/cherries(5), Jack/strawberries(14), Karen/blueberries(4), Leo/kiwis(19), Mia/lemons(11), Nathan/limes(13), Olivia/watermelons(20).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 16,
+      "step_last_accessed": 17,
+      "access_count": 1,
+      "tags": [
+        "procurement",
+        "review",
+        "fresh-produce",
+        "demand-forecast"
+      ],
+      "created_at": "2026-04-07T19:14:51.914980+00:00"
+    },
+    "4edab817-b53f-49f2-8a7c-541e00b30f61": {
+      "id": "4edab817-b53f-49f2-8a7c-541e00b30f61",
+      "content": "Market forecast: fresh produce demand +4% next quarter, driven by seasonal trends and farm-to-table dining popularity. Procurement should plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 17,
+      "step_last_accessed": 18,
+      "access_count": 2,
+      "tags": [
+        "market_forecast",
+        "fresh_produce",
+        "demand"
+      ],
+      "created_at": "2026-04-07T19:15:09.408980+00:00"
+    },
+    "9207a357-aa92-49a3-ae77-a1bd69a441fe": {
+      "id": "9207a357-aa92-49a3-ae77-a1bd69a441fe",
+      "content": "PROCUREMENT REVIEW FLAG: All fresh produce inventories flagged for procurement review due to anticipated 4% increase in consumer demand next quarter (seasonal trends + farm-to-table growth). Flagged items: Alice/apples(14), Bob/oranges(5), Charlie/bananas(13), Diana/pears(13), Eve/grapes(10), Frank/mangoes(3), Grace/peaches(16), Henry/plums(19), Iris/cherries(5), Jack/strawberries(14), Karen/blueberries(4), Leo/kiwis(19), Mia/lemons(11), Nathan/limes(13), Olivia/watermelons(20).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 17,
+      "step_last_accessed": 18,
+      "access_count": 2,
+      "tags": [
+        "procurement_flag",
+        "fresh_produce",
+        "demand_forecast"
+      ],
+      "created_at": "2026-04-07T19:15:09.409058+00:00"
+    },
+    "f74a83b5-f833-4a1e-974e-626a4ccc592f": {
+      "id": "f74a83b5-f833-4a1e-974e-626a4ccc592f",
+      "content": "Market forecast: fresh produce demand +15% next quarter, driven by seasonal trends and farm-to-table dining popularity. Procurement should plan for significantly increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 18,
+      "step_last_accessed": 28,
+      "access_count": 3,
+      "tags": [
+        "market_forecast",
+        "fresh_produce",
+        "demand",
+        "procurement"
+      ],
+      "created_at": "2026-04-07T19:15:27.304810+00:00"
+    },
+    "72812ae5-a241-4116-afd8-95fcc8b01634": {
+      "id": "72812ae5-a241-4116-afd8-95fcc8b01634",
+      "content": "PROCUREMENT REVIEW FLAG: All fresh produce inventories flagged for procurement review due to anticipated 15% increase in consumer demand next quarter (seasonal trends + farm-to-table growth). Flagged items: Alice/apples(14), Bob/oranges(5), Charlie/bananas(13), Diana/pears(13), Eve/grapes(10), Frank/mangoes(3), Grace/peaches(16), Henry/plums(19), Iris/cherries(5), Jack/strawberries(14), Karen/blueberries(4), Leo/kiwis(19), Mia/lemons(11), Nathan/limes(13), Olivia/watermelons(20).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 18,
+      "step_last_accessed": 30,
+      "access_count": 5,
+      "tags": [
+        "procurement_review",
+        "fresh_produce",
+        "demand_forecast",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:15:27.304860+00:00"
+    },
+    "db0a7108-e1d9-426a-91b3-15f7768ee955": {
+      "id": "db0a7108-e1d9-426a-91b3-15f7768ee955",
+      "content": "ACTION: All fresh produce holders re-flagged for procurement review under updated demand forecast (15% increase next quarter, seasonal trends + farm-to-table growth).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 18,
+      "step_last_accessed": 30,
+      "access_count": 5,
+      "tags": [
+        "procurement",
+        "fresh_produce",
+        "review",
+        "forecast",
+        "flag"
+      ],
+      "created_at": "2026-04-07T19:15:34.571276+00:00"
+    },
+    "cf3aa131-386b-48f6-a2d5-2a15ae9af5e7": {
+      "id": "cf3aa131-386b-48f6-a2d5-2a15ae9af5e7",
+      "content": "TRAINING RESCHEDULED: Barcode scanning system training moved from Tuesday to next Thursday. Topics: handheld devices (updated), new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 19,
+      "step_last_accessed": 37,
+      "access_count": 1,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse-staff",
+        "rescheduled"
+      ],
+      "created_at": "2026-04-07T19:15:55.205242+00:00"
+    },
+    "a3857b3c-32a6-4ef8-b940-b945b926fe9c": {
+      "id": "a3857b3c-32a6-4ef8-b940-b945b926fe9c",
+      "content": "Building B climate-controlled unit quarterly inspection results: Temperature 3\u00b0C, Humidity 65%, Ventilation satisfactory. All conditions meet/exceed regulatory requirements. Next inspection: November.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 27,
+      "step_last_accessed": 41,
+      "access_count": 5,
+      "tags": [
+        "inspection",
+        "building_B",
+        "climate-controlled",
+        "quarterly"
+      ],
+      "created_at": "2026-04-07T19:17:20.813576+00:00"
+    },
+    "79bfbae8-d8fe-4c79-8c9b-249b4edf223b": {
+      "id": "79bfbae8-d8fe-4c79-8c9b-249b4edf223b",
+      "content": "Market forecast: fresh produce demand +8% next quarter, driven by seasonal trends and farm-to-table dining popularity. Procurement should plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 28,
+      "step_last_accessed": 30,
+      "access_count": 2,
+      "tags": [
+        "market_forecast",
+        "fresh_produce",
+        "demand"
+      ],
+      "created_at": "2026-04-07T19:17:39.245753+00:00"
+    },
+    "52caafc5-93be-40ae-91b7-a506c9eaff3c": {
+      "id": "52caafc5-93be-40ae-91b7-a506c9eaff3c",
+      "content": "ACTION: Procurement team flagged for increased order volume planning per demand forecast of +15% next quarter. All fresh produce holders under active procurement review (see entry 72812ae5).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 28,
+      "step_last_accessed": 30,
+      "access_count": 2,
+      "tags": [
+        "procurement",
+        "flag",
+        "order_volume",
+        "planning"
+      ],
+      "created_at": "2026-04-07T19:17:46.120460+00:00"
+    },
+    "ffc7d7df-5e2b-4b4c-8c06-ffb26617dede": {
+      "id": "ffc7d7df-5e2b-4b4c-8c06-ffb26617dede",
+      "content": "Maintenance work order: Aisle 3 refrigerated section \u2014 air filter replacement. Submitted last Friday. Parts from regional supply center. ETA: 14 business days standard, 3 days expedited (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 29,
+      "step_last_accessed": 38,
+      "access_count": 1,
+      "tags": [
+        "maintenance",
+        "aisle3",
+        "refrigerated",
+        "work_order",
+        "air_filter"
+      ],
+      "created_at": "2026-04-07T19:18:09.555728+00:00"
+    },
+    "98edc5ed-f9df-4d83-9f6c-b59626290ac1": {
+      "id": "98edc5ed-f9df-4d83-9f6c-b59626290ac1",
+      "content": "Market forecast: fresh produce demand +10% next quarter, driven by seasonal trends and farm-to-table dining popularity. Procurement should plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 30,
+      "step_last_accessed": 41,
+      "access_count": 2,
+      "tags": [
+        "market_forecast",
+        "fresh_produce",
+        "demand"
+      ],
+      "created_at": "2026-04-07T19:18:29.627093+00:00"
+    },
+    "76c01e46-309d-4b72-977e-4f4c9ad46035": {
+      "id": "76c01e46-309d-4b72-977e-4f4c9ad46035",
+      "content": "PROCUREMENT REVIEW FLAG: All fresh produce inventories flagged for procurement review due to anticipated 10% increase in consumer demand next quarter (seasonal trends + farm-to-table growth). Flagged items: Alice/apples(14), Bob/oranges(5), Charlie/bananas(13), Diana/pears(13), Eve/grapes(10), Frank/mangoes(3), Grace/peaches(16), Henry/plums(19), Iris/cherries(5), Jack/strawberries(14), Karen/blueberries(4), Leo/kiwis(19), Mia/lemons(11), Nathan/limes(13), Olivia/watermelons(20).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 30,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "procurement_review",
+        "fresh_produce",
+        "demand_forecast"
+      ],
+      "created_at": "2026-04-07T19:18:29.627118+00:00"
+    },
+    "bd979ca1-7f74-4e76-9df9-dc7d48de5e0c": {
+      "id": "bd979ca1-7f74-4e76-9df9-dc7d48de5e0c",
+      "content": "ACTION: All fresh produce holders re-flagged for procurement review under updated demand forecast (10% increase next quarter, seasonal trends + farm-to-table growth).",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 30,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "procurement_action",
+        "fresh_produce"
+      ],
+      "created_at": "2026-04-07T19:18:29.627127+00:00"
+    },
+    "fb2a5820-065e-4a59-b224-a668c1937b4f": {
+      "id": "fb2a5820-065e-4a59-b224-a668c1937b4f",
+      "content": "South storage facility (main entrance) QA inspection: Temperature 4\u00b0C, Humidity 68%, Ventilation satisfactory. All conditions meet/exceed regulatory requirements. Next inspection: February.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 31,
+      "step_last_accessed": 41,
+      "access_count": 2,
+      "tags": [
+        "inspection",
+        "south_storage",
+        "main_entrance",
+        "climate",
+        "QA"
+      ],
+      "created_at": "2026-04-07T19:18:56.757844+00:00"
+    },
+    "c46cefbf-c697-497e-a937-649a58853104": {
+      "id": "c46cefbf-c697-497e-a937-649a58853104",
+      "content": "Nathan has 8 limes (climate-controlled unit, building B; standard commercial grade; updated after reconciliation \u2014 additional crates delivered after initial count were not logged)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 32,
+      "step_last_accessed": 55,
+      "access_count": 1,
+      "tags": [
+        "nathan",
+        "limes",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:19:11.835795+00:00"
+    },
+    "51702eb3-3106-424e-91b6-fb6674833d00": {
+      "id": "51702eb3-3106-424e-91b6-fb6674833d00",
+      "content": "Mia has 19 lemons (climate-controlled unit, building B; updated after recount \u2014 some items were moved to a different storage area for a promotional event)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 33,
+      "step_last_accessed": 54,
+      "access_count": 1,
+      "tags": [
+        "mia",
+        "lemons",
+        "building_b",
+        "recount"
+      ],
+      "created_at": "2026-04-07T19:19:26.971397+00:00"
+    },
+    "756b7d1c-e989-4dd2-aafd-abc961945eda": {
+      "id": "756b7d1c-e989-4dd2-aafd-abc961945eda",
+      "content": "Eve has 3 grapes",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 34,
+      "step_last_accessed": 46,
+      "access_count": 1,
+      "tags": [
+        "eve",
+        "grapes",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:19:38.841569+00:00"
+    },
+    "4234f58b-7694-4ffe-be7f-33abf9aff542": {
+      "id": "4234f58b-7694-4ffe-be7f-33abf9aff542",
+      "content": "Diana has 3 pears (climate-controlled unit, building B; specialty variety, limited availability; corrected after recount)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 35,
+      "step_last_accessed": 45,
+      "access_count": 1,
+      "tags": [
+        "diana",
+        "pears",
+        "building_b",
+        "corrected"
+      ],
+      "created_at": "2026-04-07T19:19:54.412814+00:00"
+    },
+    "cb196916-1490-478f-b1c3-0e7661f50ff0": {
+      "id": "cb196916-1490-478f-b1c3-0e7661f50ff0",
+      "content": "Alice has 24 apples",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 36,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "alice",
+        "apples",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T19:20:05.166991+00:00"
+    },
+    "041b9ba7-bcd7-493b-8a10-d07951ca0116": {
+      "id": "041b9ba7-bcd7-493b-8a10-d07951ca0116",
+      "content": "TRAINING RESCHEDULED: Barcode scanning system training moved from Wednesday to next Thursday. Topics: handheld devices (updated), new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "decision",
+      "confidence": 1.0,
+      "step_created": 37,
+      "step_last_accessed": 42,
+      "access_count": 1,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse",
+        "rescheduled"
+      ],
+      "created_at": "2026-04-07T19:20:18.971173+00:00"
+    },
+    "e27a22d4-a4b6-4243-a2a7-ac0cae6eaf51": {
+      "id": "e27a22d4-a4b6-4243-a2a7-ac0cae6eaf51",
+      "content": "Maintenance work order: Fresh produce cooler, ground floor \u2014 air filter replacement. Submitted last Monday. Parts from regional supply center. ETA: 10 business days standard, 2 days expedited (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 38,
+      "step_last_accessed": 42,
+      "access_count": 1,
+      "tags": [
+        "maintenance",
+        "work_order",
+        "air_filter",
+        "produce_cooler",
+        "ground_floor"
+      ],
+      "created_at": "2026-04-07T19:20:33.327345+00:00"
+    },
+    "a69d3546-91da-4e6f-85ec-0e52b5ba7d48": {
+      "id": "a69d3546-91da-4e6f-85ec-0e52b5ba7d48",
+      "content": "Delivery route Beta delay: ~3 min delay due to Highway 36 road construction. Temporary reroute via Industrial Park Loop recommended. Construction ends end of August.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 39,
+      "step_last_accessed": 40,
+      "access_count": 1,
+      "tags": [
+        "delivery",
+        "route",
+        "delay",
+        "beta",
+        "highway36"
+      ],
+      "created_at": "2026-04-07T19:20:54.892728+00:00"
+    },
+    "bb3ea55c-ada3-45b9-8f29-838fa9d132fb": {
+      "id": "bb3ea55c-ada3-45b9-8f29-838fa9d132fb",
+      "content": "Delivery route Beta delay: ~14 min delay due to Highway 13 road construction. Temporary reroute via Oak Street bypass recommended. Construction ends end of November.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 40,
+      "step_last_accessed": 42,
+      "access_count": 1,
+      "tags": [
+        "route_beta",
+        "delay",
+        "construction",
+        "reroute"
+      ],
+      "created_at": "2026-04-07T19:21:07.526237+00:00"
+    },
+    "3e8dfc5c-533e-42ea-967c-e7166149b747": {
+      "id": "3e8dfc5c-533e-42ea-967c-e7166149b747",
+      "content": "Annual inventory reconciliation scheduled for week of June 12th. All department heads must update records and resolve prior quarter discrepancies. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 41,
+      "step_last_accessed": 42,
+      "access_count": 1,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "scheduled",
+        "annual",
+        "facilities"
+      ],
+      "created_at": "2026-04-07T19:21:25.549699+00:00"
+    },
+    "86d62da3-29c4-4e09-b484-3993493e6194": {
+      "id": "86d62da3-29c4-4e09-b484-3993493e6194",
+      "content": "Annual inventory reconciliation scheduled week of June 12th. All department heads must ensure records are up to date and prior quarter discrepancies resolved. Reconciliation team requires access to ALL facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 41,
+      "step_last_accessed": 42,
+      "access_count": 1,
+      "tags": [
+        "reconciliation",
+        "inventory",
+        "facility-access",
+        "corporate",
+        "June"
+      ],
+      "created_at": "2026-04-07T19:21:31.638859+00:00"
+    }
+  },
+  "associations": {
+    "3e180a63-58cf-429e-9509-40162421593a": {
+      "id": "3e180a63-58cf-429e-9509-40162421593a",
+      "source_id": "1aefbc23",
+      "target_id": "1aefbc23",
+      "relationship": "colocated_inventory",
+      "weight": 0.3,
+      "context": "Both Alice and Bob have inventory records; Bob's oranges entry created alongside Alice's apples entry",
+      "step_created": 1,
+      "step_last_accessed": 0
+    },
+    "957b0175-a7bd-4c7f-aaaf-2d75807ddf68": {
+      "id": "957b0175-a7bd-4c7f-aaaf-2d75807ddf68",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "a22d27b8-cb2e-4e45-85c1-74e48e5629ed",
+      "relationship": "stored_in_same_location",
+      "weight": 0.6,
+      "context": "Both Eve's grapes and Diana's pears are stored in the climate-controlled unit in building B, confirmed during the same inspection.",
+      "step_created": 4,
+      "step_last_accessed": 0
+    },
+    "658efd11-bb3d-4d6f-83c5-ac265be3c490": {
+      "id": "658efd11-bb3d-4d6f-83c5-ac265be3c490",
+      "source_id": "1aefbc23-889b-4154-ad75-1e9902fb3570",
+      "target_id": "<new_grace_peaches_entry>",
+      "relationship": "inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory observations; Alice has apples, Grace has peaches.",
+      "step_created": 6,
+      "step_last_accessed": 0
+    },
+    "a37f01e5-60a9-4c31-8010-8ecc49955225": {
+      "id": "a37f01e5-60a9-4c31-8010-8ecc49955225",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "8b25fe14-aed7-492f-8d8c-5c65ec6f072e",
+      "relationship": "stored_at_same_location",
+      "weight": 0.7,
+      "context": "Both Jack's strawberries and Bob's oranges are stored at the north warehouse near the loading dock, confirmed during the same inspection.",
+      "step_created": 9,
+      "step_last_accessed": 0
+    },
+    "b3867d5f-16ef-4691-b170-b8efeecc8e78": {
+      "id": "b3867d5f-16ef-4691-b170-b8efeecc8e78",
+      "source_id": "<NEW_0>",
+      "target_id": "8b25fe14-aed7-492f-8d8c-5c65ec6f072e",
+      "relationship": "same_location",
+      "weight": 0.7,
+      "context": "Both Karen (blueberries) and Bob (oranges) are stored at north warehouse near loading dock, confirmed same inspection round.",
+      "step_created": 10,
+      "step_last_accessed": 0
+    },
+    "1589342d-f13a-440f-82ff-f5750e5f82c4": {
+      "id": "1589342d-f13a-440f-82ff-f5750e5f82c4",
+      "source_id": "<NEW_0>",
+      "target_id": "e99e2d49-e4d1-4fdc-b4be-7986b55944bb",
+      "relationship": "same_location",
+      "weight": 0.7,
+      "context": "Both Karen (blueberries) and Jack (strawberries) are stored at north warehouse near loading dock, confirmed same inspection round.",
+      "step_created": 10,
+      "step_last_accessed": 0
+    },
+    "53d8f01b-0f13-4349-acf6-537365573e0a": {
+      "id": "53d8f01b-0f13-4349-acf6-537365573e0a",
+      "source_id": "<NEW_ENTRY>",
+      "target_id": "9897c805-35ea-4e2b-a159-d395ef4c8bc1",
+      "relationship": "same_location_as",
+      "weight": 0.6,
+      "context": "Both Leo (kiwis) and Henry (plums) are stored in aisle 3 refrigerated section, noted during step 11 inspection.",
+      "step_created": 11,
+      "step_last_accessed": 0
+    },
+    "b59e0732-2744-4a06-8e39-c47dfc7fc4cc": {
+      "id": "b59e0732-2744-4a06-8e39-c47dfc7fc4cc",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "a22d27b8-cb2e-4e45-85c1-74e48e5629ed",
+      "relationship": "same_storage_location",
+      "weight": 0.6,
+      "context": "Both stored in climate-controlled unit, building B",
+      "step_created": 12,
+      "step_last_accessed": 0
+    },
+    "7364afff-f131-43e0-a96b-19cf6751cdd1": {
+      "id": "7364afff-f131-43e0-a96b-19cf6751cdd1",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "e40bc20c-7dbe-465e-a594-b8a39cf74791",
+      "relationship": "same_storage_location",
+      "weight": 0.6,
+      "context": "Both stored in climate-controlled unit, building B",
+      "step_created": 12,
+      "step_last_accessed": 0
+    },
+    "f8750530-dc3c-4041-bf8c-81ff68b53561": {
+      "id": "f8750530-dc3c-4041-bf8c-81ff68b53561",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "a22d27b8",
+      "relationship": "co_located_in",
+      "weight": 0.7,
+      "context": "Both Nathan (limes) and Diana (pears) stored in climate-controlled unit, building B",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "75356ed7-414f-4348-8835-9f946d515ca5": {
+      "id": "75356ed7-414f-4348-8835-9f946d515ca5",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "e40bc20c",
+      "relationship": "co_located_in",
+      "weight": 0.7,
+      "context": "Both Nathan (limes) and Eve (grapes) stored in climate-controlled unit, building B",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "8fd923a3-5c82-4fd6-ad6f-28cb52c1811b": {
+      "id": "8fd923a3-5c82-4fd6-ad6f-28cb52c1811b",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "9e7d5ec3",
+      "relationship": "co_located_in",
+      "weight": 0.7,
+      "context": "Both Nathan (limes) and Mia (lemons) stored in climate-controlled unit, building B",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "6f544df9-74cb-4738-9ee3-7a70d0056407": {
+      "id": "6f544df9-74cb-4738-9ee3-7a70d0056407",
+      "source_id": "NEW:0",
+      "target_id": "a22d27b8-cb2e-4e45-85c1-74e48e5629ed",
+      "relationship": "co_located_with",
+      "weight": 0.8,
+      "context": "Both Nathan and Diana store inventory in climate-controlled unit, building B (confirmed at step 13)",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "f688e3c2-3846-46ff-9f7f-95bcb83da0ab": {
+      "id": "f688e3c2-3846-46ff-9f7f-95bcb83da0ab",
+      "source_id": "NEW:0",
+      "target_id": "e40bc20c-7dbe-465e-a594-b8a39cf74791",
+      "relationship": "co_located_with",
+      "weight": 0.8,
+      "context": "Both Nathan and Eve store inventory in climate-controlled unit, building B (confirmed at step 13)",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "9392a686-d118-405b-9c3c-418c724779ff": {
+      "id": "9392a686-d118-405b-9c3c-418c724779ff",
+      "source_id": "NEW:0",
+      "target_id": "9e7d5ec3-b896-4e74-8d16-0bae644ac3c4",
+      "relationship": "co_located_with",
+      "weight": 0.8,
+      "context": "Both Nathan and Mia store inventory in climate-controlled unit, building B (confirmed at step 13)",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "b5678a73-1961-4839-8ef8-f40236ad9ed1": {
+      "id": "b5678a73-1961-4839-8ef8-f40236ad9ed1",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "1aefbc23",
+      "relationship": "demand_forecast_for",
+      "weight": 0.6,
+      "context": "Market forecast of +7% demand increase applies to fresh produce inventory including apples (Alice).",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "ab6e33f1-a16f-47de-b510-88d0d6c83bc5": {
+      "id": "ab6e33f1-a16f-47de-b510-88d0d6c83bc5",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "8b25fe14",
+      "relationship": "demand_forecast_for",
+      "weight": 0.6,
+      "context": "Market forecast of +7% demand increase applies to fresh produce inventory including oranges (Bob).",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "3501314a-b771-464c-a88f-714c498d4c37": {
+      "id": "3501314a-b771-464c-a88f-714c498d4c37",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "4da0cb12",
+      "relationship": "demand_forecast_for",
+      "weight": 0.6,
+      "context": "Market forecast of +7% demand increase applies to fresh produce inventory including watermelons (Olivia).",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "27202186-3e68-4576-9d6a-23a9560cb740": {
+      "id": "27202186-3e68-4576-9d6a-23a9560cb740",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "1aefbc23",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "a502d447-1d42-48b6-8061-69a689978127": {
+      "id": "a502d447-1d42-48b6-8061-69a689978127",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "8b25fe14",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "4a9bcb2d-3f3c-4c25-a9f6-d46287fcf4eb": {
+      "id": "4a9bcb2d-3f3c-4c25-a9f6-d46287fcf4eb",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "7354b8f2",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "6fb8ac8d-2746-40f5-aba3-dee15dc57620": {
+      "id": "6fb8ac8d-2746-40f5-aba3-dee15dc57620",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "a22d27b8",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "1898c8e2-fd1d-4210-b7a4-8215665518b6": {
+      "id": "1898c8e2-fd1d-4210-b7a4-8215665518b6",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "e40bc20c",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "3f96f757-2732-4aab-8940-f5511afa0e9f": {
+      "id": "3f96f757-2732-4aab-8940-f5511afa0e9f",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "17888b99",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "9880c57b-d1ee-4b7f-ac3f-c8182696ecd2": {
+      "id": "9880c57b-d1ee-4b7f-ac3f-c8182696ecd2",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "dfa1a60f",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "c9f56b3a-b830-47bc-ac7b-7c80b8948269": {
+      "id": "c9f56b3a-b830-47bc-ac7b-7c80b8948269",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "9897c805",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "b9057165-de70-49b0-93a0-66d7640a5229": {
+      "id": "b9057165-de70-49b0-93a0-66d7640a5229",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "2858807c",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "ef63facf-2981-418b-a195-4e6b62c4b917": {
+      "id": "ef63facf-2981-418b-a195-4e6b62c4b917",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "e99e2d49",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "b8af9222-66fc-4555-b1aa-64d7b60b181b": {
+      "id": "b8af9222-66fc-4555-b1aa-64d7b60b181b",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "f32959e4",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "25c42fed-8cbf-4feb-a9bf-28bf0cee493c": {
+      "id": "25c42fed-8cbf-4feb-a9bf-28bf0cee493c",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "46512464",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "b88bc0e7-a085-4019-9b34-d6dea46eced4": {
+      "id": "b88bc0e7-a085-4019-9b34-d6dea46eced4",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "9e7d5ec3",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "09e87ba6-a192-46ea-ada2-efcc13d9d711": {
+      "id": "09e87ba6-a192-46ea-ada2-efcc13d9d711",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "bea09d95",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "052a24d3-90f4-4822-9789-04c2c673a093": {
+      "id": "052a24d3-90f4-4822-9789-04c2c673a093",
+      "source_id": "PLACEHOLDER_FLAG_ENTRY",
+      "target_id": "4da0cb12",
+      "relationship": "flagged_for_procurement_review",
+      "weight": 0.9,
+      "context": "Step 16: All fresh produce flagged due to 7% demand increase forecast",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "0b089aa3-6359-40a8-a933-365177a4175d": {
+      "id": "0b089aa3-6359-40a8-a933-365177a4175d",
+      "source_id": "4edab817-b53f-49f2-8a7c-541e00b30f61",
+      "target_id": "289afacf-66bb-4773-b94e-fee3932911b9",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 17,
+      "step_last_accessed": 0
+    },
+    "768c1e55-d69e-43ce-bc2c-9a37c463b1ea": {
+      "id": "768c1e55-d69e-43ce-bc2c-9a37c463b1ea",
+      "source_id": "9207a357-aa92-49a3-ae77-a1bd69a441fe",
+      "target_id": "b06ec75d-83cd-4eb9-9b2c-513a383e9771",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 17,
+      "step_last_accessed": 0
+    },
+    "94883d05-3c5d-41f2-8aa9-f18db621fe0c": {
+      "id": "94883d05-3c5d-41f2-8aa9-f18db621fe0c",
+      "source_id": "f74a83b5-f833-4a1e-974e-626a4ccc592f",
+      "target_id": "4edab817-b53f-49f2-8a7c-541e00b30f61",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 18,
+      "step_last_accessed": 0
+    },
+    "0b332d79-ef11-47d1-837b-10e360ae4a63": {
+      "id": "0b332d79-ef11-47d1-837b-10e360ae4a63",
+      "source_id": "72812ae5-a241-4116-afd8-95fcc8b01634",
+      "target_id": "9207a357-aa92-49a3-ae77-a1bd69a441fe",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 18,
+      "step_last_accessed": 0
+    },
+    "363258b1-b2e7-4e3b-bc15-5ae7e02cb074": {
+      "id": "363258b1-b2e7-4e3b-bc15-5ae7e02cb074",
+      "source_id": "4edab817-b53f-49f2-8a7c-541e00b30f61",
+      "target_id": "9207a357-aa92-49a3-ae77-a1bd69a441fe",
+      "relationship": "triggered_procurement_review",
+      "weight": 0.85,
+      "context": "Step 18: Market analysis forecasting 15% demand increase triggered re-flagging of all fresh produce holders for procurement review.",
+      "step_created": 18,
+      "step_last_accessed": 0
+    },
+    "02d6b8e7-b79d-4203-baa7-fb94e8187cde": {
+      "id": "02d6b8e7-b79d-4203-baa7-fb94e8187cde",
+      "source_id": "NEW_0",
+      "target_id": "a22d27b8-cb2e-4e45-85c1-74e48e5629ed",
+      "relationship": "inspection_covers",
+      "weight": 0.9,
+      "context": "Quarterly inspection of building B climate-controlled unit covers Diana's pears storage location",
+      "step_created": 27,
+      "step_last_accessed": 0
+    },
+    "455e007d-e910-4fe4-80e6-2bb8e4ea9e15": {
+      "id": "455e007d-e910-4fe4-80e6-2bb8e4ea9e15",
+      "source_id": "NEW_0",
+      "target_id": "e40bc20c-7dbe-465e-a594-b8a39cf74791",
+      "relationship": "inspection_covers",
+      "weight": 0.9,
+      "context": "Quarterly inspection of building B climate-controlled unit covers Eve's grapes storage location",
+      "step_created": 27,
+      "step_last_accessed": 0
+    },
+    "2bdb8446-ee4f-4243-b346-143fd7cf3f53": {
+      "id": "2bdb8446-ee4f-4243-b346-143fd7cf3f53",
+      "source_id": "NEW_0",
+      "target_id": "9e7d5ec3-b896-4e74-8d16-0bae644ac3c4",
+      "relationship": "inspection_covers",
+      "weight": 0.9,
+      "context": "Quarterly inspection of building B climate-controlled unit covers Mia's lemons storage location",
+      "step_created": 27,
+      "step_last_accessed": 0
+    },
+    "4e21060b-cbea-4894-8fd3-27f967f320c1": {
+      "id": "4e21060b-cbea-4894-8fd3-27f967f320c1",
+      "source_id": "NEW_0",
+      "target_id": "bea09d95-a513-4d67-93ba-6f367bca3723",
+      "relationship": "inspection_covers",
+      "weight": 0.9,
+      "context": "Quarterly inspection of building B climate-controlled unit covers Nathan's limes storage location",
+      "step_created": 27,
+      "step_last_accessed": 0
+    },
+    "1a02ed62-8d19-4737-ae83-f84724706a42": {
+      "id": "1a02ed62-8d19-4737-ae83-f84724706a42",
+      "source_id": "79bfbae8-d8fe-4c79-8c9b-249b4edf223b",
+      "target_id": "f74a83b5-f833-4a1e-974e-626a4ccc592f",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 28,
+      "step_last_accessed": 0
+    },
+    "45a6fb4b-16c7-4471-bcd6-3a7f5f400b0b": {
+      "id": "45a6fb4b-16c7-4471-bcd6-3a7f5f400b0b",
+      "source_id": "<NEW_0>",
+      "target_id": "72812ae5-a241-4116-afd8-95fcc8b01634",
+      "relationship": "triggers_review_of",
+      "weight": 0.8,
+      "context": "Updated demand forecast (+8%) still warrants procurement review of fresh produce inventories, though at a lower level than prior 15% forecast.",
+      "step_created": 28,
+      "step_last_accessed": 0
+    },
+    "0ef3fc64-5e1a-4a84-bacb-d4ba9eeab1f1": {
+      "id": "0ef3fc64-5e1a-4a84-bacb-d4ba9eeab1f1",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "72812ae5",
+      "relationship": "references",
+      "weight": 0.9,
+      "context": "Procurement flag for increased order volume planning references the active procurement review flag covering all fresh produce holders.",
+      "step_created": 28,
+      "step_last_accessed": 0
+    },
+    "1c2d93ff-80d2-4bf3-ae36-e78124143072": {
+      "id": "1c2d93ff-80d2-4bf3-ae36-e78124143072",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "db0a7108",
+      "relationship": "references",
+      "weight": 0.8,
+      "context": "Procurement flag action references the re-flagging decision under updated demand forecast.",
+      "step_created": 28,
+      "step_last_accessed": 0
+    },
+    "5f04041a-3a50-48b0-a4ec-ff5ba64c83d0": {
+      "id": "5f04041a-3a50-48b0-a4ec-ff5ba64c83d0",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "9897c805-35ea-4e2b-a159-d395ef4c8bc1",
+      "relationship": "affects_storage_location",
+      "weight": 0.6,
+      "context": "Work order for aisle 3 refrigerated section air filter replacement may affect Henry's plums stored there.",
+      "step_created": 29,
+      "step_last_accessed": 0
+    },
+    "6e3fa66e-9aa0-4a93-a486-31158d8bb295": {
+      "id": "6e3fa66e-9aa0-4a93-a486-31158d8bb295",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "46512464-1bb6-489a-8a94-cc960ef3c732",
+      "relationship": "affects_storage_location",
+      "weight": 0.6,
+      "context": "Work order for aisle 3 refrigerated section air filter replacement may affect Leo's kiwis stored there.",
+      "step_created": 29,
+      "step_last_accessed": 0
+    },
+    "7b37f05e-ac3e-4528-abc1-72da45cc4abb": {
+      "id": "7b37f05e-ac3e-4528-abc1-72da45cc4abb",
+      "source_id": "17888b99",
+      "target_id": "a3857b3c",
+      "relationship": "inspected_at_same_facility_type",
+      "weight": 0.4,
+      "context": "Both entries relate to storage facility climate inspections; Frank's mangoes stored at south storage main entrance, Building B climate-controlled unit has similar inspection data.",
+      "step_created": 31,
+      "step_last_accessed": 0
+    },
+    "34fbbfd3-bd4a-4799-8c02-fe877995ccb7": {
+      "id": "34fbbfd3-bd4a-4799-8c02-fe877995ccb7",
+      "source_id": "c46cefbf-c697-497e-a937-649a58853104",
+      "target_id": "bea09d95-a513-4d67-93ba-6f367bca3723",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 32,
+      "step_last_accessed": 0
+    },
+    "52d9f8da-f220-4835-a421-8997476b8e3f": {
+      "id": "52d9f8da-f220-4835-a421-8997476b8e3f",
+      "source_id": "<new_entry_0>",
+      "target_id": "eb68f47d-839f-4e28-b1fa-6563483d09b5",
+      "relationship": "supersedes",
+      "weight": 0.9,
+      "context": "Step 32: Nathan's lime count reconciled from 13 to 8 after physical count vs database check. Duplicate entry eb68f47d also superseded.",
+      "step_created": 32,
+      "step_last_accessed": 0
+    },
+    "304adb6d-ca6b-4d9d-97f1-f67a7e15990e": {
+      "id": "304adb6d-ca6b-4d9d-97f1-f67a7e15990e",
+      "source_id": "51702eb3-3106-424e-91b6-fb6674833d00",
+      "target_id": "9e7d5ec3-b896-4e74-8d16-0bae644ac3c4",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 33,
+      "step_last_accessed": 0
+    },
+    "e0e5d402-0dad-4073-80c9-0f89f061ae45": {
+      "id": "e0e5d402-0dad-4073-80c9-0f89f061ae45",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "a3857b3c-32a6-4ef8-b940-b945b926fe9c",
+      "relationship": "stored_in",
+      "weight": 0.6,
+      "context": "Mia's lemons stored in building B climate-controlled unit, as confirmed by recount at step 33.",
+      "step_created": 33,
+      "step_last_accessed": 0
+    },
+    "e6a8a1ff-cdee-4794-8985-d95aa5c7dce1": {
+      "id": "e6a8a1ff-cdee-4794-8985-d95aa5c7dce1",
+      "source_id": "756b7d1c-e989-4dd2-aafd-abc961945eda",
+      "target_id": "e40bc20c-7dbe-465e-a594-b8a39cf74791",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 34,
+      "step_last_accessed": 0
+    },
+    "dbf9e3bd-b211-41b8-bc12-424b319b8353": {
+      "id": "dbf9e3bd-b211-41b8-bc12-424b319b8353",
+      "source_id": "4234f58b-7694-4ffe-be7f-33abf9aff542",
+      "target_id": "a22d27b8-cb2e-4e45-85c1-74e48e5629ed",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 35,
+      "step_last_accessed": 0
+    },
+    "d92dfef2-3cb3-4e29-b518-e5b843b3996d": {
+      "id": "d92dfef2-3cb3-4e29-b518-e5b843b3996d",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "a3857b3c-32a6-4ef8-b940-b945b926fe9c",
+      "relationship": "stored_in",
+      "weight": 0.7,
+      "context": "Diana's pears stored in Building B climate-controlled unit, per inspection records.",
+      "step_created": 35,
+      "step_last_accessed": 0
+    },
+    "69f43133-cfbe-48f1-8d2e-9d7ec527c339": {
+      "id": "69f43133-cfbe-48f1-8d2e-9d7ec527c339",
+      "source_id": "cb196916-1490-478f-b1c3-0e7661f50ff0",
+      "target_id": "1aefbc23-889b-4154-ad75-1e9902fb3570",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 36,
+      "step_last_accessed": 0
+    },
+    "2821ccfd-cebb-4c29-a9c8-a03d58d5240e": {
+      "id": "2821ccfd-cebb-4c29-a9c8-a03d58d5240e",
+      "source_id": "041b9ba7-bcd7-493b-8a10-d07951ca0116",
+      "target_id": "cf3aa131-386b-48f6-a2d5-2a15ae9af5e7",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 37,
+      "step_last_accessed": 0
+    },
+    "11c5bcf4-7671-471e-9cf3-62d103974e6c": {
+      "id": "11c5bcf4-7671-471e-9cf3-62d103974e6c",
+      "source_id": "e27a22d4-a4b6-4243-a2a7-ac0cae6eaf51",
+      "target_id": "ffc7d7df-5e2b-4b4c-8c06-ffb26617dede",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 38,
+      "step_last_accessed": 0
+    },
+    "a627c39c-4dd5-4f2c-9eee-fda4cc494a59": {
+      "id": "a627c39c-4dd5-4f2c-9eee-fda4cc494a59",
+      "source_id": "cd042e86-f4cb-4d43-8a4c-d363ac082911",
+      "target_id": "<NEW_BETA_ENTRY>",
+      "relationship": "sibling_route_delay",
+      "weight": 0.8,
+      "context": "Both entries document delivery route construction delays: Alpha on Hwy 30, Beta on Hwy 36. Recorded at step 39.",
+      "step_created": 39,
+      "step_last_accessed": 0
+    },
+    "aea05472-7773-4321-98e9-a69b6b49a2bb": {
+      "id": "aea05472-7773-4321-98e9-a69b6b49a2bb",
+      "source_id": "bb3ea55c-ada3-45b9-8f29-838fa9d132fb",
+      "target_id": "a69d3546-91da-4e6f-85ec-0e52b5ba7d48",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 40,
+      "step_last_accessed": 0
+    },
+    "0c76cc04-7548-4aeb-9c25-5044f3370eee": {
+      "id": "0c76cc04-7548-4aeb-9c25-5044f3370eee",
+      "source_id": "<NEW_ENTRY>",
+      "target_id": "a3857b3c-32a6-4ef8-b940-b945b926fe9c",
+      "relationship": "requires_access_to",
+      "weight": 0.6,
+      "context": "Annual reconciliation team needs access to all facilities including Building B climate-controlled unit.",
+      "step_created": 41,
+      "step_last_accessed": 0
+    },
+    "f95d6ad7-3acb-4910-a1b1-e4c9ca1b5b80": {
+      "id": "f95d6ad7-3acb-4910-a1b1-e4c9ca1b5b80",
+      "source_id": "<NEW_ENTRY>",
+      "target_id": "fb2a5820-065e-4a59-b224-a668c1937b4f",
+      "relationship": "requires_access_to",
+      "weight": 0.6,
+      "context": "Annual reconciliation team needs access to all facilities including South storage facility.",
+      "step_created": 41,
+      "step_last_accessed": 0
+    },
+    "4134daee-498b-4c19-a69a-862196650ceb": {
+      "id": "4134daee-498b-4c19-a69a-862196650ceb",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "a3857b3c-32a6-4ef8-b940-b945b926fe9c",
+      "relationship": "requires_access_to",
+      "weight": 0.8,
+      "context": "Reconciliation team needs access to all facilities including Building B climate-controlled unit during week of June 12th.",
+      "step_created": 41,
+      "step_last_accessed": 0
+    },
+    "9685a2dc-b888-4dbf-a721-cd21536bb20d": {
+      "id": "9685a2dc-b888-4dbf-a721-cd21536bb20d",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "fb2a5820-065e-4a59-b224-a668c1937b4f",
+      "relationship": "requires_access_to",
+      "weight": 0.8,
+      "context": "Reconciliation team needs access to all facilities including South storage facility during week of June 12th.",
+      "step_created": 41,
+      "step_last_accessed": 0
+    }
+  },
+  "memory_map": {
+    "topics": {
+      "Alice's Inventory": {
+        "summary": "Items held by Alice. Currently: 24 apples (revised from 14 \u2014 items moved to different storage area for promotional event; reconciliation confirmed).",
+        "entry_points": [],
+        "density": "sparse"
+      },
+      "Bob's Inventory": {
+        "summary": "Items held by Bob. Currently: 5 oranges (north warehouse, loading dock; surplus from last week's order; good condition as of today).",
+        "entry_points": [
+          "8b25fe14-aed7-492f-8d8c-5c65ec6f072e"
+        ],
+        "density": "sparse"
+      },
+      "Charlie's Inventory": {
+        "summary": "Items held by Charlie. Currently: 13 bananas (overflow storage behind office; imported, high quality, good condition as of today's inspection).",
+        "entry_points": [
+          "7354b8f2-7cfb-480e-a5d2-9a9fdea8441c"
+        ],
+        "density": "sparse"
+      },
+      "Diana's Inventory": {
+        "summary": "Items held by Diana. Currently: 3 pears (climate-controlled unit, building B; specialty variety; corrected from 13 \u2014 data entry error confirmed by recount team).",
+        "entry_points": [
+          "4234f58b-7694-4ffe-be7f-33abf9aff542"
+        ],
+        "density": "sparse"
+      },
+      "Eve's Inventory": {
+        "summary": "Items held by Eve. Currently: 3 grapes (revised from 10 after reconciliation \u2014 previous count included items already allocated elsewhere).",
+        "entry_points": [
+          "756b7d1c-e989-4dd2-aafd-abc961945eda"
+        ],
+        "density": "sparse"
+      },
+      "Frank's Inventory": {
+        "summary": "Items held by Frank. Currently: 3 mangoes (south storage facility, main entrance; premium grade, hand-selected, good condition as of today's inspection).",
+        "entry_points": [
+          "17888b99-ace0-4fd3-9494-15d43a955b1a"
+        ],
+        "density": "sparse"
+      },
+      "Grace's Inventory": {
+        "summary": "Items held by Grace. Currently: 16 peaches (refrigerated section, aisle 3; organic certified, locally sourced, good condition as of today's inspection).",
+        "entry_points": [
+          "dfa1a60f-7c3a-447b-92ca-5748a5125008"
+        ],
+        "density": "sparse"
+      },
+      "Henry's Inventory": {
+        "summary": "Items held by Henry. Currently: 19 plums (aisle 3 refrigerated section; surplus, good condition as of today's inspection).",
+        "entry_points": [
+          "9897c805-35ea-4e2b-a159-d395ef4c8bc1"
+        ],
+        "density": "sparse"
+      },
+      "Iris's Inventory": {
+        "summary": "Items held by Iris. Currently: 5 cherries (temporary staging area near shipping; farm-fresh).",
+        "entry_points": [
+          "2858807c-95d6-4e0f-8e15-c8dfadcf292e"
+        ],
+        "density": "sparse"
+      },
+      "Jack's Inventory": {
+        "summary": "Items held by Jack. Currently: 14 strawberries (north warehouse, near loading dock; mixed variety, various sizes, good condition as of today's inspection).",
+        "entry_points": [
+          "e99e2d49-e4d1-4fdc-b4be-7986b55944bb"
+        ],
+        "density": "sparse"
+      },
+      "Karen's Inventory": {
+        "summary": "Items held by Karen. Currently: 4 blueberries (north warehouse, near loading dock; organic certified, locally sourced, good condition as of today's inspection).",
+        "entry_points": [
+          "f32959e4-c037-48de-9f9c-29254ec9180f"
+        ],
+        "density": "sparse"
+      },
+      "Leo's Inventory": {
+        "summary": "Items held by Leo. Currently: 19 kiwis (aisle 3 refrigerated section; imported, high quality, good condition as of today's inspection).",
+        "entry_points": [
+          "46512464-1bb6-489a-8a94-cc960ef3c732"
+        ],
+        "density": "sparse"
+      },
+      "Mia's Inventory": {
+        "summary": "Items held by Mia. Currently: 19 lemons (climate-controlled unit, building B; updated after recount \u2014 items moved to different storage area for promotional event).",
+        "entry_points": [
+          "51702eb3-3106-424e-91b6-fb6674833d00"
+        ],
+        "density": "sparse"
+      },
+      "Nathan's Inventory": {
+        "summary": "Items held by Nathan. Currently: 8 limes (climate-controlled unit, building B; standard commercial grade; updated after reconciliation \u2014 additional crates delivered after initial count were not logged).",
+        "entry_points": [
+          "c46cefbf-c697-497e-a937-649a58853104"
+        ],
+        "density": "sparse"
+      },
+      "Olivia's Inventory": {
+        "summary": "Items held by Olivia. Currently: 20 watermelons (north warehouse, near loading dock; standard commercial grade, good condition as of today's inspection).",
+        "entry_points": [
+          "4da0cb12-af1a-40a3-ad62-d7af045b9cbd"
+        ],
+        "density": "sparse"
+      },
+      "Delivery Route Delays": {
+        "summary": "Route Alpha: ~14 min delay, Highway 30 construction, Oak Street bypass reroute, ends end of July. Route Beta: ~14 min delay, Highway 13 construction, Oak Street bypass reroute, ends end of November. (Supersedes old Route Beta entry a69d3546.)",
+        "entry_points": [
+          "cd042e86-f4cb-4d43-8a4c-d363ac082911"
+        ],
+        "density": "sparse"
+      },
+      "Market Forecast & Procurement Flags": {
+        "summary": "Current forecast: fresh produce demand +10% next quarter (seasonal trends, farm-to-table). Supersedes prior +8% entry. Procurement team actively flagged for increased order volume planning across all fresh produce holders.",
+        "entry_points": [
+          "98edc5ed-f9df-4d83-9f6c-b59626290ac1",
+          "76c01e46-309d-4b72-977e-4f4c9ad46035",
+          "bd979ca1-7f74-4e76-9df9-dc7d48de5e0c",
+          "52caafc5-93be-40ae-91b7-a506c9eaff3c",
+          "72812ae5-a241-4116-afd8-95fcc8b01634",
+          "db0a7108-e1d9-426a-91b3-15f7768ee955"
+        ],
+        "density": "sparse"
+      },
+      "Training & System Updates": {
+        "summary": "Barcode scanning system training rescheduled to next Thursday. Covers: updated handheld devices, new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+        "entry_points": [
+          "041b9ba7"
+        ],
+        "density": "sparse"
+      },
+      "Building B Climate-Controlled Unit Inspections": {
+        "summary": "Quarterly QA inspection results for Building B climate-controlled unit. Latest: Temp 3\u00b0C, Humidity 65%, Ventilation satisfactory. All conditions meet/exceed regulatory requirements. Next inspection: November.",
+        "entry_points": [
+          "a3857b3c-32a6-4ef8-b940-b945b926fe9c"
+        ],
+        "density": "sparse"
+      },
+      "Aisle 3 Refrigerated Section Maintenance": {
+        "summary": "SUPERSEDED by fresh produce cooler entry (e27a22d4). Original: work order submitted last Friday, air filter replacement, parts from regional supply center, ETA 14 days standard / 3 days expedited (management approval required).",
+        "entry_points": [
+          "ffc7d7df"
+        ],
+        "density": "sparse"
+      },
+      "South Storage Facility (Main Entrance) Inspections": {
+        "summary": "Quarterly QA inspection results for south storage facility (main entrance). Latest: Temp 4\u00b0C, Humidity 68%, Ventilation satisfactory. All conditions meet/exceed regulatory requirements. Next inspection: February.",
+        "entry_points": [
+          "fb2a5820-065e-4a59-b224-a668c1937b4f"
+        ],
+        "density": "sparse"
+      },
+      "Fresh Produce Cooler Maintenance (Ground Floor)": {
+        "summary": "Work order submitted last Monday for air filter replacement. Parts from regional supply center. ETA: 10 business days standard, 2 days expedited (management approval required). Supersedes Aisle 3 refrigerated section entry (ffc7d7df).",
+        "entry_points": [
+          "e27a22d4"
+        ],
+        "density": "sparse"
+      },
+      "Annual Inventory Reconciliation": {
+        "summary": "Reconciliation scheduled week of June 12th. All dept heads must update records and resolve prior quarter discrepancies. Reconciliation team requires access to all facilities (incl. Building B climate-controlled unit, South storage facility main entrance).",
+        "entry_points": [
+          "3e8dfc5c-533e-42ea-967c-e7166149b747",
+          "86d62da3-29c4-4e09-b484-3993493e6194"
+        ],
+        "density": "sparse"
+      }
+    },
+    "recent_changes": [
+      "Answered query: Grace has 16 peaches.",
+      "Answered query: Karen has 4 blueberries.",
+      "Market forecast updated to +8% fresh produce demand next quarter, superseding prior +15% figure. Procurement flag confirmed active.",
+      "Nathan's lime count corrected from 13 to 8 after physical reconciliation revealed unlogged deliveries.",
+      "Alice's apple count revised from 14 to 24 after physical reconciliation \u2014 items had been moved to different storage area for a promotional event.",
+      "Training rescheduled day corrected from Tuesday to Wednesday (original day). Rescheduled to next Thursday. Entry 041b9ba7 added to Training & System Updates topic.",
+      "Answered query: Alice has 24 apples.",
+      "Answered query: Bob has 5 oranges.",
+      "Answered query: Charlie has 13 bananas.",
+      "Answered query: Diana has 3 pears.",
+      "Answered query: Eve has 3 grapes.",
+      "Answered query: Grace has 16 peaches.",
+      "Answered query: Henry has 19 plums.",
+      "Answered query: Iris has 5 cherries.",
+      "Answered query: Jack has 14 strawberries.",
+      "Answered query: Karen has 4 blueberries.",
+      "Answered query: Leo has 19 kiwis.",
+      "Answered query: Mia has 19 lemons.",
+      "Answered query: Nathan has 8 limes.",
+      "Answered query: Olivia has 20 watermelons."
+    ],
+    "contested_regions": [],
+    "weakly_connected": []
+  }
+}

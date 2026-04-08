@@ -1,0 +1,112 @@
+{
+  "config": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "max_width": 3,
+    "max_steps": 5,
+    "context_budget": 3000,
+    "verbose_facts": false,
+    "scaled_entities": null,
+    "seed": 42,
+    "llm_kwargs": {}
+  },
+  "results": {
+    "total_questions": 32,
+    "correct": 20,
+    "accuracy": "62%",
+    "pre_correction": {
+      "correct": 0,
+      "total": 0
+    },
+    "post_correction": {
+      "correct": 20,
+      "total": 32
+    }
+  },
+  "failures": [
+    {
+      "step_index": 92,
+      "question": "Question: How many oranges does Bob currently have?",
+      "expected": "8",
+      "actual": "Bob currently has 17 oranges."
+    },
+    {
+      "step_index": 93,
+      "question": "Question: How many grapes did Eve have right before the trade with Rachel (where 1 grapes were transferred)?",
+      "expected": "10",
+      "actual": "Eve had 9 grapes right before the trade with Rachel."
+    },
+    {
+      "step_index": 94,
+      "question": "Question: How many plums did Henry have right before the trade with Charlie (where 4 plums were transferred)?",
+      "expected": "17",
+      "actual": "Henry had **11 plums** right before the trade with Charlie. He gave 4 plums to Charlie, leaving him with his current count of 7."
+    },
+    {
+      "step_index": 96,
+      "question": "Question: How many plums did Henry have right before the trade with Iris (where 1 plums were transferred)?",
+      "expected": "5",
+      "actual": "Henry had **8 plums** right before the trade with Iris (after giving 1, he had 7)."
+    },
+    {
+      "step_index": 97,
+      "question": "Question: How many oranges did Bob have right before the trade with Tina (where 1 oranges were transferred)?",
+      "expected": "9",
+      "actual": "Bob had 16 oranges right before the trade with Tina."
+    },
+    {
+      "step_index": 100,
+      "question": "Question: Rachel gave dates to Alice, and later Alice gave apples to Diana. How many apples does Diana currently have?",
+      "expected": "5",
+      "actual": "Diana currently has **8 apples**."
+    },
+    {
+      "step_index": 139,
+      "question": "Question: How many plums does Henry currently have?",
+      "expected": "3",
+      "actual": "Henry currently has 7 plums."
+    },
+    {
+      "step_index": 141,
+      "question": "Question: How many bananas does Charlie currently have?",
+      "expected": "11",
+      "actual": "Charlie currently has 16 bananas."
+    },
+    {
+      "step_index": 142,
+      "question": "Question: How many grapes does Eve currently have?",
+      "expected": "9",
+      "actual": "Eve currently has 8 grapes."
+    },
+    {
+      "step_index": 144,
+      "question": "Question: What was Charlie's ORIGINAL bananas count before the correction was applied?",
+      "expected": "19",
+      "actual": "Charlie's original banana count before the correction was 14."
+    },
+    {
+      "step_index": 146,
+      "question": "Question: What was Eve's ORIGINAL grapes count before the correction was applied?",
+      "expected": "10",
+      "actual": "Eve's original grape count before the correction was applied was **8**."
+    },
+    {
+      "step_index": 149,
+      "question": "Question: How many different people did Leo trade with?",
+      "expected": "3",
+      "actual": "There is no recorded information about Leo trading with anyone. Only Leo's item count is on record."
+    }
+  ],
+  "performance": {
+    "duration_ms": 2580822,
+    "llm_calls": 591,
+    "traversal_steps": 291
+  },
+  "state_summary": {
+    "entries": 180,
+    "active_entries": 117,
+    "associations": 183,
+    "topics": 26,
+    "memory_map_tokens": 1453
+  }
+}

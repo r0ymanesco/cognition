@@ -1,0 +1,106 @@
+{
+  "config": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "max_width": 3,
+    "max_steps": 5,
+    "context_budget": 3000,
+    "verbose_facts": false,
+    "scaled_entities": null,
+    "seed": 42,
+    "llm_kwargs": {}
+  },
+  "results": {
+    "total_questions": 30,
+    "correct": 19,
+    "accuracy": "63%",
+    "pre_correction": {
+      "correct": 0,
+      "total": 0
+    },
+    "post_correction": {
+      "correct": 19,
+      "total": 30
+    }
+  },
+  "failures": [
+    {
+      "step_index": 48,
+      "question": "Question: How many dates does Rachel currently have?",
+      "expected": "21",
+      "actual": "Rachel currently has 19 dates."
+    },
+    {
+      "step_index": 50,
+      "question": "Question: How many figs does Quinn currently have?",
+      "expected": "18",
+      "actual": "Quinn currently has 13 figs."
+    },
+    {
+      "step_index": 52,
+      "question": "Question: How many papayas did Paul have right before the trade with Charlie (where 1 papayas were transferred)?",
+      "expected": "13",
+      "actual": "Based on the memory map, Paul gave **2 papayas** to Charlie (not 1 as stated in the question), and currently has 10 papayas. So right before the trade, Paul had **12 papayas**.\n\nHowever, taking the qu"
+    },
+    {
+      "step_index": 53,
+      "question": "Question: How many papayas did Paul have right before the trade with Charlie (where 2 papayas were transferred)?",
+      "expected": "12",
+      "actual": "Paul had **10 papayas** right before the trade with Charlie (where 2 papayas were transferred)."
+    },
+    {
+      "step_index": 56,
+      "question": "Question: Henry gave plums to Eve, and later Eve gave grapes to Paul. How many grapes does Paul currently have?",
+      "expected": "15",
+      "actual": "Paul currently has 5 grapes."
+    },
+    {
+      "step_index": 57,
+      "question": "Question: Diana gave pears to Eve, and later Eve gave grapes to Paul. How many grapes does Paul currently have?",
+      "expected": "15",
+      "actual": "Paul currently has 5 grapes."
+    },
+    {
+      "step_index": 58,
+      "question": "Question: Nathan gave limes to Frank, and later Frank gave mangoes to Iris. How many mangoes does Iris currently have?",
+      "expected": "17",
+      "actual": "Iris currently has 4 mangoes (received from Frank)."
+    },
+    {
+      "step_index": 68,
+      "question": "Question: How many papayas does Paul currently have?",
+      "expected": "15",
+      "actual": "Paul currently has 10 papayas."
+    },
+    {
+      "step_index": 72,
+      "question": "Question: How many dates does Rachel currently have?",
+      "expected": "21",
+      "actual": "Rachel currently has 19 dates."
+    },
+    {
+      "step_index": 74,
+      "question": "Question: How many figs does Quinn currently have?",
+      "expected": "18",
+      "actual": "Quinn currently has 13 figs."
+    },
+    {
+      "step_index": 79,
+      "question": "Question: How many different people did Quinn trade with?",
+      "expected": "2",
+      "actual": "Quinn traded with 1 different person: Jack."
+    }
+  ],
+  "performance": {
+    "duration_ms": 1252765,
+    "llm_calls": 273,
+    "traversal_steps": 113
+  },
+  "state_summary": {
+    "entries": 72,
+    "active_entries": 31,
+    "associations": 107,
+    "topics": 27,
+    "memory_map_tokens": 1834
+  }
+}

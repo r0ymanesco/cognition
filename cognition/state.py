@@ -273,15 +273,12 @@ class StateStore:
             assoc.step_last_accessed = step
             logger.debug("state.weaken assoc_id=%s new_weight=%.2f", assoc_id, assoc.weight)
 
-    def append_association_context(self, assoc_id: str, text: str) -> None:
-        """Append text to an association's context — recording new events or reasons."""
+    def set_association_context(self, assoc_id: str, context: str) -> None:
+        """Replace an association's context with a new compact summary."""
         assoc = self.associations.get(assoc_id)
         if assoc:
-            if assoc.context:
-                assoc.context += f" | {text}"
-            else:
-                assoc.context = text
-            logger.debug("state.append_context assoc_id=%s context=%r", assoc_id, assoc.context[:80])
+            assoc.context = context
+            logger.debug("state.set_context assoc_id=%s context=%r", assoc_id, context[:80])
 
     # --- Navigation ---
 

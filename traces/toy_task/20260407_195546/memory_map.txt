@@ -1,0 +1,81 @@
+Memory Map:
+  Alice: Tracks item counts belonging to Alice.
+    Entry points: [c8656cac-c823-4d28-9193-fa62d4ad6c91, 2d240358-5e1c-4017-8d5d-423af3225425, 2ce83c66-ab5d-463d-a7ff-55aae5528f04, 43585a47-4c8b-4bbf-b8dc-6dc688c5196e]
+    Density: sparse
+  Bob: Tracks item counts belonging to Bob.
+    Entry points: [fc87e0cf-c89f-4e8e-b354-25b4b493433e, 9dd9fdfa-abda-49b7-a714-49b390282033, c1d9a376-a981-4e38-bcfa-1eb84aa8a43c, 9a2c1f09-851e-491a-8459-c7a9f3f670d6, 460070de-a5e5-4bf4-a4da-6355cf32e4cb]
+    Density: sparse
+  Charlie: Charlie's item counts; 16 bananas current, 14 original.
+    Entry points: [3644538f-4f2e-4d39-ace5-83801ce81103, c8f70e86-545f-4b95-85f7-3eebcff931b4]
+    Density: sparse
+  Diana: Diana's item counts; 12 pears current.
+    Entry points: [9d367849-174c-4cc8-966d-8daeb43ae23f, 00422c36-e28e-4200-8d13-f2de684372b9, f3482663-6fc1-44da-a8c6-f570e45a30fd, 0150e2be-89d8-4b63-8939-2b2c051075dd]
+    Density: sparse
+  Eve: Eve's item counts; 8 grapes original and current.
+    Entry points: [2e0c145d-3c1f-4b80-a03d-3b5d02c68d27, 8fda6edb-9118-461c-a00d-ec98211bde56]
+    Density: sparse
+  Frank: Frank's mangoes: 9 original, corrected to 7.
+    Entry points: [8a1e4a7e-32fc-4c80-98b8-ee16d03781b4, ea62cce5-0aa0-4ceb-a41c-5231ce156cc7]
+    Density: sparse
+  Grace: Tracks item counts belonging to Grace.
+    Entry points: [7ec9b7ab-a61f-418b-87b4-85cf831a8d0e, 3f880d9a-e4ce-473c-9cf4-fe3768bf7981]
+    Density: sparse
+  Henry: Henry's plums: 7 current, history tracked.
+    Entry points: [90eb88ae-09fe-4e38-8aed-fcc255e9c3a5, b853a34d-da40-43b6-be58-bcdc98cd733b]
+    Density: sparse
+  Iris: Tracks item counts belonging to Iris.
+    Entry points: [6f966daa-0eee-435d-99d6-a4dbb599778b, 93f73505-af39-40d3-ae06-2a8043bb4bd3, 24d1047c-b466-4086-bdc0-0e3fe77dd3ed, 8eaf58f6-f5af-4bd3-a00f-c8bb1492b7a3, 345223eb-56a7-4d96-aa53-1d4dba2c3aae]
+    Density: sparse
+  Jack: Tracks item counts belonging to Jack.
+    Entry points: [45c65c06-81c5-4d6e-9bf9-07368f678e1e, 993f9386-ca1e-4aac-b437-b5b6e2a82ec2, 7ba6316f-de08-4825-8f91-2252075e8eaf, 5f7be67b-6d3d-4123-83fd-f895aa0056ab]
+    Density: sparse
+  Karen: Karen's item counts; 11 blueberries pre-Nathan trade.
+    Entry points: [104d785c-db6f-4c83-a0c6-19682a4b6d8c, 6bcd0e7a-a06d-4320-b58b-0d2619d1cb4e, a4715359-5b56-4154-86a4-ac8fa3b81bc9, 82d213ef-5901-441d-9d5a-c38667519195, 2c22d112-1846-4dd5-a7be-0d804b3f2381]
+    Density: sparse
+  Leo: Tracks item counts belonging to Leo.
+    Entry points: [dee0265c-7c7c-4277-9e75-85a06cedf82b]
+    Density: sparse
+  Mia: Tracks item counts belonging to Mia.
+    Entry points: [d620e967-74fb-45d7-8d05-baff6a9e646e, 9cbed5d8-4105-49e5-995f-a9e663190e2a]
+    Density: sparse
+  Nathan: Nathan's item counts; limes corrected from 22 to 21.
+    Entry points: [39246eb4-cc5f-480b-90c4-5c3a54380e57, bfdc4131-4200-40fa-bb33-9d83607192f1, e634c9bd-294b-4d25-be0e-635c6f490239, 94e0e4d9-89dd-4917-ac64-f388e29a4d06, b52fe01e-5265-4b9a-8bb5-3790eeb1c134]
+    Density: sparse
+  Olivia: Olivia's watermelons: 19 original, correction applied.
+    Entry points: [1d0bcb27-7ca6-415c-a615-3b3f5958f5e6]
+    Density: sparse
+  Paul: Tracks item counts belonging to Paul.
+    Entry points: [7c3e6230-1a47-4516-aa19-a342745cd80f]
+    Density: sparse
+  Quinn: Tracks item counts belonging to Quinn.
+    Entry points: [33d7725c-4df1-4348-acb7-c38784c0d429, e8a11c57-f66c-4344-badb-c66957d30bd4]
+    Density: sparse
+  Rachel: Tracks item counts belonging to Rachel.
+    Entry points: [b2c75768-6240-45dc-aeb4-01bf11f25f10, 0e810c95-816f-4e78-af72-46cda982c751, 84324cb2-b209-48e1-b9b0-58fefdc34cde, ba1802ce-c1cd-42af-a831-6c3299801e43]
+    Density: sparse
+  Sam: Tracks item counts belonging to Sam.
+    Entry points: [1bf83199-6b02-44a6-a52a-8f41d885a88a, 888a9495-a8b7-4141-9be5-8ebb72649032, 054ad62c-74d7-4eed-b9cf-842c03b9e2ee, c4497be2-3ba3-4424-8639-5ad71b901d6a, 1d4173a4-4bbd-47ff-bc24-8db0a8b2b2c1]
+    Density: sparse
+  Tina: Tracks item counts belonging to Tina.
+    Entry points: [109724f4-cfd1-4e06-8022-75ec32daefea, 8f061461-f5b2-416a-aa6b-12f01a7cfbcb, 6f708d5f-3475-4390-bcef-a0ed48a11b23]
+    Density: sparse
+  Market Analysis: Fresh produce demand up 13% next quarter; procurement advised.
+    Entry points: [b15932dd]
+    Density: sparse
+  Training Schedule: Barcode system training rescheduled to next Friday; mandatory.
+    Entry points: [79453dce, 32f0e71e, 1df0b7fc, e38d7f48, 087ea14f]
+    Density: sparse
+  Maintenance Orders: Active work orders and repair status for store equipment.
+    Entry points: [980296a8-638e-4433-b97e-fff9a951a472, 00747dfc-d297-4eab-a2c0-a1ad198d14e3, 532f151b-6b0e-4c99-b6e8-d90f9c0659e9, bb7bbff5-b9f2-463d-ac47-d1b2ce72042e, 2c767551]
+    Density: sparse
+  Warehouse Inspections: QA inspection results and schedules for warehouses.
+    Entry points: [0ff45908-4d4b-4e94-b840-88360b6b1cab, a5c03936-ffb9-4cad-bf62-38a7f665c141, 35dffcb3-c615-45c0-8002-001fb6db0051, c55cf297-0f57-417b-ab77-850310f3f4c5, f086979b-0d97-430b-bee6-60d10b5692c8]
+    Density: sparse
+  Delivery Routes: Route delays, reroutes, and logistics route status.
+    Entry points: [2d446043, 97bfd021-c215-4c7a-86db-52d28c684e25, 5974afc8-aa44-4441-a3b2-a16395615ed7, b252259d, 9cbc0617]
+    Density: sparse
+  Inventory Reconciliation: Annual reconciliation Dec 5th week; all facilities access needed.
+    Entry points: [7359509a, 96c08111, fd33a8cd, c71b0627, c4ccf0a2]
+    Density: sparse
+  Recent: Answered: Bob has 17 oranges (entry fc87e0cf).; Answered: Eve had 9 grapes before transferring 1 to Rachel (now has 8).; Answered: Karen had 11 blueberries before giving 3 to Nathan (now has 8).; Answered: Diana has 8 apples (received 3 from Alice, entry 0150e2be).; Answered: Eve currently has 8 grapes (entry 2e0c145d).
+  Relationship types: sibling_inventory_record, supersedes

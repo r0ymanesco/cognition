@@ -1,0 +1,72 @@
+Memory Map:
+  Alice's Inventory: Alice has 24 apples in the refrigerated section, aisle 3. Corrected from 14 — items moved for promotional event.
+    Entry points: [0f26f8af-841e-4c87-9297-d94fd0b0ca36]
+    Density: sparse
+  Bob's Inventory: Bob has 5 oranges in north warehouse (loading dock area), surplus from last week's order, good condition.
+    Entry points: [6b5067b9-55b9-4ed6-9ee2-542586aace8f]
+    Density: sparse
+  Charlie's Inventory: Charlie has 13 bananas in the overflow storage area behind the office. Imported, high quality, good condition.
+    Entry points: [1184ff4c-0d36-4616-a86b-b835e7b50896]
+    Density: sparse
+  Diana's Inventory: Diana has 3 pears in the climate-controlled unit, building B. Corrected from 13 — data entry error identified by recount team.
+    Entry points: [a50286e7-c482-43b0-a49d-58029e6159a3]
+    Density: sparse
+  Eve's Inventory: Eve has 3 grapes in climate-controlled unit, building B. Corrected from 10 after reconciliation — original count included items already allocated elsewhere.
+    Entry points: [c7c07a4f-1504-41fb-bc55-d2adb77f2724]
+    Density: sparse
+  Frank's Inventory: Frank has 3 mangoes in south storage facility by main entrance. Premium grade, hand-selected, good condition as of today's inspection.
+    Entry points: [9705b970-4789-4b2d-a260-3a72d2ad3f1f]
+    Density: sparse
+  Grace's Inventory: Grace has 16 peaches in the refrigerated section, aisle 3. Organic certified, locally sourced, good condition.
+    Entry points: [63c309bf-b734-45ec-88a8-c9de839888cb]
+    Density: sparse
+  Henry's Inventory: Henry has 19 plums in the refrigerated section, aisle 3. Surplus from last week's order, good condition per today's inspection.
+    Entry points: [c80ee727-d7b6-426f-a86d-13bb3a5b60e9]
+    Density: sparse
+  Iris's Inventory: Iris has 5 cherries in the temporary staging area near shipping. Farm-fresh, delivered this morning, good condition as of today's inspection.
+    Entry points: [7f835a61-bfaf-4ede-b204-31a7eaa32bea]
+    Density: sparse
+  Jack's Inventory: Jack has 14 strawberries in the north warehouse near the loading dock. Mixed variety, various sizes, good condition as of today's inspection.
+    Entry points: [acddd0f3-4ab8-4750-ad24-4f5d4a13b54d]
+    Density: sparse
+  Karen's Inventory: Karen has 4 blueberries in the north warehouse near the loading dock. Organic certified, locally sourced, good condition as of today's inspection.
+    Entry points: [6bd2651b-3b38-45d4-9d7f-ea733021371a]
+    Density: sparse
+  Leo's Inventory: Leo has 19 kiwis in the refrigerated section, aisle 3. Imported, high quality, good condition.
+    Entry points: [7605065b-4f69-4d2d-83de-f57a97ee2a8b]
+    Density: sparse
+  Mia's Inventory: Mia has 19 lemons in the climate-controlled unit, building B. Corrected from 11 after recount; some items moved for a promotional event.
+    Entry points: [f124031e-ecad-4ae7-83be-89103fc18e8b]
+    Density: sparse
+  Nathan's Inventory: Nathan has 8 limes in climate-controlled unit, building B. Standard commercial grade. Count corrected after physical reconciliation — additional crates delivered post-initial count were unlogged.
+    Entry points: [ffc82573-1240-4f92-8544-d3122c95be7a]
+    Density: sparse
+  Olivia's Inventory: Olivia has 20 watermelons in the north warehouse near the loading dock. Standard commercial grade, good condition as of today's inspection.
+    Entry points: [1d29a994-7661-4e98-840c-f38611bc3200]
+    Density: sparse
+  Delivery Route Status: Route Alpha: ~14-min delays, Highway 30 construction, Oak Street bypass reroute until end of July. Route Beta: ~14-min delays, Highway 13 construction, Oak Street bypass reroute until end of November.
+    Entry points: [a8b87655-410b-4172-9e2a-3105671214cf, fc2f120a-310f-4d84-bf75-add4834900f2]
+    Density: sparse
+  Market Demand Forecast: Fresh produce demand projected to increase +10% next quarter (revised up from +8%, which superseded +15%, +7%, +4%). Drivers: seasonal trends and farm-to-table dining. Procurement flagged for increased order volumes.
+    Entry points: [e9792762-aa28-4a98-b1a5-9804d2948c56, ddad3e80-ae74-43f6-9bf3-3dfd3e67e5c9]
+    Density: sparse
+  Staff Training & Systems: Barcode scanning system training rescheduled from Wednesday to next Thursday. Covers: updated handheld devices, new software interface, central inventory database integration. Mandatory for all warehouse staff.
+    Entry points: [d94d728e-f6ff-4166-b57b-5284b38e3750]
+    Density: sparse
+  Building B Climate-Controlled Unit: Quarterly inspection passed: Temp 3°C, Humidity 65%, Ventilation satisfactory. All conditions meet/exceed regulatory requirements. Next inspection: November. Stores Diana (pears), Eve (grapes), Mia (lemons), Nathan (limes).
+    Entry points: [642039cc-aa04-4d37-9a0b-086543ac865c]
+    Density: sparse
+  Aisle 3 Refrigerated Section Maintenance: Air filter replacement needed. Work order submitted last Friday, parts pending from regional supply center. Estimated completion: 14 business days (standard) or 3 days (expedited, pending management approval). May affect Alice, Grace, Henry, Leo's inventory.
+    Entry points: [0f26f8af-841e-4c87-9297-d94fd0b0ca36, 5b918fc8-1a8f-4d12-9bda-e5f5812b0120]
+    Density: sparse
+  South Storage Facility Inspection: Quarterly inspection passed: Temp 4°C, Humidity 68%, Ventilation satisfactory. All conditions meet/exceed regulatory requirements. Next inspection: February. Stores Frank (mangoes).
+    Entry points: [9313cefe-c514-402a-8901-7c7f4a35507d, 9705b970-4789-4b2d-a260-3a72d2ad3f1f]
+    Density: sparse
+  Ground Floor Cooler Maintenance: Air filter replacement needed for ground floor fresh produce cooler. Work order submitted last Monday, parts pending from regional supply center. ETA: 10 business days standard, 2 days expedited (pending management approval).
+    Entry points: [709c7100-1569-4d4b-9e5a-cc6105ca20e7]
+    Density: sparse
+  Annual Inventory Reconciliation (June 12th Week): Corporate HQ memo: annual reconciliation week of June 12th. All dept heads must update records and resolve prior-quarter discrepancies. Reconciliation team requires access to all facilities: Building B climate-controlled unit, South storage facility, Aisle 3 refrigerated section (air filter pending), Ground floor fresh produce cooler (air filter pending).
+    Entry points: [9c7af7cc-c69c-4298-a9d1-9c22526934c6, 29013885-5db0-42ab-b2f1-bb3a03ab00cb, 913e4f54-c176-436b-a558-c3f5d34a2e14, 8d4e4dc3-d146-467c-943b-6cb2a452bb60, 77b0d152-1412-470a-b209-7c5a399a8f72]
+    Density: sparse
+  Recent: Answered query: Henry has 19 plums.; Answered query: Jack has 14 strawberries.; Answered query: Leo has 19 kiwis.; Answered query: Mia has 19 lemons.; Answered query: Nathan has 8 limes.
+  Relationship types: same_inventory_system, supersedes

@@ -437,12 +437,18 @@ def build_trading_task(
     varieties = [rng.choice(_VARIETIES) for _ in range(num_entities)]
     initial_counts = [rng.randint(8, 25) for _ in range(num_entities)]
 
-    # Track current state for generating correct expected answers
-    current_counts = list(initial_counts)
+    # Track current state: per-entity inventory as dict of fruit -> count
+    inventory: list[dict[str, int]] = [{fruits[i]: initial_counts[i]} for i in range(num_entities)]
     # Track trade history: list of (from_idx, to_idx, amount, from_fruit)
     trade_history: list[tuple[int, int, int, str]] = []
     # Track corrections: list of (idx, old_count, new_count)
     correction_history: list[tuple[int, int, int]] = []
+
+    def total_items(idx: int) -> int:
+        return sum(inventory[idx].values())
+
+    def fruit_count(idx: int, fruit: str) -> int:
+        return inventory[idx].get(fruit, 0)
 
     steps: list[TaskStep] = []
 
@@ -464,7 +470,7 @@ def build_trading_task(
     for i in recall_indices:
         steps.append(TaskStep(
             f"Question: How many {fruits[i]} does {names[i]} have?",
-            expected_answer=str(current_counts[i]),
+            expected_answer=str(fruit_count(i, fruits[i])),
         ))
 
     # --- Phase 4: Trades ---
@@ -475,22 +481,21 @@ def build_trading_task(
         while to_idx == from_idx:
             to_idx = rng.randint(0, num_entities - 1)
 
-        # Trade amount: 1 to a third of sender's current count
-        max_trade = max(1, current_counts[from_idx] // 3)
+        # Trade amount: 1 to a third of sender's primary fruit count
+        sender_fruit = fruits[from_idx]
+        sender_count = fruit_count(from_idx, sender_fruit)
+        max_trade = max(1, sender_count // 3)
         amount = rng.randint(1, max_trade)
 
-        # Update state
-        current_counts[from_idx] -= amount
-        current_counts[to_idx] += amount
-        trade_history.append((from_idx, to_idx, amount, fruits[from_idx]))
+        # Update inventory
+        inventory[from_idx][sender_fruit] = sender_count - amount
+        inventory[to_idx][sender_fruit] = inventory[to_idx].get(sender_fruit, 0) + amount
+        trade_history.append((from_idx, to_idx, amount, sender_fruit))
 
         steps.append(TaskStep(
-            f"Trade completed: {names[from_idx]} gave {amount} {fruits[from_idx]} "
+            f"Trade completed: {names[from_idx]} gave {amount} {sender_fruit} "
             f"to {names[to_idx]}. The transfer was verified by the logistics team "
-            f"and recorded in the inventory system. {names[from_idx]} now has "
-            f"{current_counts[from_idx]} {fruits[from_idx]} remaining, and "
-            f"{names[to_idx]} now has {current_counts[to_idx]} items total "
-            f"(including the {amount} {fruits[from_idx]} just received)."
+            f"and recorded in the inventory system."
         ))
 
         # Intersperse filler every few trades
@@ -499,30 +504,32 @@ def build_trading_task(
 
     # --- Phase 5: Post-trade questions (current state + history + multi-hop) ---
 
-    # Current state questions
+    # Current state questions — ask about their primary fruit
     post_trade_recall = rng.sample(range(num_entities), min(5, num_entities))
     for i in post_trade_recall:
         steps.append(TaskStep(
             f"Question: How many {fruits[i]} does {names[i]} currently have?",
-            expected_answer=str(current_counts[i]),
+            expected_answer=str(fruit_count(i, fruits[i])),
         ))
 
-    # Historical questions — ask about pre-trade values
+    # Historical questions — ask about sender's primary fruit count before a trade
     for trade_idx in rng.sample(range(len(trade_history)), min(5, len(trade_history))):
-        from_idx, to_idx, amount, fruit = trade_history[trade_idx]
-        # Calculate what the sender had before this specific trade
+        from_idx, to_idx, amount, traded_fruit = trade_history[trade_idx]
+        # Calculate what the sender's primary fruit count was before this trade
+        # by replaying trades on that specific fruit
+        sender_fruit = fruits[from_idx]
         pre_trade_count = initial_counts[from_idx]
         for prev_t in range(trade_idx):
-            prev_from, prev_to, prev_amount, _ = trade_history[prev_t]
-            if prev_from == from_idx:
+            prev_from, prev_to, prev_amount, prev_fruit = trade_history[prev_t]
+            if prev_from == from_idx and prev_fruit == sender_fruit:
                 pre_trade_count -= prev_amount
-            if prev_to == from_idx:
+            if prev_to == from_idx and prev_fruit == sender_fruit:
                 pre_trade_count += prev_amount
 
         steps.append(TaskStep(
-            f"Question: How many {fruits[from_idx]} did {names[from_idx]} have "
+            f"Question: How many {sender_fruit} did {names[from_idx]} have "
             f"right before the trade with {names[to_idx]} "
-            f"(where {amount} {fruit} were transferred)?",
+            f"(where {amount} {traded_fruit} were transferred)?",
             expected_answer=str(pre_trade_count),
         ))
 
@@ -532,16 +539,18 @@ def build_trading_task(
     for t1_idx in range(len(trade_history)):
         if chains_found >= 3:
             break
-        from1, to1, amt1, fruit1 = trade_history[t1_idx]
+        from1, to1, _, _ = trade_history[t1_idx]
         for t2_idx in range(t1_idx + 1, len(trade_history)):
-            from2, to2, amt2, fruit2 = trade_history[t2_idx]
+            from2, to2, _, traded_fruit2 = trade_history[t2_idx]
             if to1 == from2:  # B received from A, then B gave to C
+                # Ask how many of the second traded fruit C has
+                c_count = fruit_count(to2, traded_fruit2)
                 steps.append(TaskStep(
                     f"Question: {names[from1]} gave {fruits[from1]} to "
                     f"{names[to1]}, and later {names[from2]} gave "
-                    f"{fruits[from2]} to {names[to2]}. "
-                    f"How many {fruits[from2]} does {names[to2]} currently have?",
-                    expected_answer=str(current_counts[to2]),
+                    f"{traded_fruit2} to {names[to2]}. "
+                    f"How many {traded_fruit2} does {names[to2]} currently have?",
+                    expected_answer=str(c_count),
                 ))
                 chains_found += 1
                 break
@@ -559,17 +568,16 @@ def build_trading_task(
         while new_count == old_count:
             new_count = old_count + rng.choice([-3, -2, -1, 1, 2, 3])
 
-        # Calculate the cascading effect on current count
+        # Calculate the cascading effect on current fruit count
         delta = new_count - old_count
-        current_counts[idx] += delta
+        primary_fruit = fruits[idx]
+        inventory[idx][primary_fruit] = inventory[idx].get(primary_fruit, 0) + delta
         correction_history.append((idx, old_count, new_count))
 
         steps.append(TaskStep(
             f"Important correction: the initial count for {names[idx]}'s "
-            f"{fruits[idx]} was wrong. The recount team confirmed {names[idx]} "
-            f"originally had {new_count} {fruits[idx]}, not {old_count}. "
-            f"This means after accounting for all trades, {names[idx]} now has "
-            f"{current_counts[idx]} {fruits[idx]}."
+            f"{primary_fruit} was wrong. The recount team confirmed {names[idx]} "
+            f"originally had {new_count} {primary_fruit}, not {old_count}."
         ))
 
     # --- Phase 8: More filler ---
@@ -578,12 +586,12 @@ def build_trading_task(
 
     # --- Phase 9: Final recall — all question types ---
 
-    # Current state after corrections
+    # Current state after corrections — ask about primary fruit
     final_recall = rng.sample(range(num_entities), min(8, num_entities))
     for i in final_recall:
         steps.append(TaskStep(
             f"Question: How many {fruits[i]} does {names[i]} currently have?",
-            expected_answer=str(current_counts[i]),
+            expected_answer=str(fruit_count(i, fruits[i])),
         ))
 
     # Historical: what was the ORIGINAL count before any corrections?

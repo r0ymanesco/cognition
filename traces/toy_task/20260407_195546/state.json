@@ -1,0 +1,4895 @@
+{
+  "entries": {
+    "3e51c81d-ebf5-4a04-97be-86c51ba85efb": {
+      "id": "3e51c81d-ebf5-4a04-97be-86c51ba85efb",
+      "content": "Alice has 25 apples.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 0,
+      "step_last_accessed": 71,
+      "access_count": 10,
+      "tags": [
+        "alice",
+        "apples",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:55:54.570693+00:00"
+    },
+    "fc87e0cf-c89f-4e8e-b354-25b4b493433e": {
+      "id": "fc87e0cf-c89f-4e8e-b354-25b4b493433e",
+      "content": "Bob has 17 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 1,
+      "step_last_accessed": 97,
+      "access_count": 19,
+      "tags": [
+        "bob",
+        "oranges",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:56:06.925464+00:00"
+    },
+    "cbfc2b55-563b-41e6-94c7-e3daece78115": {
+      "id": "cbfc2b55-563b-41e6-94c7-e3daece78115",
+      "content": "Charlie has 19 bananas.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 2,
+      "step_last_accessed": 59,
+      "access_count": 11,
+      "tags": [
+        "charlie",
+        "bananas",
+        "overflow_storage"
+      ],
+      "created_at": "2026-04-07T23:56:19.700670+00:00"
+    },
+    "1b2732af-c456-4568-bd31-68ce64feeb8a": {
+      "id": "1b2732af-c456-4568-bd31-68ce64feeb8a",
+      "content": "Diana has 14 pears.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 3,
+      "step_last_accessed": 64,
+      "access_count": 13,
+      "tags": [
+        "Diana",
+        "pears",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:56:30.960954+00:00"
+    },
+    "619ced01-3177-49b6-a38d-17114cbe6994": {
+      "id": "619ced01-3177-49b6-a38d-17114cbe6994",
+      "content": "Eve has 10 grapes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 4,
+      "step_last_accessed": 72,
+      "access_count": 8,
+      "tags": [
+        "eve",
+        "grapes",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:56:42.018355+00:00"
+    },
+    "abbdad48-963d-4ff6-9983-6f22c9301d2c": {
+      "id": "abbdad48-963d-4ff6-9983-6f22c9301d2c",
+      "content": "Frank has 9 mangoes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 5,
+      "step_last_accessed": 120,
+      "access_count": 12,
+      "tags": [
+        "frank",
+        "mangoes",
+        "south storage facility",
+        "organic",
+        "locally sourced"
+      ],
+      "created_at": "2026-04-07T23:56:54.648013+00:00"
+    },
+    "5a70356b-c151-4390-8e16-ca7ff02cf766": {
+      "id": "5a70356b-c151-4390-8e16-ca7ff02cf766",
+      "content": "Grace has 15 peaches.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 6,
+      "step_last_accessed": 47,
+      "access_count": 9,
+      "tags": [
+        "Grace",
+        "peaches",
+        "inventory",
+        "refrigerated",
+        "aisle 3",
+        "imported"
+      ],
+      "created_at": "2026-04-07T23:57:05.259461+00:00"
+    },
+    "b59b85b1-f7f0-4157-80b9-7c227ffa630b": {
+      "id": "b59b85b1-f7f0-4157-80b9-7c227ffa630b",
+      "content": "Henry has 17 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 7,
+      "step_last_accessed": 53,
+      "access_count": 12,
+      "tags": [
+        "henry",
+        "plums",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:57:13.866957+00:00"
+    },
+    "8aa702fd-4e7f-4496-b505-db3efb462ba0": {
+      "id": "8aa702fd-4e7f-4496-b505-db3efb462ba0",
+      "content": "Iris has 10 cherries.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 8,
+      "step_last_accessed": 65,
+      "access_count": 11,
+      "tags": [
+        "inventory",
+        "iris",
+        "cherries"
+      ],
+      "created_at": "2026-04-07T23:57:23.593723+00:00"
+    },
+    "45c65c06-81c5-4d6e-9bf9-07368f678e1e": {
+      "id": "45c65c06-81c5-4d6e-9bf9-07368f678e1e",
+      "content": "Jack has 15 strawberries.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 9,
+      "step_last_accessed": 138,
+      "access_count": 14,
+      "tags": [
+        "jack",
+        "strawberries",
+        "north_warehouse"
+      ],
+      "created_at": "2026-04-07T23:57:34.243628+00:00"
+    },
+    "701039a4-b0a6-4fa4-86eb-86aeb780da3a": {
+      "id": "701039a4-b0a6-4fa4-86eb-86aeb780da3a",
+      "content": "Karen has 11 blueberries.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 10,
+      "step_last_accessed": 79,
+      "access_count": 15,
+      "tags": [
+        "Karen",
+        "blueberries"
+      ],
+      "created_at": "2026-04-07T23:57:45.202006+00:00"
+    },
+    "d64b7d0f-16c8-4943-8a66-88c039e51d43": {
+      "id": "d64b7d0f-16c8-4943-8a66-88c039e51d43",
+      "content": "Leo has 20 kiwis.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 11,
+      "step_last_accessed": 61,
+      "access_count": 8,
+      "tags": [
+        "leo",
+        "kiwis"
+      ],
+      "created_at": "2026-04-07T23:57:54.093250+00:00"
+    },
+    "e4d521f9-9193-41fa-8b40-4bf4077bf653": {
+      "id": "e4d521f9-9193-41fa-8b40-4bf4077bf653",
+      "content": "Mia has 16 lemons.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 12,
+      "step_last_accessed": 52,
+      "access_count": 8,
+      "tags": [
+        "mia",
+        "lemons",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:58:03.561194+00:00"
+    },
+    "df5f8a4f-e36b-4729-bb67-1edcbcae3e03": {
+      "id": "df5f8a4f-e36b-4729-bb67-1edcbcae3e03",
+      "content": "Nathan has 22 limes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 13,
+      "step_last_accessed": 76,
+      "access_count": 15,
+      "tags": [
+        "nathan",
+        "limes",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:58:13.453054+00:00"
+    },
+    "f0a25987-73f4-46fd-b145-156141a3b4d8": {
+      "id": "f0a25987-73f4-46fd-b145-156141a3b4d8",
+      "content": "Olivia has 19 watermelons.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 14,
+      "step_last_accessed": 119,
+      "access_count": 7,
+      "tags": [
+        "olivia",
+        "watermelons",
+        "north_warehouse"
+      ],
+      "created_at": "2026-04-07T23:58:24.419841+00:00"
+    },
+    "7c7055af-78cc-476e-bc87-c65ccc2387ce": {
+      "id": "7c7055af-78cc-476e-bc87-c65ccc2387ce",
+      "content": "Paul has 13 papayas.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 15,
+      "step_last_accessed": 44,
+      "access_count": 7,
+      "tags": [
+        "paul",
+        "papayas",
+        "building_b",
+        "climate_controlled",
+        "premium_grade"
+      ],
+      "created_at": "2026-04-07T23:58:36.187481+00:00"
+    },
+    "8b4f92b3-81e3-4820-bc27-a411bb3c4999": {
+      "id": "8b4f92b3-81e3-4820-bc27-a411bb3c4999",
+      "content": "Quinn has 19 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 16,
+      "step_last_accessed": 56,
+      "access_count": 8,
+      "tags": [
+        "quinn",
+        "figs",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:58:48.280260+00:00"
+    },
+    "7ebeee60-13f0-4e4e-81eb-79dee7f59922": {
+      "id": "7ebeee60-13f0-4e4e-81eb-79dee7f59922",
+      "content": "Rachel has 19 dates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 17,
+      "step_last_accessed": 41,
+      "access_count": 7,
+      "tags": [
+        "rachel",
+        "dates",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:58:59.544778+00:00"
+    },
+    "1bf83199-6b02-44a6-a52a-8f41d885a88a": {
+      "id": "1bf83199-6b02-44a6-a52a-8f41d885a88a",
+      "content": "Sam has 14 coconuts.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 18,
+      "step_last_accessed": 73,
+      "access_count": 18,
+      "tags": [
+        "sam",
+        "coconuts",
+        "inventory",
+        "storage_vault"
+      ],
+      "created_at": "2026-04-07T23:59:11.935560+00:00"
+    },
+    "c4461de7-fccc-46b0-b9dd-45bf86a32e91": {
+      "id": "c4461de7-fccc-46b0-b9dd-45bf86a32e91",
+      "content": "Tina has 16 pomegranates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 19,
+      "step_last_accessed": 58,
+      "access_count": 9,
+      "tags": [
+        "tina",
+        "pomegranates",
+        "inventory"
+      ],
+      "created_at": "2026-04-07T23:59:20.643512+00:00"
+    },
+    "74529527-37e4-419b-bcb7-4be6ea9a146e": {
+      "id": "74529527-37e4-419b-bcb7-4be6ea9a146e",
+      "content": "Market analysis (research dept): Consumer demand for fresh produce expected to increase by 10% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team advised to plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 20,
+      "step_last_accessed": 30,
+      "access_count": 4,
+      "tags": [
+        "market-analysis",
+        "fresh-produce",
+        "demand-forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-07T23:59:33.101027+00:00"
+    },
+    "2fa68f5e-5bf9-4291-96f3-61cca25cdb5c": {
+      "id": "2fa68f5e-5bf9-4291-96f3-61cca25cdb5c",
+      "content": "Employee training session on new barcode scanning system rescheduled from Wednesday to next Monday. Covers: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 21,
+      "step_last_accessed": 22,
+      "access_count": 1,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse",
+        "rescheduled",
+        "mandatory"
+      ],
+      "created_at": "2026-04-07T23:59:46.395410+00:00"
+    },
+    "a41cae9b-1ed7-48b6-847d-e5f5d4085c24": {
+      "id": "a41cae9b-1ed7-48b6-847d-e5f5d4085c24",
+      "content": "Employee training session on new barcode scanning system rescheduled from Tuesday to next Thursday. Covers: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 22,
+      "step_last_accessed": 23,
+      "access_count": 1,
+      "tags": [
+        "training",
+        "barcode_scanning",
+        "warehouse",
+        "scheduling"
+      ],
+      "created_at": "2026-04-07T23:59:56.479579+00:00"
+    },
+    "e4d1aafd-a444-4d25-b9aa-af14a3e75745": {
+      "id": "e4d1aafd-a444-4d25-b9aa-af14a3e75745",
+      "content": "Employee training session on new barcode scanning system rescheduled from Friday to next Thursday. Covers: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 23,
+      "step_last_accessed": 51,
+      "access_count": 3,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse-staff",
+        "rescheduled"
+      ],
+      "created_at": "2026-04-08T00:00:12.956331+00:00"
+    },
+    "f101d996-71cb-4e71-9394-ffb841d09bf0": {
+      "id": "f101d996-71cb-4e71-9394-ffb841d09bf0",
+      "content": "Employee training session on new barcode scanning system rescheduled from Friday to next Thursday. Topics: updated handheld devices basics, new software interface, central inventory database integration. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 23,
+      "step_last_accessed": 25,
+      "access_count": 2,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "scheduling",
+        "warehouse-staff"
+      ],
+      "created_at": "2026-04-08T00:00:19.520193+00:00"
+    },
+    "57e086dc-16a6-4782-8fa5-ac9979440da4": {
+      "id": "57e086dc-16a6-4782-8fa5-ac9979440da4",
+      "content": "Maintenance work order submitted (last Tuesday): refrigerated section on aisle 3 needs air filter replacement. Parts awaited from regional supply center. ETA: 14 business days standard, or 4 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 24,
+      "step_last_accessed": 34,
+      "access_count": 6,
+      "tags": [
+        "maintenance",
+        "aisle 3",
+        "refrigeration",
+        "work order"
+      ],
+      "created_at": "2026-04-08T00:00:32.281058+00:00"
+    },
+    "0ff45908-4d4b-4e94-b840-88360b6b1cab": {
+      "id": "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+      "content": "QA quarterly inspection \u2014 north warehouse (near loading dock): all storage conditions meet/exceed regulatory requirements. Temperature: 3\u00b0C, humidity: 54%, ventilation: satisfactory. Next inspection scheduled: July.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 25,
+      "step_last_accessed": 112,
+      "access_count": 6,
+      "tags": [
+        "quality_assurance",
+        "inspection",
+        "north_warehouse",
+        "temperature",
+        "humidity",
+        "ventilation"
+      ],
+      "created_at": "2026-04-08T00:00:45.939555+00:00"
+    },
+    "fe0c3ff8-68d4-460c-9282-d8ef08cbb635": {
+      "id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "content": "Maintenance work order submitted (last Friday): overflow storage area behind the office needs air filter replacement. Parts awaited from regional supply center. ETA: 10 business days standard, or 1 day with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 26,
+      "step_last_accessed": 75,
+      "access_count": 7,
+      "tags": [
+        "maintenance",
+        "work_order",
+        "air_filter",
+        "overflow_storage"
+      ],
+      "created_at": "2026-04-08T00:00:59.380250+00:00"
+    },
+    "a5c03936-ffb9-4cad-bf62-38a7f665c141": {
+      "id": "a5c03936-ffb9-4cad-bf62-38a7f665c141",
+      "content": "QA quarterly inspection \u2014 south storage facility (near main entrance): all storage conditions meet/exceed regulatory requirements. Temperature: 4\u00b0C, humidity: 68%, ventilation: satisfactory. Next inspection scheduled: February.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 27,
+      "step_last_accessed": 112,
+      "access_count": 6,
+      "tags": [
+        "QA",
+        "inspection",
+        "south-storage",
+        "temperature",
+        "humidity",
+        "ventilation"
+      ],
+      "created_at": "2026-04-08T00:01:14.804490+00:00"
+    },
+    "35dffcb3-c615-45c0-8002-001fb6db0051": {
+      "id": "35dffcb3-c615-45c0-8002-001fb6db0051",
+      "content": "QA quarterly inspection \u2014 climate-controlled unit, building B: all storage conditions meet/exceed regulatory requirements. Temperature: 8\u00b0C, humidity: 57%, ventilation: satisfactory. Next inspection scheduled: February.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 28,
+      "step_last_accessed": 112,
+      "access_count": 5,
+      "tags": [
+        "QA",
+        "inspection",
+        "building B",
+        "climate-controlled"
+      ],
+      "created_at": "2026-04-08T00:01:27.903959+00:00"
+    },
+    "299cad78-cfb9-47bd-99cf-dacb5680a8a2": {
+      "id": "299cad78-cfb9-47bd-99cf-dacb5680a8a2",
+      "content": "Delivery route Delta experiencing ~4 min delays due to road construction on Highway 28. Temporary reroute suggested via Industrial Park Loop until construction ends (end of December).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 29,
+      "step_last_accessed": 123,
+      "access_count": 7,
+      "tags": [
+        "logistics",
+        "delivery",
+        "route-delta",
+        "highway-28",
+        "construction",
+        "reroute"
+      ],
+      "created_at": "2026-04-08T00:01:40.347274+00:00"
+    },
+    "09513d60-8dad-4cad-9e14-e05f1192c2bf": {
+      "id": "09513d60-8dad-4cad-9e14-e05f1192c2bf",
+      "content": "Market analysis (research dept): Consumer demand for fresh produce expected to increase by 9% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team advised to plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 30,
+      "step_last_accessed": 69,
+      "access_count": 2,
+      "tags": [
+        "market-analysis",
+        "fresh-produce",
+        "demand-forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:01:53.013363+00:00"
+    },
+    "bf1f7e8c-7a97-4ae5-9f05-497ffd20da3e": {
+      "id": "bf1f7e8c-7a97-4ae5-9f05-497ffd20da3e",
+      "content": "Maintenance work order submitted (last Friday): climate-controlled unit in building B needs air filter replacement. Parts awaited from regional supply center. ETA: 2 business days standard, or 1 day with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 31,
+      "step_last_accessed": 32,
+      "access_count": 1,
+      "tags": [
+        "maintenance",
+        "air_filter",
+        "building_B",
+        "work_order"
+      ],
+      "created_at": "2026-04-08T00:02:06.744228+00:00"
+    },
+    "640451a8-55cc-4eb4-8b17-70233cef3c5c": {
+      "id": "640451a8-55cc-4eb4-8b17-70233cef3c5c",
+      "content": "Maintenance work order submitted (last Wednesday): climate-controlled unit in building B needs air filter replacement. Parts awaited from regional supply center. ETA: 5 business days standard, or 5 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 32,
+      "step_last_accessed": 131,
+      "access_count": 8,
+      "tags": [
+        "maintenance",
+        "building-B",
+        "air-filter",
+        "work-order"
+      ],
+      "created_at": "2026-04-08T00:02:20.830985+00:00"
+    },
+    "c7aa7af4-7cd2-43ce-a2c1-ac4e1ebd6fb2": {
+      "id": "c7aa7af4-7cd2-43ce-a2c1-ac4e1ebd6fb2",
+      "content": "Corporate HQ memo: Annual inventory reconciliation scheduled for the week of August 3rd. All department heads must ensure records are current and prior-quarter discrepancies resolved. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 33,
+      "step_last_accessed": 63,
+      "access_count": 1,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "corporate",
+        "facilities",
+        "deadline"
+      ],
+      "created_at": "2026-04-08T00:02:37.052109+00:00"
+    },
+    "980296a8-638e-4433-b97e-fff9a951a472": {
+      "id": "980296a8-638e-4433-b97e-fff9a951a472",
+      "content": "Maintenance work order submitted (last Monday): refrigerated section on aisle 3 needs air filter replacement. Parts awaited from regional supply center. ETA: 13 business days standard, or 3 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 34,
+      "step_last_accessed": 131,
+      "access_count": 6,
+      "tags": [
+        "maintenance",
+        "air filter",
+        "aisle 3",
+        "refrigerated section",
+        "work order"
+      ],
+      "created_at": "2026-04-08T00:02:50.869722+00:00"
+    },
+    "4a96840c-82f7-4a0b-b6a3-4ef54e52ff7c": {
+      "id": "4a96840c-82f7-4a0b-b6a3-4ef54e52ff7c",
+      "content": "Henry has 13 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 40,
+      "step_last_accessed": 53,
+      "access_count": 4,
+      "tags": [
+        "henry",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:03:51.594329+00:00"
+    },
+    "d1b2d94c-8f37-44ec-8a25-7943792b9422": {
+      "id": "d1b2d94c-8f37-44ec-8a25-7943792b9422",
+      "content": "Rachel has 18 dates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 41,
+      "step_last_accessed": 42,
+      "access_count": 2,
+      "tags": [
+        "rachel",
+        "dates",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:04:08.484296+00:00"
+    },
+    "9d367849-174c-4cc8-966d-8daeb43ae23f": {
+      "id": "9d367849-174c-4cc8-966d-8daeb43ae23f",
+      "content": "Diana has 1 dates (received 1 from Rachel via trade)",
+      "entry_type": "observation",
+      "confidence": 0.8,
+      "step_created": 41,
+      "step_last_accessed": 136,
+      "access_count": 14,
+      "tags": [
+        "diana",
+        "dates",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:04:19.958050+00:00"
+    },
+    "fa4ff193-80cc-483d-821d-985e23108bff": {
+      "id": "fa4ff193-80cc-483d-821d-985e23108bff",
+      "content": "Rachel has 17 dates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 42,
+      "step_last_accessed": 46,
+      "access_count": 2,
+      "tags": [
+        "rachel",
+        "dates"
+      ],
+      "created_at": "2026-04-08T00:04:31.834611+00:00"
+    },
+    "c8656cac-c823-4d28-9193-fa62d4ad6c91": {
+      "id": "c8656cac-c823-4d28-9193-fa62d4ad6c91",
+      "content": "Alice has dates: current count needs to be determined from prior entries. Based on traversal, no prior Alice dates entry found \u2014 creating baseline. Alice received 1 date from Rachel (trade). Alice's dates count: 1 (if no prior record) or prior + 1.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 42,
+      "step_last_accessed": 143,
+      "access_count": 12,
+      "tags": [
+        "alice",
+        "dates",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:04:37.877141+00:00"
+    },
+    "90eb88ae-09fe-4e38-8aed-fcc255e9c3a5": {
+      "id": "90eb88ae-09fe-4e38-8aed-fcc255e9c3a5",
+      "content": "Henry has 13 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 43,
+      "step_last_accessed": 139,
+      "access_count": 12,
+      "tags": [
+        "henry",
+        "plums",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:04:54.976577+00:00"
+    },
+    "b74a725c-df19-48d7-a5e0-bbdbeef6b7d9": {
+      "id": "b74a725c-df19-48d7-a5e0-bbdbeef6b7d9",
+      "content": "Frank has 4 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 43,
+      "step_last_accessed": 77,
+      "access_count": 2,
+      "tags": [
+        "frank",
+        "plums",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:05:01.726219+00:00"
+    },
+    "9fb23ccf-e1f1-4b7f-82ef-a89331584ea0": {
+      "id": "9fb23ccf-e1f1-4b7f-82ef-a89331584ea0",
+      "content": "Paul has 9 papayas.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 44,
+      "step_last_accessed": 46,
+      "access_count": 2,
+      "tags": [
+        "paul",
+        "papaya"
+      ],
+      "created_at": "2026-04-08T00:05:15.458136+00:00"
+    },
+    "7ec9b7ab-a61f-418b-87b4-85cf831a8d0e": {
+      "id": "7ec9b7ab-a61f-418b-87b4-85cf831a8d0e",
+      "content": "Grace's papaya count increased by 4 (received from Paul via trade, verified by logistics team). Previous count unknown from graph; net change: +4.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 44,
+      "step_last_accessed": 137,
+      "access_count": 6,
+      "tags": [
+        "grace",
+        "papaya",
+        "inventory",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:05:22.524343+00:00"
+    },
+    "00747dfc-d297-4eab-a2c0-a1ad198d14e3": {
+      "id": "00747dfc-d297-4eab-a2c0-a1ad198d14e3",
+      "content": "Maintenance work order submitted (last Thursday): south storage facility by the main entrance needs air filter replacement. Parts awaited from regional supply center. ETA: 8 business days standard, or 3 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 45,
+      "step_last_accessed": 131,
+      "access_count": 4,
+      "tags": [
+        "maintenance",
+        "work_order",
+        "air_filter",
+        "south_storage_facility"
+      ],
+      "created_at": "2026-04-08T00:05:39.010155+00:00"
+    },
+    "5f2d8f8a-0901-42f9-8d47-8d0fe11b4e76": {
+      "id": "5f2d8f8a-0901-42f9-8d47-8d0fe11b4e76",
+      "content": "Maintenance work order submitted (last Thursday): south storage facility by main entrance needs air filter replacement. Parts awaited from regional supply center. ETA: 8 business days standard, or 3 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 45,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "maintenance",
+        "air filter",
+        "work order",
+        "south storage facility"
+      ],
+      "created_at": "2026-04-08T00:05:46.895930+00:00"
+    },
+    "3c82bf02-d1af-446e-98ba-7b532e3dd348": {
+      "id": "3c82bf02-d1af-446e-98ba-7b532e3dd348",
+      "content": "Rachel has 15 dates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 46,
+      "step_last_accessed": 70,
+      "access_count": 7,
+      "tags": [
+        "rachel",
+        "dates"
+      ],
+      "created_at": "2026-04-08T00:05:58.253144+00:00"
+    },
+    "7c3e6230-1a47-4516-aa19-a342745cd80f": {
+      "id": "7c3e6230-1a47-4516-aa19-a342745cd80f",
+      "content": "Paul has dates: previous count + 2 (received 2 dates from Rachel via verified trade)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 46,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "paul",
+        "dates",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:06:06.082581+00:00"
+    },
+    "53fda01e-3a5e-4462-b735-d2a40f121f16": {
+      "id": "53fda01e-3a5e-4462-b735-d2a40f121f16",
+      "content": "Grace has 13 peaches.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 47,
+      "step_last_accessed": 66,
+      "access_count": 3,
+      "tags": [
+        "grace",
+        "peaches",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:06:18.370709+00:00"
+    },
+    "993f9386-ca1e-4aac-b437-b5b6e2a82ec2": {
+      "id": "993f9386-ca1e-4aac-b437-b5b6e2a82ec2",
+      "content": "Jack has 2 peaches.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 47,
+      "step_last_accessed": 138,
+      "access_count": 6,
+      "tags": [
+        "jack",
+        "peaches"
+      ],
+      "created_at": "2026-04-08T00:06:25.673779+00:00"
+    },
+    "9dd9fdfa-abda-49b7-a714-49b390282033": {
+      "id": "9dd9fdfa-abda-49b7-a714-49b390282033",
+      "content": "Bob has 12 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 48,
+      "step_last_accessed": 97,
+      "access_count": 12,
+      "tags": [
+        "bob",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:06:39.120442+00:00"
+    },
+    "b8bc71cf-db97-46a2-9130-f51b88cf2339": {
+      "id": "b8bc71cf-db97-46a2-9130-f51b88cf2339",
+      "content": "Sam has 5 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 48,
+      "step_last_accessed": 50,
+      "access_count": 2,
+      "tags": [
+        "sam",
+        "oranges",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:06:47.944620+00:00"
+    },
+    "c1d9a376-a981-4e38-bcfa-1eb84aa8a43c": {
+      "id": "c1d9a376-a981-4e38-bcfa-1eb84aa8a43c",
+      "content": "Bob has 16 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 49,
+      "step_last_accessed": 97,
+      "access_count": 10,
+      "tags": [
+        "bob",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:07:04.000248+00:00"
+    },
+    "104d785c-db6f-4c83-a0c6-19682a4b6d8c": {
+      "id": "104d785c-db6f-4c83-a0c6-19682a4b6d8c",
+      "content": "Karen has 1 orange.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 49,
+      "step_last_accessed": 95,
+      "access_count": 11,
+      "tags": [
+        "karen",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:07:21.011867+00:00"
+    },
+    "9a2c1f09-851e-491a-8459-c7a9f3f670d6": {
+      "id": "9a2c1f09-851e-491a-8459-c7a9f3f670d6",
+      "content": "Bob has 15 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 50,
+      "step_last_accessed": 97,
+      "access_count": 8,
+      "tags": [
+        "bob",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:07:34.638698+00:00"
+    },
+    "888a9495-a8b7-4141-9be5-8ebb72649032": {
+      "id": "888a9495-a8b7-4141-9be5-8ebb72649032",
+      "content": "Sam has 7 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 50,
+      "step_last_accessed": 73,
+      "access_count": 8,
+      "tags": [
+        "sam",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:07:34.638712+00:00"
+    },
+    "054ad62c-74d7-4eed-b9cf-842c03b9e2ee": {
+      "id": "054ad62c-74d7-4eed-b9cf-842c03b9e2ee",
+      "content": "Sam has 7 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 50,
+      "step_last_accessed": 73,
+      "access_count": 9,
+      "tags": [
+        "sam",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:07:38.165399+00:00"
+    },
+    "ada02afc-d7ac-4ade-9d8f-8f878a385f2b": {
+      "id": "ada02afc-d7ac-4ade-9d8f-8f878a385f2b",
+      "content": "Employee training session on new barcode scanning system rescheduled from Monday to next Friday. Covers: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 51,
+      "step_last_accessed": 104,
+      "access_count": 3,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse",
+        "scheduling"
+      ],
+      "created_at": "2026-04-08T00:07:50.656345+00:00"
+    },
+    "31c2c992-c9f6-4e57-8696-6d72bcc00c23": {
+      "id": "31c2c992-c9f6-4e57-8696-6d72bcc00c23",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Friday. Topics: updated handheld devices basics, new software interface, inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 51,
+      "step_last_accessed": 104,
+      "access_count": 3,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "scheduling",
+        "warehouse"
+      ],
+      "created_at": "2026-04-08T00:07:57.052485+00:00"
+    },
+    "176979c7-8743-4dcc-8a82-ad9f4932eae1": {
+      "id": "176979c7-8743-4dcc-8a82-ad9f4932eae1",
+      "content": "Mia has 11 lemons.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 52,
+      "step_last_accessed": 83,
+      "access_count": 2,
+      "tags": [
+        "mia",
+        "lemons"
+      ],
+      "created_at": "2026-04-08T00:08:08.874940+00:00"
+    },
+    "00422c36-e28e-4200-8d13-f2de684372b9": {
+      "id": "00422c36-e28e-4200-8d13-f2de684372b9",
+      "content": "Diana has 5 lemons. (received 5 from Mia via trade, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 52,
+      "step_last_accessed": 136,
+      "access_count": 11,
+      "tags": [
+        "diana",
+        "lemons",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:08:20.571549+00:00"
+    },
+    "190a5b1d-052f-48e3-baf6-c18dfadf4ca2": {
+      "id": "190a5b1d-052f-48e3-baf6-c18dfadf4ca2",
+      "content": "Henry has 10 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 53,
+      "step_last_accessed": 77,
+      "access_count": 2,
+      "tags": [
+        "henry",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:08:40.465444+00:00"
+    },
+    "c4497be2-3ba3-4424-8639-5ad71b901d6a": {
+      "id": "c4497be2-3ba3-4424-8639-5ad71b901d6a",
+      "content": "Sam has 3 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 53,
+      "step_last_accessed": 73,
+      "access_count": 6,
+      "tags": [
+        "sam",
+        "plums",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:08:47.122592+00:00"
+    },
+    "469204c8-cebe-4357-97fb-ef3cd244e97b": {
+      "id": "469204c8-cebe-4357-97fb-ef3cd244e97b",
+      "content": "Henry has 14 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 53,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "henry",
+        "plums",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:08:47.122620+00:00"
+    },
+    "460070de-a5e5-4bf4-a4da-6355cf32e4cb": {
+      "id": "460070de-a5e5-4bf4-a4da-6355cf32e4cb",
+      "content": "Bob has 16 oranges.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 54,
+      "step_last_accessed": 97,
+      "access_count": 5,
+      "tags": [
+        "bob",
+        "oranges"
+      ],
+      "created_at": "2026-04-08T00:09:03.818404+00:00"
+    },
+    "92c081c8-2b96-4bc3-8463-bf4b607a729e": {
+      "id": "92c081c8-2b96-4bc3-8463-bf4b607a729e",
+      "content": "Tina has 1 orange (increased by 1 from Bob's trade; previous count unknown, this records the +1 update from the trade)",
+      "entry_type": "observation",
+      "confidence": 0.9,
+      "step_created": 54,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "tina",
+        "oranges",
+        "inventory",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:09:14.769423+00:00"
+    },
+    "109724f4-cfd1-4e06-8022-75ec32daefea": {
+      "id": "109724f4-cfd1-4e06-8022-75ec32daefea",
+      "content": "Tina has 1 orange.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 54,
+      "step_last_accessed": 97,
+      "access_count": 6,
+      "tags": [
+        "tina",
+        "oranges",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:09:20.188145+00:00"
+    },
+    "39246eb4-cc5f-480b-90c4-5c3a54380e57": {
+      "id": "39246eb4-cc5f-480b-90c4-5c3a54380e57",
+      "content": "Nathan has 17 limes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 55,
+      "step_last_accessed": 145,
+      "access_count": 17,
+      "tags": [
+        "nathan",
+        "limes"
+      ],
+      "created_at": "2026-04-08T00:09:32.871935+00:00"
+    },
+    "1d4173a4-4bbd-47ff-bc24-8db0a8b2b2c1": {
+      "id": "1d4173a4-4bbd-47ff-bc24-8db0a8b2b2c1",
+      "content": "Sam has 5 limes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 55,
+      "step_last_accessed": 73,
+      "access_count": 4,
+      "tags": [
+        "sam",
+        "limes",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:09:43.136902+00:00"
+    },
+    "a1a9b2cc-3df3-4dec-ad96-ebdf674aec64": {
+      "id": "a1a9b2cc-3df3-4dec-ad96-ebdf674aec64",
+      "content": "Quinn has 16 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 56,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "quinn",
+        "figs"
+      ],
+      "created_at": "2026-04-08T00:09:55.747210+00:00"
+    },
+    "6bcd0e7a-a06d-4320-b58b-0d2619d1cb4e": {
+      "id": "6bcd0e7a-a06d-4320-b58b-0d2619d1cb4e",
+      "content": "Karen has 3 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 56,
+      "step_last_accessed": 95,
+      "access_count": 8,
+      "tags": [
+        "karen",
+        "figs"
+      ],
+      "created_at": "2026-04-08T00:10:07.099648+00:00"
+    },
+    "be90a635-89a9-4641-8fe6-ff89dbf24949": {
+      "id": "be90a635-89a9-4641-8fe6-ff89dbf24949",
+      "content": "Quinn has 13 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 56,
+      "step_last_accessed": 60,
+      "access_count": 3,
+      "tags": [
+        "quinn",
+        "figs"
+      ],
+      "created_at": "2026-04-08T00:10:07.099665+00:00"
+    },
+    "b9744499-8eba-4991-9fee-cac2d49ac736": {
+      "id": "b9744499-8eba-4991-9fee-cac2d49ac736",
+      "content": "Delivery route Gamma experiencing ~8 min delays due to road construction on Highway 59. Temporary reroute suggested via Riverside connector until construction ends (end of February).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 57,
+      "step_last_accessed": 87,
+      "access_count": 1,
+      "tags": [
+        "delivery",
+        "route-gamma",
+        "delay",
+        "highway-59",
+        "construction",
+        "reroute"
+      ],
+      "created_at": "2026-04-08T00:10:21.678382+00:00"
+    },
+    "8f061461-f5b2-416a-aa6b-12f01a7cfbcb": {
+      "id": "8f061461-f5b2-416a-aa6b-12f01a7cfbcb",
+      "content": "Tina has 15 pomegranates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 58,
+      "step_last_accessed": 97,
+      "access_count": 4,
+      "tags": [
+        "tina",
+        "pomegranates"
+      ],
+      "created_at": "2026-04-08T00:10:35.564433+00:00"
+    },
+    "fb3e035d-08b5-49bb-a884-11ec762b31a4": {
+      "id": "fb3e035d-08b5-49bb-a884-11ec762b31a4",
+      "content": "Sam's pomegranate count: increased by 1 due to trade (Tina gave 1 pomegranate to Sam). No prior record found; net change = +1.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 58,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "sam",
+        "pomegranate",
+        "inventory",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:10:44.360270+00:00"
+    },
+    "521472c8-ac0f-47a4-be61-7cb0d50817da": {
+      "id": "521472c8-ac0f-47a4-be61-7cb0d50817da",
+      "content": "Charlie has 17 bananas.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 59,
+      "step_last_accessed": 84,
+      "access_count": 5,
+      "tags": [
+        "charlie",
+        "bananas"
+      ],
+      "created_at": "2026-04-08T00:10:56.863070+00:00"
+    },
+    "b2c75768-6240-45dc-aeb4-01bf11f25f10": {
+      "id": "b2c75768-6240-45dc-aeb4-01bf11f25f10",
+      "content": "Rachel has received 2 bananas from Charlie (trade verified by logistics team). Rachel's banana count increased by 2.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 59,
+      "step_last_accessed": 99,
+      "access_count": 9,
+      "tags": [
+        "Rachel",
+        "bananas",
+        "inventory",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:11:09.399357+00:00"
+    },
+    "9e021102-5aab-48e1-9e20-68edc1ad50de": {
+      "id": "9e021102-5aab-48e1-9e20-68edc1ad50de",
+      "content": "Quinn has 11 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 60,
+      "step_last_accessed": 85,
+      "access_count": 5,
+      "tags": [
+        "quinn",
+        "figs"
+      ],
+      "created_at": "2026-04-08T00:11:21.541548+00:00"
+    },
+    "6f966daa-0eee-435d-99d6-a4dbb599778b": {
+      "id": "6f966daa-0eee-435d-99d6-a4dbb599778b",
+      "content": "Iris has 12 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 60,
+      "step_last_accessed": 96,
+      "access_count": 13,
+      "tags": [
+        "iris",
+        "figs"
+      ],
+      "created_at": "2026-04-08T00:11:31.885341+00:00"
+    },
+    "b473f031-c99f-4142-aeff-76c3b2f37b9b": {
+      "id": "b473f031-c99f-4142-aeff-76c3b2f37b9b",
+      "content": "Leo has 18 kiwis.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 61,
+      "step_last_accessed": 62,
+      "access_count": 3,
+      "tags": [
+        "leo",
+        "kiwi"
+      ],
+      "created_at": "2026-04-08T00:11:45.618465+00:00"
+    },
+    "3644538f-4f2e-4d39-ace5-83801ce81103": {
+      "id": "3644538f-4f2e-4d39-ace5-83801ce81103",
+      "content": "Charlie has 2 kiwis (received 2 from Leo via verified trade).",
+      "entry_type": "observation",
+      "confidence": 0.7,
+      "step_created": 61,
+      "step_last_accessed": 144,
+      "access_count": 8,
+      "tags": [
+        "charlie",
+        "kiwis",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:11:55.105620+00:00"
+    },
+    "b1f1089b-00c7-4156-927d-b473fe8fbb7b": {
+      "id": "b1f1089b-00c7-4156-927d-b473fe8fbb7b",
+      "content": "Leo has 16 kiwis.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 62,
+      "step_last_accessed": 73,
+      "access_count": 3,
+      "tags": [
+        "leo",
+        "kiwis"
+      ],
+      "created_at": "2026-04-08T00:12:10.797296+00:00"
+    },
+    "7ba6316f-de08-4825-8f91-2252075e8eaf": {
+      "id": "7ba6316f-de08-4825-8f91-2252075e8eaf",
+      "content": "Jack has 2 kiwis.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 62,
+      "step_last_accessed": 138,
+      "access_count": 3,
+      "tags": [
+        "jack",
+        "kiwis"
+      ],
+      "created_at": "2026-04-08T00:12:21.345106+00:00"
+    },
+    "a32eefa1-f117-4c5c-a46b-fd9859066068": {
+      "id": "a32eefa1-f117-4c5c-a46b-fd9859066068",
+      "content": "Corporate HQ memo: Annual inventory reconciliation scheduled for the week of March 2nd. All department heads must ensure records are current and prior-quarter discrepancies resolved. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 63,
+      "step_last_accessed": 102,
+      "access_count": 1,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "corporate",
+        "memo"
+      ],
+      "created_at": "2026-04-08T00:12:34.862603+00:00"
+    },
+    "f3482663-6fc1-44da-a8c6-f570e45a30fd": {
+      "id": "f3482663-6fc1-44da-a8c6-f570e45a30fd",
+      "content": "Diana has 12 pears. (gave 2 to Rachel via trade, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 64,
+      "step_last_accessed": 136,
+      "access_count": 9,
+      "tags": [
+        "diana",
+        "pears",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:12:48.376139+00:00"
+    },
+    "0e810c95-816f-4e78-af72-46cda982c751": {
+      "id": "0e810c95-816f-4e78-af72-46cda982c751",
+      "content": "Rachel pears: UNKNOWN+2 (increased by 2 due to trade: Diana gave 2 pears to Rachel, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 64,
+      "step_last_accessed": 99,
+      "access_count": 7,
+      "tags": [
+        "rachel",
+        "pears",
+        "inventory",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:12:56.265677+00:00"
+    },
+    "93f73505-af39-40d3-ae02-2a8043bb4bd3": {
+      "id": "93f73505-af39-40d3-ae02-2a8043bb4bd3",
+      "content": "Iris has 7 cherries.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 65,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "iris",
+        "cherries"
+      ],
+      "created_at": "2026-04-08T00:13:08.141524+00:00"
+    },
+    "5f7be67b-6d3d-4123-83fd-f895aa0056ab": {
+      "id": "5f7be67b-6d3d-4123-83fd-f895aa0056ab",
+      "content": "Jack has 3 cherries.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 65,
+      "step_last_accessed": 138,
+      "access_count": 1,
+      "tags": [
+        "jack",
+        "cherries"
+      ],
+      "created_at": "2026-04-08T00:13:14.184531+00:00"
+    },
+    "3f880d9a-e4ce-473c-9cf4-fe3768bf7981": {
+      "id": "3f880d9a-e4ce-473c-9cf4-fe3768bf7981",
+      "content": "Grace has 11 peaches.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 66,
+      "step_last_accessed": 137,
+      "access_count": 2,
+      "tags": [
+        "grace",
+        "peaches"
+      ],
+      "created_at": "2026-04-08T00:13:26.428681+00:00"
+    },
+    "a4715359-5b56-4154-86a4-ac8fa3b81bc9": {
+      "id": "a4715359-5b56-4154-86a4-ac8fa3b81bc9",
+      "content": "Karen received 2 peaches from Grace (trade verified by logistics team). Peach count increased by 2.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 66,
+      "step_last_accessed": 95,
+      "access_count": 6,
+      "tags": [
+        "karen",
+        "peaches",
+        "trade",
+        "grace"
+      ],
+      "created_at": "2026-04-08T00:13:38.272263+00:00"
+    },
+    "24d1047c-b466-4086-bdc0-0e3fe77dd3ed": {
+      "id": "24d1047c-b466-4086-bdc0-0e3fe77dd3ed",
+      "content": "Iris gave 2 cherries to Quinn. Iris's cherry count decreased by 2.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 67,
+      "step_last_accessed": 91,
+      "access_count": 9,
+      "tags": [
+        "iris",
+        "cherry",
+        "transfer",
+        "quinn"
+      ],
+      "created_at": "2026-04-08T00:13:57.802787+00:00"
+    },
+    "33d7725c-4df1-4348-acb7-c38784c0d429": {
+      "id": "33d7725c-4df1-4348-acb7-c38784c0d429",
+      "content": "Quinn has 2 cherries (received 2 from Iris; transfer verified by logistics team).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 67,
+      "step_last_accessed": 85,
+      "access_count": 3,
+      "tags": [
+        "quinn",
+        "cherries",
+        "inventory",
+        "iris",
+        "transfer"
+      ],
+      "created_at": "2026-04-08T00:14:03.029506+00:00"
+    },
+    "8eaf58f6-f5af-4bd3-a00f-c8bb1492b7a3": {
+      "id": "8eaf58f6-f5af-4bd3-a00f-c8bb1492b7a3",
+      "content": "Iris has 6 cherries.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 68,
+      "step_last_accessed": 91,
+      "access_count": 6,
+      "tags": [
+        "iris",
+        "cherries"
+      ],
+      "created_at": "2026-04-08T00:14:17.707618+00:00"
+    },
+    "4aa45635-0034-45e3-87ae-43044ae401b5": {
+      "id": "4aa45635-0034-45e3-87ae-43044ae401b5",
+      "content": "Iris gave 1 cherry to Bob. Bob's cherry count increased by 1.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 68,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "bob",
+        "iris",
+        "cherry",
+        "transfer"
+      ],
+      "created_at": "2026-04-08T00:14:22.982150+00:00"
+    },
+    "619235b3-fe9e-437a-a5fb-92386cc0d47a": {
+      "id": "619235b3-fe9e-437a-a5fb-92386cc0d47a",
+      "content": "Iris gave 1 cherry to Bob. Bob's cherry count increased by 1; Iris's cherry count decreased by 1.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 68,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "bob",
+        "iris",
+        "cherry",
+        "transfer"
+      ],
+      "created_at": "2026-04-08T00:14:28.629227+00:00"
+    },
+    "127224d7-8adb-4b81-ae77-5f0a2a44856b": {
+      "id": "127224d7-8adb-4b81-ae77-5f0a2a44856b",
+      "content": "Market analysis (research dept): Consumer demand for fresh produce expected to increase by 2% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team advised to plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 69,
+      "step_last_accessed": 81,
+      "access_count": 1,
+      "tags": [
+        "market_analysis",
+        "fresh_produce",
+        "demand_forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:14:42.248415+00:00"
+    },
+    "84324cb2-b209-48e1-b9b0-58fefdc34cde": {
+      "id": "84324cb2-b209-48e1-b9b0-58fefdc34cde",
+      "content": "Rachel has 10 dates. (Updated: Rachel gave 5 dates to Nathan, trade verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 70,
+      "step_last_accessed": 99,
+      "access_count": 6,
+      "tags": [
+        "rachel",
+        "dates"
+      ],
+      "created_at": "2026-04-08T00:14:56.175982+00:00"
+    },
+    "24997d17-6eb6-4484-8af3-af69ca728cb3": {
+      "id": "24997d17-6eb6-4484-8af3-af69ca728cb3",
+      "content": "Nathan's date count updated: received 5 dates from Rachel (trade verified by logistics team). Previous count unknown from current traversal \u2014 update reflects +5 dates.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 70,
+      "step_last_accessed": 117,
+      "access_count": 13,
+      "tags": [
+        "Nathan",
+        "dates",
+        "inventory",
+        "transfer"
+      ],
+      "created_at": "2026-04-08T00:15:03.251562+00:00"
+    },
+    "973a9e41-87f2-44f3-87dd-45a2ff9593c2": {
+      "id": "973a9e41-87f2-44f3-87dd-45a2ff9593c2",
+      "content": "Alice has 23 apples. (gave 2 to Diana via trade, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 71,
+      "step_last_accessed": 86,
+      "access_count": 7,
+      "tags": [
+        "alice",
+        "apples"
+      ],
+      "created_at": "2026-04-08T00:15:18.089776+00:00"
+    },
+    "dcc2add9-ed85-4d9f-ac4c-45b8179f9447": {
+      "id": "dcc2add9-ed85-4d9f-ac4c-45b8179f9447",
+      "content": "Diana has 2 apples. (received 2 from Alice via trade, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 71,
+      "step_last_accessed": 86,
+      "access_count": 3,
+      "tags": [
+        "diana",
+        "apples",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:15:30.703396+00:00"
+    },
+    "9ab652bb-9230-42af-a1b2-74f50a4d662b": {
+      "id": "9ab652bb-9230-42af-a1b2-74f50a4d662b",
+      "content": "Eve has 9 grapes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 72,
+      "step_last_accessed": 74,
+      "access_count": 3,
+      "tags": [
+        "eve",
+        "grapes"
+      ],
+      "created_at": "2026-04-08T00:15:43.030772+00:00"
+    },
+    "ba1802ce-c1cd-42af-a831-6c3299801e43": {
+      "id": "ba1802ce-c1cd-42af-a831-6c3299801e43",
+      "content": "Rachel has 1 grape. (Updated: Eve gave 1 grape to Rachel, transfer verified by logistics team and recorded in inventory system.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 72,
+      "step_last_accessed": 99,
+      "access_count": 3,
+      "tags": [
+        "rachel",
+        "grapes",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:15:54.129909+00:00"
+    },
+    "dee0265c-7c7c-4277-9e75-85a06cedf82b": {
+      "id": "dee0265c-7c7c-4277-9e75-85a06cedf82b",
+      "content": "Leo has 11 kiwis.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 73,
+      "step_last_accessed": 149,
+      "access_count": 2,
+      "tags": [
+        "leo",
+        "kiwis"
+      ],
+      "created_at": "2026-04-08T00:16:06.523586+00:00"
+    },
+    "77926f22-ba43-489e-8333-6c3ddaf9b372": {
+      "id": "77926f22-ba43-489e-8333-6c3ddaf9b372",
+      "content": "Sam has 5 kiwis (received 5 kiwis from Leo via verified trade, recorded in inventory system).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 73,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "sam",
+        "kiwi",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:16:17.917237+00:00"
+    },
+    "2e0c145d-3c1f-4b80-a03d-3b5d02c68d27": {
+      "id": "2e0c145d-3c1f-4b80-a03d-3b5d02c68d27",
+      "content": "Eve has 8 grapes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 74,
+      "step_last_accessed": 146,
+      "access_count": 4,
+      "tags": [
+        "eve",
+        "grapes"
+      ],
+      "created_at": "2026-04-08T00:16:32.024878+00:00"
+    },
+    "bfdc4131-4200-40fa-bb33-9d83607192f1": {
+      "id": "bfdc4131-4200-40fa-bb33-9d83607192f1",
+      "content": "Nathan has received 1 grape from Eve (trade verified by logistics team). Prior grape count unknown from graph traversal \u2014 current count reflects at least 1 grape.",
+      "entry_type": "observation",
+      "confidence": 0.8,
+      "step_created": 74,
+      "step_last_accessed": 145,
+      "access_count": 12,
+      "tags": [
+        "nathan",
+        "grapes",
+        "trade",
+        "eve"
+      ],
+      "created_at": "2026-04-08T00:16:43.389136+00:00"
+    },
+    "532f151b-6b0e-4c99-b6e8-d90f9c0659e9": {
+      "id": "532f151b-6b0e-4c99-b6e8-d90f9c0659e9",
+      "content": "Maintenance work order submitted (last Wednesday): overflow storage area behind the office needs air filter replacement. Parts awaited from regional supply center. ETA: 7 business days standard, or 2 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 75,
+      "step_last_accessed": 131,
+      "access_count": 3,
+      "tags": [
+        "maintenance",
+        "air_filter",
+        "overflow_storage",
+        "work_order"
+      ],
+      "created_at": "2026-04-08T00:16:56.491415+00:00"
+    },
+    "bfdc6135-c7b1-4ef2-8280-ec5417f1070d": {
+      "id": "bfdc6135-c7b1-4ef2-8280-ec5417f1070d",
+      "content": "Nathan has 20 limes. (Updated: gave 2 limes to Tina, trade verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 76,
+      "step_last_accessed": 117,
+      "access_count": 8,
+      "tags": [
+        "nathan",
+        "limes",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:17:13.088625+00:00"
+    },
+    "6f708d5f-3475-4390-bcef-a0ed48a11b23": {
+      "id": "6f708d5f-3475-4390-bcef-a0ed48a11b23",
+      "content": "Tina has 2 limes. (Nathan gave 2 limes to Tina; transfer verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 76,
+      "step_last_accessed": 97,
+      "access_count": 2,
+      "tags": [
+        "tina",
+        "limes",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:17:24.452856+00:00"
+    },
+    "f7a02ac6-ed72-4962-864e-290e501daf09": {
+      "id": "f7a02ac6-ed72-4962-864e-290e501daf09",
+      "content": "Henry has 9 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 77,
+      "step_last_accessed": 80,
+      "access_count": 3,
+      "tags": [
+        "henry",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:17:37.458084+00:00"
+    },
+    "8a1e4a7e-32fc-4c80-98b8-ee16d03781b4": {
+      "id": "8a1e4a7e-32fc-4c80-98b8-ee16d03781b4",
+      "content": "Frank has 5 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 77,
+      "step_last_accessed": 148,
+      "access_count": 2,
+      "tags": [
+        "frank",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:17:39.983381+00:00"
+    },
+    "d18e0ebc-0c58-4e18-ba45-96b698e1745f": {
+      "id": "d18e0ebc-0c58-4e18-ba45-96b698e1745f",
+      "content": "Nathan has 18 limes. (Updated: gave 2 limes to Alice, trade verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 78,
+      "step_last_accessed": 117,
+      "access_count": 5,
+      "tags": [
+        "nathan",
+        "limes",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:17:56.914410+00:00"
+    },
+    "2d240358-5e1c-4017-8d5d-423af3225425": {
+      "id": "2d240358-5e1c-4017-8d5d-423af3225425",
+      "content": "Alice has received 2 limes from Nathan (trade verified by logistics team). Alice's lime count increased by 2.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 78,
+      "step_last_accessed": 143,
+      "access_count": 6,
+      "tags": [
+        "alice",
+        "lime",
+        "transfer",
+        "nathan"
+      ],
+      "created_at": "2026-04-08T00:18:05.311838+00:00"
+    },
+    "4600cd81-16ed-4efe-9f50-0b2729e96289": {
+      "id": "4600cd81-16ed-4efe-9f50-0b2729e96289",
+      "content": "Alice has received 2 limes from Nathan (trade verified by logistics team). Prior lime count unknown from graph traversal \u2014 current count reflects at least 2 limes.",
+      "entry_type": "observation",
+      "confidence": 0.9,
+      "step_created": 78,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "alice",
+        "limes",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:18:12.774149+00:00"
+    },
+    "82d213ef-5901-441d-9d5a-c38667519195": {
+      "id": "82d213ef-5901-441d-9d5a-c38667519195",
+      "content": "Karen has 8 blueberries. (Updated: gave 3 blueberries to Nathan, trade verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 79,
+      "step_last_accessed": 95,
+      "access_count": 4,
+      "tags": [
+        "karen",
+        "blueberries"
+      ],
+      "created_at": "2026-04-08T00:18:34.162433+00:00"
+    },
+    "e634c9bd-294b-4d25-be0e-635c6f490239": {
+      "id": "e634c9bd-294b-4d25-be0e-635c6f490239",
+      "content": "Nathan has 3 blueberries. (Received 3 blueberries from Karen, trade verified by logistics team. Prior count: 0.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 79,
+      "step_last_accessed": 145,
+      "access_count": 2,
+      "tags": [
+        "nathan",
+        "blueberries"
+      ],
+      "created_at": "2026-04-08T00:18:45.149046+00:00"
+    },
+    "f8a5ac70-c3b1-4300-8c23-ad7925953f22": {
+      "id": "f8a5ac70-c3b1-4300-8c23-ad7925953f22",
+      "content": "Karen has 8 blueberries. (Updated: gave 3 blueberries to Nathan, trade verified by logistics team. Previous count: 11.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 79,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "karen",
+        "blueberries"
+      ],
+      "created_at": "2026-04-08T00:18:45.149063+00:00"
+    },
+    "4fe206d0-3e9c-44cb-a83b-8a20124d8b14": {
+      "id": "4fe206d0-3e9c-44cb-a83b-8a20124d8b14",
+      "content": "Henry has 8 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 80,
+      "step_last_accessed": 82,
+      "access_count": 2,
+      "tags": [
+        "henry",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:19:01.220808+00:00"
+    },
+    "345223eb-56a7-4d96-aa53-1d4dba2c3aae": {
+      "id": "345223eb-56a7-4d96-aa53-1d4dba2c3aae",
+      "content": "Iris has 1 plum.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 80,
+      "step_last_accessed": 91,
+      "access_count": 3,
+      "tags": [
+        "iris",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:19:18.630293+00:00"
+    },
+    "b64332ec-ec1a-453f-89d1-4625ba1c1b7b": {
+      "id": "b64332ec-ec1a-453f-89d1-4625ba1c1b7b",
+      "content": "Market analysis (research dept): Consumer demand for fresh produce expected to increase by 15% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team advised to plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 81,
+      "step_last_accessed": 125,
+      "access_count": 1,
+      "tags": [
+        "market_analysis",
+        "fresh_produce",
+        "demand_forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:19:32.141477+00:00"
+    },
+    "b853a34d-da40-43b6-be58-bcdc98cd733b": {
+      "id": "b853a34d-da40-43b6-be58-bcdc98cd733b",
+      "content": "Henry has 7 plums.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 82,
+      "step_last_accessed": 139,
+      "access_count": 3,
+      "tags": [
+        "henry",
+        "plums"
+      ],
+      "created_at": "2026-04-08T00:19:46.692836+00:00"
+    },
+    "2ce83c66-ab5d-463d-a7ff-55aae5528f04": {
+      "id": "2ce83c66-ab5d-463d-a7ff-55aae5528f04",
+      "content": "Alice has 1 plum (received 1 from Henry; verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 82,
+      "step_last_accessed": 143,
+      "access_count": 4,
+      "tags": [
+        "alice",
+        "plums",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:19:54.805130+00:00"
+    },
+    "d620e967-74fb-45d7-8d05-baff6a9e646e": {
+      "id": "d620e967-74fb-45d7-8d05-baff6a9e646e",
+      "content": "Mia has 9 lemons. (Updated: gave 2 lemons to Karen, transfer verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 83,
+      "step_last_accessed": 89,
+      "access_count": 4,
+      "tags": [
+        "mia",
+        "lemons",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:20:07.781503+00:00"
+    },
+    "2c22d112-1846-4dd5-a7be-0d804b3f2381": {
+      "id": "2c22d112-1846-4dd5-a7be-0d804b3f2381",
+      "content": "Karen has 2 lemons added from Mia via trade. Previous count unknown from traversal so far \u2014 pending resolution.",
+      "entry_type": "observation",
+      "confidence": 0.9,
+      "step_created": 83,
+      "step_last_accessed": 95,
+      "access_count": 2,
+      "tags": [
+        "karen",
+        "lemon",
+        "trade",
+        "mia"
+      ],
+      "created_at": "2026-04-08T00:20:14.950079+00:00"
+    },
+    "a62875a3-6150-46ca-9859-7da5200252b2": {
+      "id": "a62875a3-6150-46ca-9859-7da5200252b2",
+      "content": "Charlie has 14 bananas.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 84,
+      "step_last_accessed": 116,
+      "access_count": 3,
+      "tags": [
+        "charlie",
+        "bananas"
+      ],
+      "created_at": "2026-04-08T00:20:30.347473+00:00"
+    },
+    "32ebd2ac-91ae-447d-b0b6-20def97b50cb": {
+      "id": "32ebd2ac-91ae-447d-b0b6-20def97b50cb",
+      "content": "Iris has received 3 bananas from Charlie (trade verified by logistics team). Iris's banana count increased by 3.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 84,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "iris",
+        "bananas",
+        "inventory",
+        "trade"
+      ],
+      "created_at": "2026-04-08T00:20:39.729663+00:00"
+    },
+    "e8a11c57-f66c-4344-badb-c66957d30bd4": {
+      "id": "e8a11c57-f66c-4344-badb-c66957d30bd4",
+      "content": "Quinn has 8 figs. (Gave 3 figs to Mia; transfer verified by logistics team.)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 85,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "quinn",
+        "figs",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:20:56.308754+00:00"
+    },
+    "9cbed5d8-4105-49e5-995f-a9e663190e2a": {
+      "id": "9cbed5d8-4105-49e5-995f-a9e663190e2a",
+      "content": "Mia received 3 figs from Quinn (trade verified by logistics team). Net change: +3 figs.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 85,
+      "step_last_accessed": 89,
+      "access_count": 1,
+      "tags": [
+        "mia",
+        "figs",
+        "trade",
+        "quinn"
+      ],
+      "created_at": "2026-04-08T00:21:08.797438+00:00"
+    },
+    "43585a47-4c8b-4bbf-b8dc-6dc688c5196e": {
+      "id": "43585a47-4c8b-4bbf-b8dc-6dc688c5196e",
+      "content": "Alice has 20 apples. (gave 3 to Diana via trade, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 86,
+      "step_last_accessed": 143,
+      "access_count": 2,
+      "tags": [
+        "alice",
+        "apples",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:21:30.646465+00:00"
+    },
+    "d07808c8-5b36-4835-b8db-389ba1c43f28": {
+      "id": "d07808c8-5b36-4835-b8db-389ba1c43f28",
+      "content": "Diana has 5 apples. (received 3 from Alice via trade, verified by logistics team; prior count: 2)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 86,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "diana",
+        "apples",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:21:30.646529+00:00"
+    },
+    "0150e2be-89d8-4b63-8939-2b2c051075dd": {
+      "id": "0150e2be-89d8-4b63-8939-2b2c051075dd",
+      "content": "Diana has 8 apples. (received 3 from Alice via trade, verified by logistics team)",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 86,
+      "step_last_accessed": 136,
+      "access_count": 4,
+      "tags": [
+        "diana",
+        "apples",
+        "inventory"
+      ],
+      "created_at": "2026-04-08T00:21:40.965823+00:00"
+    },
+    "2d446043-d581-4858-979d-3bbf634b1cef": {
+      "id": "2d446043-d581-4858-979d-3bbf634b1cef",
+      "content": "Delivery route Gamma experiencing ~11 min delays due to road construction on Highway 94. Temporary reroute suggested via Riverside connector until construction ends (end of July).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 87,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "route_gamma",
+        "delay",
+        "construction",
+        "reroute"
+      ],
+      "created_at": "2026-04-08T00:21:56.794436+00:00"
+    },
+    "c55cf297-0f57-417b-ab77-850310f3f4c5": {
+      "id": "c55cf297-0f57-417b-ab77-850310f3f4c5",
+      "content": "QA quarterly inspection \u2014 temporary staging area (near shipping): all storage conditions meet/exceed regulatory requirements. Temperature: 4\u00b0C, humidity: 61%, ventilation: satisfactory. Next inspection scheduled: September.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 101,
+      "step_last_accessed": 112,
+      "access_count": 1,
+      "tags": [
+        "QA",
+        "inspection",
+        "quarterly",
+        "staging-area",
+        "shipping"
+      ],
+      "created_at": "2026-04-08T00:25:43.022545+00:00"
+    },
+    "f1e8edd3-b9a6-4d86-8c55-5b141619928e": {
+      "id": "f1e8edd3-b9a6-4d86-8c55-5b141619928e",
+      "content": "QA quarterly inspection \u2014 temporary staging area (near shipping): all storage conditions meet/exceed regulatory requirements. Temperature: 4\u00b0C, humidity: 61%, ventilation: satisfactory. Next inspection scheduled: September.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 101,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "QA",
+        "inspection",
+        "staging area",
+        "shipping"
+      ],
+      "created_at": "2026-04-08T00:25:51.327984+00:00"
+    },
+    "fd33a8cd-90cf-4a1d-a18d-8bc22087d9aa": {
+      "id": "fd33a8cd-90cf-4a1d-a18d-8bc22087d9aa",
+      "content": "Corporate HQ memo: Annual inventory reconciliation rescheduled for the week of July 10th. All department heads must ensure records are current and prior-quarter discrepancies resolved. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 102,
+      "step_last_accessed": 106,
+      "access_count": 1,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "schedule",
+        "corporate-memo"
+      ],
+      "created_at": "2026-04-08T00:26:04.801362+00:00"
+    },
+    "60be1619-1e31-4c2d-afde-4264eb9f5171": {
+      "id": "60be1619-1e31-4c2d-afde-4264eb9f5171",
+      "content": "Delivery route Gamma experiencing ~15 min delays due to road construction on Highway 37. Temporary reroute suggested via Oak Street bypass until construction ends (end of July).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 103,
+      "step_last_accessed": 130,
+      "access_count": 7,
+      "tags": [
+        "delivery",
+        "route-gamma",
+        "delay",
+        "construction",
+        "highway-37",
+        "oak-street-bypass"
+      ],
+      "created_at": "2026-04-08T00:26:14.995956+00:00"
+    },
+    "813f6296-4877-4b31-b1dc-f0c80f90f114": {
+      "id": "813f6296-4877-4b31-b1dc-f0c80f90f114",
+      "content": "Employee training session on new barcode scanning system rescheduled from Thursday to next Thursday. Topics: updated handheld devices basics, new software interface, inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 104,
+      "step_last_accessed": 105,
+      "access_count": 1,
+      "tags": [
+        "training",
+        "barcode",
+        "schedule"
+      ],
+      "created_at": "2026-04-08T00:26:28.406845+00:00"
+    },
+    "a89f5ca3-6425-4a99-ae48-564d572e0186": {
+      "id": "a89f5ca3-6425-4a99-ae48-564d572e0186",
+      "content": "Employee training session on new barcode scanning system rescheduled from Monday to next Tuesday. Topics: updated handheld devices basics, new software interface, inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 105,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse",
+        "schedule"
+      ],
+      "created_at": "2026-04-08T00:26:51.341840+00:00"
+    },
+    "aa28639e-d6e3-431e-b16a-8adc22ed6a1c": {
+      "id": "aa28639e-d6e3-431e-b16a-8adc22ed6a1c",
+      "content": "Corporate HQ memo: Annual inventory reconciliation scheduled for the week of July 12th. All department heads must ensure records are current and prior-quarter discrepancies resolved. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 106,
+      "step_last_accessed": 115,
+      "access_count": 1,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "corporate",
+        "memo"
+      ],
+      "created_at": "2026-04-08T00:27:03.324267+00:00"
+    },
+    "97bfd021-c215-4c7a-86db-52d28c684e25": {
+      "id": "97bfd021-c215-4c7a-86db-52d28c684e25",
+      "content": "Delivery route Beta experiencing ~14 min delays due to road construction on Highway 23. Temporary reroute suggested via Industrial Park Loop until construction ends (end of September).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 107,
+      "step_last_accessed": 130,
+      "access_count": 6,
+      "tags": [
+        "delivery_route",
+        "beta",
+        "delay",
+        "road_construction",
+        "highway_23",
+        "reroute"
+      ],
+      "created_at": "2026-04-08T00:27:20.290305+00:00"
+    },
+    "6981b72e-e479-44b7-a6cc-5649c1d9a746": {
+      "id": "6981b72e-e479-44b7-a6cc-5649c1d9a746",
+      "content": "Employee training on new barcode scanning system rescheduled from Monday to next Thursday. Covers: handheld devices basics, new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 108,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse",
+        "schedule"
+      ],
+      "created_at": "2026-04-08T00:27:33.160235+00:00"
+    },
+    "317413d3-5b0f-4923-a6d7-03b7e0fb08ac": {
+      "id": "317413d3-5b0f-4923-a6d7-03b7e0fb08ac",
+      "content": "Employee training session on new barcode scanning system rescheduled from Friday to next Thursday. Covers: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 109,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse",
+        "scheduling",
+        "mandatory"
+      ],
+      "created_at": "2026-04-08T00:27:44.684896+00:00"
+    },
+    "4ae8c338-02c8-40ae-bd56-d1293eb3f615": {
+      "id": "4ae8c338-02c8-40ae-bd56-d1293eb3f615",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Wednesday. Covers: handheld device basics, new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 110,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "schedule",
+        "barcode-scanning",
+        "warehouse-staff"
+      ],
+      "created_at": "2026-04-08T00:28:01.284604+00:00"
+    },
+    "e38d7f48-861c-4313-bc89-ec17099f7433": {
+      "id": "e38d7f48-861c-4313-bc89-ec17099f7433",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Tuesday. Topics: updated handheld devices basics, new software interface, integration with central inventory database. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 111,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "schedule",
+        "warehouse"
+      ],
+      "created_at": "2026-04-08T00:28:15.210080+00:00"
+    },
+    "087ea14f-724e-4a3e-bd78-7b707fd00c12": {
+      "id": "087ea14f-724e-4a3e-bd78-7b707fd00c12",
+      "content": "Training session topics: handheld devices (basics of updated units), new software interface, integration with central inventory database.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 111,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "session-topics"
+      ],
+      "created_at": "2026-04-08T00:28:21.867465+00:00"
+    },
+    "f086979b-0d97-430b-bee6-60d10b5692c8": {
+      "id": "f086979b-0d97-430b-bee6-60d10b5692c8",
+      "content": "QA quarterly inspection \u2014 secure storage vault (basement): all storage conditions meet/exceed regulatory requirements. Temperature: 2\u00b0C, humidity: 67%, ventilation: satisfactory. Next inspection scheduled: December.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 112,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "QA",
+        "inspection",
+        "basement",
+        "storage"
+      ],
+      "created_at": "2026-04-08T00:28:46.994084+00:00"
+    },
+    "79453dce-2d64-4348-8988-de8ee185a7cf": {
+      "id": "79453dce-2d64-4348-8988-de8ee185a7cf",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Monday (was Thursday). Covers: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 113,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode_scanning",
+        "schedule",
+        "warehouse_staff"
+      ],
+      "created_at": "2026-04-08T00:29:02.212572+00:00"
+    },
+    "32f0e71e-f3e2-4841-bf32-ed5b7f795e7f": {
+      "id": "32f0e71e-f3e2-4841-bf32-ed5b7f795e7f",
+      "content": "Training session topics: (1) basics of updated handheld devices, (2) new software interface, (3) integration with central inventory database.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 113,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "topics",
+        "warehouse"
+      ],
+      "created_at": "2026-04-08T00:29:08.459038+00:00"
+    },
+    "1df0b7fc-0b51-425d-be44-a59b46252981": {
+      "id": "1df0b7fc-0b51-425d-be44-a59b46252981",
+      "content": "Employee training session on new barcode scanning system rescheduled from Thursday to next Monday. Topics: updated handheld devices basics, new software interface, integration with central inventory database. Attendance mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 113,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode_scanning",
+        "warehouse_staff",
+        "mandatory_attendance",
+        "rescheduled"
+      ],
+      "created_at": "2026-04-08T00:29:14.038718+00:00"
+    },
+    "96bc645b-52fe-462d-8245-299e13af17b9": {
+      "id": "96bc645b-52fe-462d-8245-299e13af17b9",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Tuesday (was Thursday). Covers: handheld device basics, new software interface, inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 114,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "schedule",
+        "barcode-scanning",
+        "warehouse"
+      ],
+      "created_at": "2026-04-08T00:29:30.553552+00:00"
+    },
+    "9e65c7ba-f528-4e51-baba-d7ac349d8d61": {
+      "id": "9e65c7ba-f528-4e51-baba-d7ac349d8d61",
+      "content": "Training session topics: handheld device basics, new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 114,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse-staff"
+      ],
+      "created_at": "2026-04-08T00:29:40.495489+00:00"
+    },
+    "c71b0627-be3f-434b-b9b6-7c35da0103dd": {
+      "id": "c71b0627-be3f-434b-b9b6-7c35da0103dd",
+      "content": "Corporate HQ memo: Annual inventory reconciliation scheduled for the week of October 11th. All department heads must ensure records are current and prior-quarter discrepancies resolved. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 115,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "corporate",
+        "memo"
+      ],
+      "created_at": "2026-04-08T00:29:51.797624+00:00"
+    },
+    "c8f70e86-545f-4b95-85f7-3eebcff931b4": {
+      "id": "c8f70e86-545f-4b95-85f7-3eebcff931b4",
+      "content": "Charlie has 16 bananas (corrected count, confirmed by recount team).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 116,
+      "step_last_accessed": 144,
+      "access_count": 2,
+      "tags": [
+        "charlie",
+        "bananas",
+        "corrected"
+      ],
+      "created_at": "2026-04-08T00:30:05.647388+00:00"
+    },
+    "94e0e4d9-89dd-4917-ac64-f388e29a4d06": {
+      "id": "94e0e4d9-89dd-4917-ac64-f388e29a4d06",
+      "content": "Nathan originally had 21 limes (corrected from 22 by recount team).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 117,
+      "step_last_accessed": 145,
+      "access_count": 2,
+      "tags": [
+        "nathan",
+        "limes",
+        "correction",
+        "initial_count"
+      ],
+      "created_at": "2026-04-08T00:30:28.844930+00:00"
+    },
+    "b52fe01e-5265-4b9a-8bb5-3790eeb1c134": {
+      "id": "b52fe01e-5265-4b9a-8bb5-3790eeb1c134",
+      "content": "Nathan had 19 limes after giving 2 to Tina (corrected: was 20, based on corrected initial count of 21).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 117,
+      "step_last_accessed": 145,
+      "access_count": 2,
+      "tags": [
+        "nathan",
+        "limes",
+        "correction",
+        "after_tina"
+      ],
+      "created_at": "2026-04-08T00:30:28.844992+00:00"
+    },
+    "4b76c6a1-fcd4-4cb5-8999-157a54c8cb7e": {
+      "id": "4b76c6a1-fcd4-4cb5-8999-157a54c8cb7e",
+      "content": "Nathan had 17 limes after giving 2 to Alice (corrected: was 18, based on corrected initial count of 21).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 117,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "nathan",
+        "limes",
+        "correction",
+        "after_alice"
+      ],
+      "created_at": "2026-04-08T00:30:28.845003+00:00"
+    },
+    "8fda6edb-9118-461c-a00d-ec98211bde56": {
+      "id": "8fda6edb-9118-461c-a00d-ec98211bde56",
+      "content": "Eve's initial grape count was confirmed as 11 (corrected from 10) by the recount team.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 118,
+      "step_last_accessed": 146,
+      "access_count": 2,
+      "tags": [
+        "eve",
+        "grapes",
+        "initial_count",
+        "correction"
+      ],
+      "created_at": "2026-04-08T00:30:45.432540+00:00"
+    },
+    "1d0bcb27-7ca6-415c-a615-3b3f5958f5e6": {
+      "id": "1d0bcb27-7ca6-415c-a615-3b3f5958f5e6",
+      "content": "Olivia has 18 watermelons.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 119,
+      "step_last_accessed": 147,
+      "access_count": 1,
+      "tags": [
+        "olivia",
+        "watermelons",
+        "corrected"
+      ],
+      "created_at": "2026-04-08T00:30:56.584418+00:00"
+    },
+    "ea62cce5-0aa0-4ceb-a41c-5231ce156cc7": {
+      "id": "ea62cce5-0aa0-4ceb-a41c-5231ce156cc7",
+      "content": "Frank has 7 mangoes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 120,
+      "step_last_accessed": 148,
+      "access_count": 1,
+      "tags": [
+        "frank",
+        "mangoes",
+        "corrected"
+      ],
+      "created_at": "2026-04-08T00:31:07.384298+00:00"
+    },
+    "96c08111-35fe-446c-b391-8128704b02d9": {
+      "id": "96c08111-35fe-446c-b391-8128704b02d9",
+      "content": "Annual inventory reconciliation scheduled for the week of January 6th. Department heads must update records and resolve prior-quarter discrepancies. Reconciliation team requires facility access.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 121,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "schedule",
+        "corporate"
+      ],
+      "created_at": "2026-04-08T00:31:23.421816+00:00"
+    },
+    "bb7bbff5-b9f2-463d-ac47-d1b2ce72042e": {
+      "id": "bb7bbff5-b9f2-463d-ac47-d1b2ce72042e",
+      "content": "Maintenance work order submitted (last Tuesday): fresh produce cooler on ground floor needs air filter replacement. Parts awaited from regional supply center. ETA: 14 business days standard, or 1 day with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 122,
+      "step_last_accessed": 131,
+      "access_count": 2,
+      "tags": [
+        "maintenance",
+        "air_filter",
+        "work_order",
+        "fresh_produce_cooler",
+        "ground_floor"
+      ],
+      "created_at": "2026-04-08T00:31:39.786431+00:00"
+    },
+    "5974afc8-aa44-4441-a3b2-a16395615ed7": {
+      "id": "5974afc8-aa44-4441-a3b2-a16395615ed7",
+      "content": "Delivery route Delta experiencing ~11 min delays due to road construction on Highway 90. Temporary reroute suggested via Riverside connector until construction ends (end of June).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 123,
+      "step_last_accessed": 130,
+      "access_count": 4,
+      "tags": [
+        "delivery",
+        "route-delta",
+        "delay",
+        "highway-90"
+      ],
+      "created_at": "2026-04-08T00:31:55.268705+00:00"
+    },
+    "0e5da0e3-0a8e-4b46-b009-869a1474cfe4": {
+      "id": "0e5da0e3-0a8e-4b46-b009-869a1474cfe4",
+      "content": "Delivery route Delta experiencing ~11 min delays due to road construction on Highway 90. Temporary reroute suggested via Riverside connector until construction ends (end of June).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 123,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "delivery",
+        "route_delta",
+        "delay",
+        "reroute"
+      ],
+      "created_at": "2026-04-08T00:32:00.195138+00:00"
+    },
+    "6cd64110-b3bb-450b-ac1c-43e37b662a5d": {
+      "id": "6cd64110-b3bb-450b-ac1c-43e37b662a5d",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Wednesday (was Tuesday). Topics: handheld device basics, new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 124,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "schedule",
+        "barcode-scanning",
+        "warehouse"
+      ],
+      "created_at": "2026-04-08T00:32:18.635823+00:00"
+    },
+    "48808bdf-0a57-45f8-b5aa-083deccb8c8f": {
+      "id": "48808bdf-0a57-45f8-b5aa-083deccb8c8f",
+      "content": "Training session topics: handheld device basics, new software interface, inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 124,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "warehouse-staff",
+        "mandatory"
+      ],
+      "created_at": "2026-04-08T00:32:28.039514+00:00"
+    },
+    "b8e92035-c696-4ff7-8e69-8e539e798025": {
+      "id": "b8e92035-c696-4ff7-8e69-8e539e798025",
+      "content": "Market analysis (research dept): Consumer demand for fresh produce expected to increase by 13% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team advised to plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 125,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "market-analysis",
+        "fresh-produce",
+        "demand-forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:32:42.552078+00:00"
+    },
+    "2c767551-08b1-4cf2-a62d-4d15f4fb8e34": {
+      "id": "2c767551-08b1-4cf2-a62d-4d15f4fb8e34",
+      "content": "Maintenance work order submitted (last Wednesday): north warehouse near the loading dock needs air filter replacement. Parts awaited from regional supply center. ETA: 8 business days standard, or 3 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 126,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "maintenance",
+        "work_order",
+        "air_filter",
+        "north_warehouse"
+      ],
+      "created_at": "2026-04-08T00:32:59.263813+00:00"
+    },
+    "7359509a-ab26-4f98-bf09-ee0cf5282416": {
+      "id": "7359509a-ab26-4f98-bf09-ee0cf5282416",
+      "content": "Annual inventory reconciliation scheduled for the week of December 7th. All department heads must ensure records are up to date and resolve any discrepancies from the previous quarter. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 127,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "memo",
+        "corporate",
+        "deadline"
+      ],
+      "created_at": "2026-04-08T00:33:13.504349+00:00"
+    },
+    "50b45dc9-f83f-46da-b1d4-20a4ec07408c": {
+      "id": "50b45dc9-f83f-46da-b1d4-20a4ec07408c",
+      "content": "Market analysis (research dept): Consumer demand for fresh produce expected to increase 14% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement should plan for higher order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 128,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "market-analysis",
+        "fresh-produce",
+        "demand-forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:33:26.520001+00:00"
+    },
+    "b252259d-40b1-4b3f-b66f-0ded6b5d2f5c": {
+      "id": "b252259d-40b1-4b3f-b66f-0ded6b5d2f5c",
+      "content": "Delivery route Delta experiencing ~5 min delays due to road construction on Highway 44. Temporary reroute suggested via Oak Street bypass until construction ends (end of August).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 129,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "route",
+        "delta",
+        "delay",
+        "construction"
+      ],
+      "created_at": "2026-04-08T00:33:43.283660+00:00"
+    },
+    "9cbc0617-a763-46a5-9eda-b7f8cb3b1963": {
+      "id": "9cbc0617-a763-46a5-9eda-b7f8cb3b1963",
+      "content": "Delivery route Delta experiencing ~5 min delays due to road construction on Highway 44. Temporary reroute suggested via Oak Street bypass until construction ends (end of August).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 129,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "route_delta",
+        "delay",
+        "reroute",
+        "highway_44",
+        "oak_street_bypass"
+      ],
+      "created_at": "2026-04-08T00:33:51.067139+00:00"
+    },
+    "671cd399-fd86-459f-999e-7c7a67c237b8": {
+      "id": "671cd399-fd86-459f-999e-7c7a67c237b8",
+      "content": "Delivery route Gamma experiencing ~14 min delays due to road construction on Highway 36. Temporary reroute suggested via Industrial Park Loop until construction ends (end of December).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 130,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "route_gamma",
+        "delay",
+        "construction",
+        "highway_36"
+      ],
+      "created_at": "2026-04-08T00:34:06.742745+00:00"
+    },
+    "127ed35d-e00f-49af-a0c9-a15d07014066": {
+      "id": "127ed35d-e00f-49af-a0c9-a15d07014066",
+      "content": "Delivery route Gamma experiencing ~14 min delays due to road construction on Highway 36. Temporary reroute suggested via Industrial Park Loop until construction ends (end of December).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 130,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "route_gamma",
+        "delay",
+        "reroute",
+        "highway_36",
+        "industrial_park_loop"
+      ],
+      "created_at": "2026-04-08T00:34:11.674823+00:00"
+    },
+    "fc502a75-1e85-4722-8dc9-17fe497d75cd": {
+      "id": "fc502a75-1e85-4722-8dc9-17fe497d75cd",
+      "content": "Maintenance work order submitted (last Monday): climate-controlled unit in building B needs air filter replacement. Parts awaited from regional supply center. ETA: 13 business days standard, or 4 days with expedited shipping (requires management approval).",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 131,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "maintenance",
+        "work_order",
+        "building_B",
+        "air_filter",
+        "climate_controlled"
+      ],
+      "created_at": "2026-04-08T00:34:28.972662+00:00"
+    },
+    "c1605993-9304-4294-946a-5b0978a70ce0": {
+      "id": "c1605993-9304-4294-946a-5b0978a70ce0",
+      "content": "Market analysis (research dept): Fresh produce consumer demand expected +3% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team should plan for increased order volumes.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 132,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "market-analysis",
+        "fresh-produce",
+        "demand-forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:34:41.978535+00:00"
+    },
+    "462eddc4-f1f2-43c9-9e56-2298be142bc3": {
+      "id": "462eddc4-f1f2-43c9-9e56-2298be142bc3",
+      "content": "Employee training session on new barcode scanning system rescheduled to next Friday (was Thursday). Covers: handheld device basics, new software interface, central inventory database integration. Mandatory for all warehouse staff.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 133,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "schedule",
+        "barcode-scanning",
+        "warehouse-staff"
+      ],
+      "created_at": "2026-04-08T00:35:00.717420+00:00"
+    },
+    "2c59587a-6552-4b03-805c-0bc4574b7e09": {
+      "id": "2c59587a-6552-4b03-805c-0bc4574b7e09",
+      "content": "Training content update: session covers (1) basics of updated handheld devices, (2) new software interface, (3) integration with central inventory database.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 133,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "training",
+        "barcode-scanning",
+        "handheld-devices",
+        "software-interface",
+        "inventory-database"
+      ],
+      "created_at": "2026-04-08T00:35:10.752670+00:00"
+    },
+    "c4ccf0a2-b384-47bd-b68a-157c32ec3c96": {
+      "id": "c4ccf0a2-b384-47bd-b68a-157c32ec3c96",
+      "content": "Annual inventory reconciliation scheduled for the week of December 5th. All department heads must ensure records are up to date and previous quarter discrepancies resolved. Reconciliation team requires access to all facilities.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 134,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "inventory",
+        "reconciliation",
+        "memo",
+        "corporate",
+        "december"
+      ],
+      "created_at": "2026-04-08T00:35:33.998887+00:00"
+    },
+    "b15932dd-2053-4275-bae6-f1c7d20793c0": {
+      "id": "b15932dd-2053-4275-bae6-f1c7d20793c0",
+      "content": "Market analysis (research dept): Fresh produce consumer demand forecast +13% next quarter. Drivers: seasonal trends, farm-to-table dining growth. Procurement team should increase order volumes accordingly.",
+      "entry_type": "observation",
+      "confidence": 1.0,
+      "step_created": 135,
+      "step_last_accessed": 0,
+      "access_count": 0,
+      "tags": [
+        "market_analysis",
+        "fresh_produce",
+        "demand_forecast",
+        "procurement"
+      ],
+      "created_at": "2026-04-08T00:35:47.206667+00:00"
+    }
+  },
+  "associations": {
+    "6f23558c-5e42-4a20-9f2c-cf9708b0b854": {
+      "id": "6f23558c-5e42-4a20-9f2c-cf9708b0b854",
+      "source_id": "3e51c81d",
+      "target_id": "__new_0__",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are person-item inventory observations",
+      "step_created": 1,
+      "step_last_accessed": 0
+    },
+    "4192e53f-113a-4b4e-ab10-0992c6f3d57b": {
+      "id": "4192e53f-113a-4b4e-ab10-0992c6f3d57b",
+      "source_id": "fc87e0cf",
+      "target_id": "3e51c81d",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records for different people/items.",
+      "step_created": 2,
+      "step_last_accessed": 0
+    },
+    "ee4930f5-aa2f-4187-931f-933b38c60357": {
+      "id": "ee4930f5-aa2f-4187-931f-933b38c60357",
+      "source_id": "fc87e0cf",
+      "target_id": "<new_charlie_entry>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records for different people/items.",
+      "step_created": 2,
+      "step_last_accessed": 0
+    },
+    "88e06ca0-bb7a-4b55-962a-c9b65bd2e194": {
+      "id": "88e06ca0-bb7a-4b55-962a-c9b65bd2e194",
+      "source_id": "NEW_0",
+      "target_id": "cbfc2b55",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records for individuals",
+      "step_created": 3,
+      "step_last_accessed": 0
+    },
+    "89ea9b3c-014d-454f-b684-8b94675d1ec6": {
+      "id": "89ea9b3c-014d-454f-b684-8b94675d1ec6",
+      "source_id": "NEW_0",
+      "target_id": "fc87e0cf",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records for individuals",
+      "step_created": 3,
+      "step_last_accessed": 0
+    },
+    "0ef2a563-d092-4b7a-a573-950951a9092e": {
+      "id": "0ef2a563-d092-4b7a-a573-950951a9092e",
+      "source_id": "NEW_0",
+      "target_id": "3e51c81d",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records for individuals",
+      "step_created": 3,
+      "step_last_accessed": 0
+    },
+    "ae6a79f6-7dc3-4833-be6f-bc6bebcaed43": {
+      "id": "ae6a79f6-7dc3-4833-be6f-bc6bebcaed43",
+      "source_id": "NEW_0",
+      "target_id": "3e51c81d",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records of individuals and their stored items.",
+      "step_created": 4,
+      "step_last_accessed": 0
+    },
+    "b1a6ec21-f386-4cb8-a4ac-985775846d85": {
+      "id": "b1a6ec21-f386-4cb8-a4ac-985775846d85",
+      "source_id": "NEW_0",
+      "target_id": "fc87e0cf",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records of individuals and their stored items.",
+      "step_created": 4,
+      "step_last_accessed": 0
+    },
+    "62d7a0ff-1c7f-4cc1-b228-2b79b5dc2e0f": {
+      "id": "62d7a0ff-1c7f-4cc1-b228-2b79b5dc2e0f",
+      "source_id": "NEW_0",
+      "target_id": "cbfc2b55",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records of individuals and their stored items.",
+      "step_created": 4,
+      "step_last_accessed": 0
+    },
+    "780d24e9-9c11-4501-9271-dd8d3a5677d2": {
+      "id": "780d24e9-9c11-4501-9271-dd8d3a5677d2",
+      "source_id": "NEW_0",
+      "target_id": "1b2732af",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records of individuals and their stored items.",
+      "step_created": 4,
+      "step_last_accessed": 0
+    },
+    "763d19ad-8776-4d25-856e-ac2c28f49d9f": {
+      "id": "763d19ad-8776-4d25-856e-ac2c28f49d9f",
+      "source_id": "NEW_0",
+      "target_id": "619ced01",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records of individuals with fruit counts",
+      "step_created": 5,
+      "step_last_accessed": 0
+    },
+    "1a02bebc-f500-44ce-a6a9-6bff40935298": {
+      "id": "1a02bebc-f500-44ce-a6a9-6bff40935298",
+      "source_id": "new_entry_0",
+      "target_id": "abbdad48",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Sibling inventory records for different people/items",
+      "step_created": 6,
+      "step_last_accessed": 0
+    },
+    "57784fd8-7bdf-4697-981b-c3ff51675dd3": {
+      "id": "57784fd8-7bdf-4697-981b-c3ff51675dd3",
+      "source_id": "new_entry_0",
+      "target_id": "619ced01",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Sibling inventory records for different people/items",
+      "step_created": 6,
+      "step_last_accessed": 0
+    },
+    "4101964f-d8e7-40c1-8ff4-b00a9c08b311": {
+      "id": "4101964f-d8e7-40c1-8ff4-b00a9c08b311",
+      "source_id": "NEW_0",
+      "target_id": "5a70356b",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records of individuals with fruit counts",
+      "step_created": 7,
+      "step_last_accessed": 0
+    },
+    "929dd2e4-3656-4d7e-8123-03173e547429": {
+      "id": "929dd2e4-3656-4d7e-8123-03173e547429",
+      "source_id": "NEW_0",
+      "target_id": "619ced01",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are individual inventory records",
+      "step_created": 8,
+      "step_last_accessed": 0
+    },
+    "9c6b4cfa-3dc6-4fcd-8298-48841d5119c1": {
+      "id": "9c6b4cfa-3dc6-4fcd-8298-48841d5119c1",
+      "source_id": "NEW_0",
+      "target_id": "8aa702fd",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records of individuals holding produce items.",
+      "step_created": 9,
+      "step_last_accessed": 0
+    },
+    "7361ddcb-49df-4514-9887-182fc3ed60fe": {
+      "id": "7361ddcb-49df-4514-9887-182fc3ed60fe",
+      "source_id": "NEW_0",
+      "target_id": "45c65c06",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are individual fruit inventory records",
+      "step_created": 10,
+      "step_last_accessed": 0
+    },
+    "0da19cdc-e2e1-4dd6-9f43-bcfc665d6a1b": {
+      "id": "0da19cdc-e2e1-4dd6-9f43-bcfc665d6a1b",
+      "source_id": "new_entry_0",
+      "target_id": "701039a4",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records for individuals",
+      "step_created": 11,
+      "step_last_accessed": 0
+    },
+    "5e93bfe0-30bf-4af8-8d8b-a69640e884db": {
+      "id": "5e93bfe0-30bf-4af8-8d8b-a69640e884db",
+      "source_id": "new_0",
+      "target_id": "d64b7d0f",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.3,
+      "context": "Both are inventory records of individuals with fruit counts",
+      "step_created": 12,
+      "step_last_accessed": 0
+    },
+    "6b70130b-5635-4a02-9965-7331c9ff0be5": {
+      "id": "6b70130b-5635-4a02-9965-7331c9ff0be5",
+      "source_id": "NEW_0",
+      "target_id": "e4d521f9",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records of individuals holding fruit items",
+      "step_created": 13,
+      "step_last_accessed": 0
+    },
+    "b6c7d073-a5c5-4cbc-9e75-0f4396260034": {
+      "id": "b6c7d073-a5c5-4cbc-9e75-0f4396260034",
+      "source_id": "NEW_0",
+      "target_id": "df5f8a4f",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records of individuals' produce quantities",
+      "step_created": 14,
+      "step_last_accessed": 0
+    },
+    "9dd3c247-9958-49e5-aeea-d0fd7c695a5d": {
+      "id": "9dd3c247-9958-49e5-aeea-d0fd7c695a5d",
+      "source_id": "NEW_0",
+      "target_id": "f0a25987",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records of individuals' fruit holdings.",
+      "step_created": 15,
+      "step_last_accessed": 0
+    },
+    "7248d852-9a40-4d87-a354-bcd1c2a302cd": {
+      "id": "7248d852-9a40-4d87-a354-bcd1c2a302cd",
+      "source_id": "new_entry_0",
+      "target_id": "f0a25987",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.3,
+      "context": "Both are inventory records for individuals",
+      "step_created": 16,
+      "step_last_accessed": 0
+    },
+    "e6a19772-975e-4c18-b0b5-9b7475e26913": {
+      "id": "e6a19772-975e-4c18-b0b5-9b7475e26913",
+      "source_id": "NEW_0",
+      "target_id": "8b4f92b3",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records for individuals with fruit quantities",
+      "step_created": 17,
+      "step_last_accessed": 0
+    },
+    "20d13453-5abe-4e5b-9dcb-3296dcd47378": {
+      "id": "20d13453-5abe-4e5b-9dcb-3296dcd47378",
+      "source_id": "NEW_0",
+      "target_id": "7ebeee60",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records for individuals",
+      "step_created": 18,
+      "step_last_accessed": 0
+    },
+    "565c24bf-d911-4e6e-9354-e0af271c4fa2": {
+      "id": "565c24bf-d911-4e6e-9354-e0af271c4fa2",
+      "source_id": "a41cae9b-1ed7-48b6-847d-e5f5d4085c24",
+      "target_id": "2fa68f5e-5bf9-4291-96f3-61cca25cdb5c",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 22,
+      "step_last_accessed": 0
+    },
+    "8bff3100-d4a1-464e-b7de-2fccd99544ff": {
+      "id": "8bff3100-d4a1-464e-b7de-2fccd99544ff",
+      "source_id": "e4d1aafd-a444-4d25-b9aa-af14a3e75745",
+      "target_id": "a41cae9b-1ed7-48b6-847d-e5f5d4085c24",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 23,
+      "step_last_accessed": 0
+    },
+    "1861ba9b-72d9-4ea7-ab70-c7b6af69e249": {
+      "id": "1861ba9b-72d9-4ea7-ab70-c7b6af69e249",
+      "source_id": "f101d996-71cb-4e71-9394-ffb841d09bf0",
+      "target_id": "a41cae9b-1ed7-48b6-847d-e5f5d4085c24",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 23,
+      "step_last_accessed": 0
+    },
+    "e3677d09-4699-4471-9cc8-8da8f975affb": {
+      "id": "e3677d09-4699-4471-9cc8-8da8f975affb",
+      "source_id": "57e086dc-16a6-4782-8fa5-ac9979440da4",
+      "target_id": "<NEW_ENTRY_0>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center, different locations",
+      "step_created": 26,
+      "step_last_accessed": 0
+    },
+    "1d08fd5b-2f22-4f76-a799-c689dc7f2743": {
+      "id": "1d08fd5b-2f22-4f76-a799-c689dc7f2743",
+      "source_id": "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+      "target_id": "<NEW_ENTRY_0>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for different storage facilities (north warehouse vs. south facility)",
+      "step_created": 27,
+      "step_last_accessed": 0
+    },
+    "c68ced12-9beb-40ef-9917-0d89adb4627b": {
+      "id": "c68ced12-9beb-40ef-9917-0d89adb4627b",
+      "source_id": "NEW_0",
+      "target_id": "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are QA quarterly inspection records for different storage locations",
+      "step_created": 28,
+      "step_last_accessed": 0
+    },
+    "d1cb7b53-11ad-422c-b438-381a142b7ed9": {
+      "id": "d1cb7b53-11ad-422c-b438-381a142b7ed9",
+      "source_id": "NEW_0",
+      "target_id": "a5c03936-ffb9-4cad-bf62-38a7f665c141",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are QA quarterly inspection records for different storage locations",
+      "step_created": 28,
+      "step_last_accessed": 0
+    },
+    "19dbc72f-d5fa-43c1-b1e5-1d0bef5e08e7": {
+      "id": "19dbc72f-d5fa-43c1-b1e5-1d0bef5e08e7",
+      "source_id": "09513d60-8dad-4cad-9e14-e05f1192c2bf",
+      "target_id": "74529527-37e4-419b-bcb7-4be6ea9a146e",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 30,
+      "step_last_accessed": 0
+    },
+    "b6c57e10-ef9a-4961-aa53-f8796e01bde5": {
+      "id": "b6c57e10-ef9a-4961-aa53-f8796e01bde5",
+      "source_id": "new_entry_0",
+      "target_id": "57e086dc-16a6-4782-8fa5-ac9979440da4",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 31,
+      "step_last_accessed": 0
+    },
+    "b842faa3-a120-4530-bd77-34e3763aa616": {
+      "id": "b842faa3-a120-4530-bd77-34e3763aa616",
+      "source_id": "new_entry_0",
+      "target_id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both submitted last Friday, air filter replacements awaiting parts from regional supply center",
+      "step_created": 31,
+      "step_last_accessed": 0
+    },
+    "4c808292-2bdb-4bf4-ad6d-00b20839df82": {
+      "id": "4c808292-2bdb-4bf4-ad6d-00b20839df82",
+      "source_id": "640451a8-55cc-4eb4-8b17-70233cef3c5c",
+      "target_id": "bf1f7e8c-7a97-4ae5-9f05-497ffd20da3e",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 32,
+      "step_last_accessed": 0
+    },
+    "02f5590c-adae-4a2d-98fc-9f53bb4b1caa": {
+      "id": "02f5590c-adae-4a2d-98fc-9f53bb4b1caa",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "57e086dc-16a6-4782-8fa5-ac9979440da4",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 32,
+      "step_last_accessed": 0
+    },
+    "740d27cc-0995-431b-aefa-512a4cda1de7": {
+      "id": "740d27cc-0995-431b-aefa-512a4cda1de7",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 32,
+      "step_last_accessed": 0
+    },
+    "7cd9552b-e056-494e-9207-08e90c190069": {
+      "id": "7cd9552b-e056-494e-9207-08e90c190069",
+      "source_id": "35dffcb3",
+      "target_id": "a5c03936",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are QA quarterly inspection records for storage facilities; both relevant to reconciliation access requirements.",
+      "step_created": 33,
+      "step_last_accessed": 0
+    },
+    "08e57356-64ca-42cc-97f6-580a0c166c5d": {
+      "id": "08e57356-64ca-42cc-97f6-580a0c166c5d",
+      "source_id": "980296a8-638e-4433-b97e-fff9a951a472",
+      "target_id": "57e086dc-16a6-4782-8fa5-ac9979440da4",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 34,
+      "step_last_accessed": 0
+    },
+    "a5953354-24fb-493f-8887-8922b810dddf": {
+      "id": "a5953354-24fb-493f-8887-8922b810dddf",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 34,
+      "step_last_accessed": 0
+    },
+    "3b59eaed-3b87-4e00-b99e-a12183aece0f": {
+      "id": "3b59eaed-3b87-4e00-b99e-a12183aece0f",
+      "source_id": "NEW_0",
+      "target_id": "cbfc2b55",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Henry gave 4 plums to Charlie in a verified trade.",
+      "step_created": 40,
+      "step_last_accessed": 0
+    },
+    "479f163a-c0e4-4a6d-9d0f-090e23f6b765": {
+      "id": "479f163a-c0e4-4a6d-9d0f-090e23f6b765",
+      "source_id": "d1b2d94c-8f37-44ec-8a25-7943792b9422",
+      "target_id": "7ebeee60-13f0-4e4e-81eb-79dee7f59922",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 41,
+      "step_last_accessed": 0
+    },
+    "46d14f08-9245-4d84-bd0b-3057b9de66c4": {
+      "id": "46d14f08-9245-4d84-bd0b-3057b9de66c4",
+      "source_id": "1b2732af-c456-4568-bd31-68ce64feeb8a",
+      "target_id": "NEW_ENTRY_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Diana's inventory records",
+      "step_created": 41,
+      "step_last_accessed": 0
+    },
+    "51c563fa-8e0b-418f-826c-8903b535e47f": {
+      "id": "51c563fa-8e0b-418f-826c-8903b535e47f",
+      "source_id": "fa4ff193-80cc-483d-821d-985e23108bff",
+      "target_id": "d1b2d94c-8f37-44ec-8a25-7943792b9422",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 42,
+      "step_last_accessed": 0
+    },
+    "ef8f20c6-dca0-460a-88ce-9e46ea64efc5": {
+      "id": "ef8f20c6-dca0-460a-88ce-9e46ea64efc5",
+      "source_id": "4a96840c",
+      "target_id": "b59b85b1",
+      "relationship": "supersedes",
+      "weight": 0.9,
+      "context": "Henry gave 4 plums to Frank; count updated from 17 to 13",
+      "step_created": 43,
+      "step_last_accessed": 0
+    },
+    "ae5ff8c4-a27c-49a7-abc1-e4335da55fc4": {
+      "id": "ae5ff8c4-a27c-49a7-abc1-e4335da55fc4",
+      "source_id": "abbdad48-963d-4ff6-9983-6f22c9301d2c",
+      "target_id": "NEW_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are inventory records for Frank",
+      "step_created": 43,
+      "step_last_accessed": 0
+    },
+    "f529d693-c54a-4ca6-8f65-f5813599813b": {
+      "id": "f529d693-c54a-4ca6-8f65-f5813599813b",
+      "source_id": "9fb23ccf-e1f1-4b7f-82ef-a89331584ea0",
+      "target_id": "7c7055af-78cc-476e-bc87-c65ccc2387ce",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 44,
+      "step_last_accessed": 0
+    },
+    "0f562d90-5ec6-4f20-aa66-3dcb5336676e": {
+      "id": "0f562d90-5ec6-4f20-aa66-3dcb5336676e",
+      "source_id": "7c7055af-78cc-476e-bc87-c65ccc2387ce",
+      "target_id": "5a70356b-c151-4390-8e16-ca7ff02cf766",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both entries relate to Grace/Paul papaya trade event",
+      "step_created": 44,
+      "step_last_accessed": 0
+    },
+    "812c2415-da9e-42d2-9b54-410bbbe9504a": {
+      "id": "812c2415-da9e-42d2-9b54-410bbbe9504a",
+      "source_id": "<new_entry_id>",
+      "target_id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 45,
+      "step_last_accessed": 0
+    },
+    "12e2b3a0-d18d-4503-93c0-f17d7cb7efdc": {
+      "id": "12e2b3a0-d18d-4503-93c0-f17d7cb7efdc",
+      "source_id": "<new_entry_0>",
+      "target_id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 45,
+      "step_last_accessed": 0
+    },
+    "3edcc018-c11f-4f2d-8cd2-dcf5ab109f3c": {
+      "id": "3edcc018-c11f-4f2d-8cd2-dcf5ab109f3c",
+      "source_id": "<new_entry_0>",
+      "target_id": "640451a8-55cc-4eb4-8b17-70233cef3c5c",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 45,
+      "step_last_accessed": 0
+    },
+    "6c58c9a8-c2c2-434a-bfbe-26bb2636dc1e": {
+      "id": "6c58c9a8-c2c2-434a-bfbe-26bb2636dc1e",
+      "source_id": "<new_entry_0>",
+      "target_id": "980296a8-638e-4433-b97e-fff9a951a472",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 45,
+      "step_last_accessed": 0
+    },
+    "f01685af-276b-4cb7-b156-ec11d0667499": {
+      "id": "f01685af-276b-4cb7-b156-ec11d0667499",
+      "source_id": "3c82bf02-d1af-446e-98ba-7b532e3dd348",
+      "target_id": "fa4ff193-80cc-483d-821d-985e23108bff",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 46,
+      "step_last_accessed": 0
+    },
+    "f283f335-9a1a-43fd-8387-fc37b5dd9f5b": {
+      "id": "f283f335-9a1a-43fd-8387-fc37b5dd9f5b",
+      "source_id": "7c3e6230-1a47-4516-aa19-a342745cd80f",
+      "target_id": "9fb23ccf-e1f1-4b7f-82ef-a89331584ea0",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 46,
+      "step_last_accessed": 0
+    },
+    "f5579dea-7f92-4cfc-8164-9894ce34194a": {
+      "id": "f5579dea-7f92-4cfc-8164-9894ce34194a",
+      "source_id": "fa4ff193-80cc-483d-821d-985e23108bff",
+      "target_id": "9fb23ccf-e1f1-4b7f-82ef-a89331584ea0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Rachel gave 2 dates to Paul; Rachel's inventory decreases, Paul's increases",
+      "step_created": 46,
+      "step_last_accessed": 0
+    },
+    "296b09af-0126-45ce-9747-21df3749533f": {
+      "id": "296b09af-0126-45ce-9747-21df3749533f",
+      "source_id": "53fda01e-3a5e-4462-b735-d2a40f121f16",
+      "target_id": "5a70356b-c151-4390-8e16-ca7ff02cf766",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 47,
+      "step_last_accessed": 0
+    },
+    "ca6f852a-eec5-425b-acda-40468e68d71c": {
+      "id": "ca6f852a-eec5-425b-acda-40468e68d71c",
+      "source_id": "45c65c06-81c5-4d6e-9bf9-07368f678e1e",
+      "target_id": "<new_entry_0>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are inventory records for Jack",
+      "step_created": 47,
+      "step_last_accessed": 0
+    },
+    "2497c92b-97a2-44ea-ae99-84fa50835dfd": {
+      "id": "2497c92b-97a2-44ea-ae99-84fa50835dfd",
+      "source_id": "fc87e0cf",
+      "target_id": "1bf83199",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Bob and Sam involved in orange trade (step 48)",
+      "step_created": 48,
+      "step_last_accessed": 0
+    },
+    "1037429c-08eb-40dd-ac49-43419382687a": {
+      "id": "1037429c-08eb-40dd-ac49-43419382687a",
+      "source_id": "1bf83199",
+      "target_id": "fc87e0cf",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are inventory records for Sam and Bob respectively",
+      "step_created": 48,
+      "step_last_accessed": 0
+    },
+    "896640fb-2f54-425c-b3ca-b0e1047bfc00": {
+      "id": "896640fb-2f54-425c-b3ca-b0e1047bfc00",
+      "source_id": "<NEW_0>",
+      "target_id": "fc87e0cf",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Bob gave 1 orange to Karen; count updated from 17 to 16.",
+      "step_created": 49,
+      "step_last_accessed": 0
+    },
+    "2e3a6803-f76d-4417-938d-c28eedd293d0": {
+      "id": "2e3a6803-f76d-4417-938d-c28eedd293d0",
+      "source_id": "701039a4",
+      "target_id": "NEW_ENTRY_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both track Karen's inventory items",
+      "step_created": 49,
+      "step_last_accessed": 0
+    },
+    "969ca26e-91af-48bb-b612-b68deffba13e": {
+      "id": "969ca26e-91af-48bb-b612-b68deffba13e",
+      "source_id": "fc87e0cf",
+      "target_id": "b8bc71cf",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Bob gave 2 oranges to Sam; both records updated together",
+      "step_created": 50,
+      "step_last_accessed": 0
+    },
+    "20d14a97-0dac-4c7f-a255-0d213628ec3c": {
+      "id": "20d14a97-0dac-4c7f-a255-0d213628ec3c",
+      "source_id": "054ad62c-74d7-4eed-b9cf-842c03b9e2ee",
+      "target_id": "b8bc71cf-db97-46a2-9130-f51b88cf2339",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 50,
+      "step_last_accessed": 0
+    },
+    "b9539c0b-7c06-439d-a67e-b6b15e875bf3": {
+      "id": "b9539c0b-7c06-439d-a67e-b6b15e875bf3",
+      "source_id": "ada02afc-d7ac-4ade-9d8f-8f878a385f2b",
+      "target_id": "e4d1aafd-a444-4d25-b9aa-af14a3e75745",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 51,
+      "step_last_accessed": 0
+    },
+    "1750f562-8e10-4163-9ca1-232c1acc1e07": {
+      "id": "1750f562-8e10-4163-9ca1-232c1acc1e07",
+      "source_id": "31c2c992-c9f6-4e57-8696-6d72bcc00c23",
+      "target_id": "e4d1aafd-a444-4d25-b9aa-af14a3e75745",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 51,
+      "step_last_accessed": 0
+    },
+    "24d2968c-a163-4be9-b229-8fc1b7f587d6": {
+      "id": "24d2968c-a163-4be9-b229-8fc1b7f587d6",
+      "source_id": "176979c7-8743-4dcc-8a82-ad9f4932eae1",
+      "target_id": "e4d521f9-9193-41fa-8b40-4bf4077bf653",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 52,
+      "step_last_accessed": 0
+    },
+    "adcf1f63-bba4-49cd-95a2-29942345f79f": {
+      "id": "adcf1f63-bba4-49cd-95a2-29942345f79f",
+      "source_id": "1b2732af-c456-4568-bd31-68ce64feeb8a",
+      "target_id": "<new_lemon_entry>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Diana's inventory records",
+      "step_created": 52,
+      "step_last_accessed": 0
+    },
+    "af453689-cbf3-490c-96ed-83638f6bd51c": {
+      "id": "af453689-cbf3-490c-96ed-83638f6bd51c",
+      "source_id": "190a5b1d-052f-48e3-baf6-c18dfadf4ca2",
+      "target_id": "4a96840c-82f7-4a0b-b6a3-4ef54e52ff7c",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 53,
+      "step_last_accessed": 0
+    },
+    "2777573c-f687-4ae2-ba38-7b6e4be95201": {
+      "id": "2777573c-f687-4ae2-ba38-7b6e4be95201",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "90eb88ae-09fe-4e38-8aed-fcc255e9c3a5",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Henry's plum count updated from 13 to 10 after giving 3 plums to Sam",
+      "step_created": 53,
+      "step_last_accessed": 0
+    },
+    "7a696b41-ec4c-46a6-8f07-c019dc81f9d0": {
+      "id": "7a696b41-ec4c-46a6-8f07-c019dc81f9d0",
+      "source_id": "469204c8-cebe-4357-97fb-ef3cd244e97b",
+      "target_id": "b59b85b1-f7f0-4157-80b9-7c227ffa630b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 53,
+      "step_last_accessed": 0
+    },
+    "75c6a5ff-72fd-4355-aa27-be104d3af17c": {
+      "id": "75c6a5ff-72fd-4355-aa27-be104d3af17c",
+      "source_id": "henry_14_plums_new",
+      "target_id": "b59b85b1-f7f0-4157-80b9-7c227ffa630b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Henry gave 3 plums to Sam; updated from 17 to 14",
+      "step_created": 53,
+      "step_last_accessed": 0
+    },
+    "7cce5789-8adb-4cfd-9345-6a141d98fdd9": {
+      "id": "7cce5789-8adb-4cfd-9345-6a141d98fdd9",
+      "source_id": "fc87e0cf",
+      "target_id": "c1d9a376",
+      "relationship": "supersedes",
+      "weight": 0.9,
+      "context": "Bob's orange count updated: 17 \u2192 16 after giving 1 to Tina",
+      "step_created": 54,
+      "step_last_accessed": 0
+    },
+    "043184a5-27df-459a-ad62-739ccefcecd4": {
+      "id": "043184a5-27df-459a-ad62-739ccefcecd4",
+      "source_id": "c4461de7-fccc-46b0-b9dd-45bf86a32e91",
+      "target_id": "<NEW_TINA_ORANGE_ENTRY>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are Tina's inventory records",
+      "step_created": 54,
+      "step_last_accessed": 0
+    },
+    "c36e5909-ee6e-4e08-90f4-38beb9b20029": {
+      "id": "c36e5909-ee6e-4e08-90f4-38beb9b20029",
+      "source_id": "NEW_0",
+      "target_id": "df5f8a4f",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Nathan gave 5 limes to Sam; count reduced from 22 to 17.",
+      "step_created": 55,
+      "step_last_accessed": 0
+    },
+    "3eadf7f7-5325-49cb-a38c-bd27d3740b33": {
+      "id": "3eadf7f7-5325-49cb-a38c-bd27d3740b33",
+      "source_id": "new_entry_0",
+      "target_id": "1bf83199-6b02-44a6-a52a-8f41d885a88a",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Sam's inventory records",
+      "step_created": 55,
+      "step_last_accessed": 0
+    },
+    "9227e81b-7b7e-4778-9e6a-a7ffac14e5a5": {
+      "id": "9227e81b-7b7e-4778-9e6a-a7ffac14e5a5",
+      "source_id": "a1a9b2cc-3df3-4dec-ad96-ebdf674aec64",
+      "target_id": "8b4f92b3-81e3-4820-bc27-a411bb3c4999",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 56,
+      "step_last_accessed": 0
+    },
+    "1564e7a5-7c3f-425e-b07e-e7a37248b6b1": {
+      "id": "1564e7a5-7c3f-425e-b07e-e7a37248b6b1",
+      "source_id": "Karen has 3 figs.",
+      "target_id": "Quinn has 13 figs.",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Quinn traded 3 figs to Karen; both counts updated together.",
+      "step_created": 56,
+      "step_last_accessed": 0
+    },
+    "6a9a3412-724c-4f81-b2c9-f44456c82764": {
+      "id": "6a9a3412-724c-4f81-b2c9-f44456c82764",
+      "source_id": "299cad78-cfb9-47bd-99cf-dacb5680a8a2",
+      "target_id": "<NEW_0>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay observations caused by road construction with temporary reroute suggestions",
+      "step_created": 57,
+      "step_last_accessed": 0
+    },
+    "0badd5e3-15ab-446a-b975-3e4ae5814a22": {
+      "id": "0badd5e3-15ab-446a-b975-3e4ae5814a22",
+      "source_id": "8f061461-f5b2-416a-aa6b-12f01a7cfbcb",
+      "target_id": "c4461de7-fccc-46b0-b9dd-45bf86a32e91",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 58,
+      "step_last_accessed": 0
+    },
+    "dcf74622-fd5c-4f8b-aa76-531cc75eef01": {
+      "id": "dcf74622-fd5c-4f8b-aa76-531cc75eef01",
+      "source_id": "521472c8-ac0f-47a4-be61-7cb0d50817da",
+      "target_id": "cbfc2b55-563b-41e6-94c7-e3daece78115",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 59,
+      "step_last_accessed": 0
+    },
+    "82aab113-a37f-4399-b487-8b44a37d4d0a": {
+      "id": "82aab113-a37f-4399-b487-8b44a37d4d0a",
+      "source_id": "9e021102-5aab-48e1-9e20-68edc1ad50de",
+      "target_id": "be90a635-89a9-4641-8fe6-ff89dbf24949",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 60,
+      "step_last_accessed": 0
+    },
+    "7f7f8990-cbdd-4919-bddf-61e8b1e32067": {
+      "id": "7f7f8990-cbdd-4919-bddf-61e8b1e32067",
+      "source_id": "<UNKNOWN>",
+      "target_id": "8aa702fd-4e7f-4496-b505-db3efb462ba0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.9,
+      "context": "Both are inventory records for Iris",
+      "step_created": 60,
+      "step_last_accessed": 0
+    },
+    "b8055203-ea8d-4c9b-9362-c6bd69a563a6": {
+      "id": "b8055203-ea8d-4c9b-9362-c6bd69a563a6",
+      "source_id": "b473f031-c99f-4142-aeff-76c3b2f37b9b",
+      "target_id": "d64b7d0f-16c8-4943-8a66-88c039e51d43",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 61,
+      "step_last_accessed": 0
+    },
+    "4299b017-6d37-4905-b4bb-55f5f4f91653": {
+      "id": "4299b017-6d37-4905-b4bb-55f5f4f91653",
+      "source_id": "521472c8",
+      "target_id": "NEW_CHARLIE_KIWI",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are Charlie's inventory records",
+      "step_created": 61,
+      "step_last_accessed": 0
+    },
+    "85bb0fdd-6208-469e-a839-e2593ada55e2": {
+      "id": "85bb0fdd-6208-469e-a839-e2593ada55e2",
+      "source_id": "b1f1089b-00c7-4156-927d-b473fe8fbb7b",
+      "target_id": "b473f031-c99f-4142-aeff-76c3b2f37b9b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 62,
+      "step_last_accessed": 0
+    },
+    "81e06aa4-6f4c-4c41-bbae-6d688e807304": {
+      "id": "81e06aa4-6f4c-4c41-bbae-6d688e807304",
+      "source_id": "45c65c06-81c5-4d6e-9bf9-07368f678e1e",
+      "target_id": "<NEW_JACK_KIWI_ENTRY>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Jack's inventory records",
+      "step_created": 62,
+      "step_last_accessed": 0
+    },
+    "8b616c3b-d8bd-4eaa-9421-f1cfb9d17023": {
+      "id": "8b616c3b-d8bd-4eaa-9421-f1cfb9d17023",
+      "source_id": "a32eefa1-f117-4c5c-a46b-fd9859066068",
+      "target_id": "c7aa7af4-7cd2-43ce-a2c1-ac4e1ebd6fb2",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 63,
+      "step_last_accessed": 0
+    },
+    "95199baa-3a54-476e-9a93-6811561db223": {
+      "id": "95199baa-3a54-476e-9a93-6811561db223",
+      "source_id": "f3482663-6fc1-44da-a8c6-f570e45a30fd",
+      "target_id": "1b2732af-c456-4568-bd31-68ce64feeb8a",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 64,
+      "step_last_accessed": 0
+    },
+    "b344d0ad-1f50-44e2-af50-d92b79a1f8a7": {
+      "id": "b344d0ad-1f50-44e2-af50-d92b79a1f8a7",
+      "source_id": "93f73505-af39-40d3-ae02-2a8043bb4bd3",
+      "target_id": "8aa702fd-4e7f-4496-b505-db3efb462ba0",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 65,
+      "step_last_accessed": 0
+    },
+    "d3473dd4-54d8-485d-8341-14346726b251": {
+      "id": "d3473dd4-54d8-485d-8341-14346726b251",
+      "source_id": "45c65c06",
+      "target_id": "<NEW_JACK_CHERRIES>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are inventory records for Jack's fruit items.",
+      "step_created": 65,
+      "step_last_accessed": 0
+    },
+    "bcfed001-8424-40ef-b13f-dd2bdb4fc4b4": {
+      "id": "bcfed001-8424-40ef-b13f-dd2bdb4fc4b4",
+      "source_id": "3f880d9a-e4ce-473c-9cf4-fe3768bf7981",
+      "target_id": "53fda01e-3a5e-4462-b735-d2a40f121f16",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 66,
+      "step_last_accessed": 0
+    },
+    "a0a33390-f2a5-405c-bd07-2f3e811097ec": {
+      "id": "a0a33390-f2a5-405c-bd07-2f3e811097ec",
+      "source_id": "24d1047c-b466-4086-bdc0-0e3fe77dd3ed",
+      "target_id": "NEW_0",
+      "relationship": "supersedes",
+      "weight": 0.9,
+      "context": "Iris gave 1 cherry to Bob; count updated from 7 to 6",
+      "step_created": 68,
+      "step_last_accessed": 0
+    },
+    "900c8df3-0c3f-434c-bc18-5820111eaa80": {
+      "id": "900c8df3-0c3f-434c-bc18-5820111eaa80",
+      "source_id": "24d1047c-b466-4086-bdc0-0e3fe77dd3ed",
+      "target_id": "NEW",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both record cherry transfers involving Iris",
+      "step_created": 68,
+      "step_last_accessed": 0
+    },
+    "0f482354-fcb7-404b-a72b-8d7c7130782c": {
+      "id": "0f482354-fcb7-404b-a72b-8d7c7130782c",
+      "source_id": "24d1047c-b466-4086-bdc0-0e3fe77dd3ed",
+      "target_id": "NEW_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both record Iris giving cherries to others",
+      "step_created": 68,
+      "step_last_accessed": 0
+    },
+    "3f6aa060-e6f0-49d3-b27e-4a7463f3aa52": {
+      "id": "3f6aa060-e6f0-49d3-b27e-4a7463f3aa52",
+      "source_id": "127224d7-8adb-4b81-ae77-5f0a2a44856b",
+      "target_id": "09513d60-8dad-4cad-9e14-e05f1192c2bf",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 69,
+      "step_last_accessed": 0
+    },
+    "3fcc829c-aa23-41d1-a6dd-1550460e6fb5": {
+      "id": "3fcc829c-aa23-41d1-a6dd-1550460e6fb5",
+      "source_id": "84324cb2-b209-48e1-b9b0-58fefdc34cde",
+      "target_id": "3c82bf02-d1af-446e-98ba-7b532e3dd348",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 70,
+      "step_last_accessed": 0
+    },
+    "306a3780-ae76-4b90-b7fb-edc367c9ec37": {
+      "id": "306a3780-ae76-4b90-b7fb-edc367c9ec37",
+      "source_id": "973a9e41-87f2-44f3-87dd-45a2ff9593c2",
+      "target_id": "3e51c81d-ebf5-4a04-97be-86c51ba85efb",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 71,
+      "step_last_accessed": 0
+    },
+    "60f17c52-269a-4b06-858f-7b0d26e36cf3": {
+      "id": "60f17c52-269a-4b06-858f-7b0d26e36cf3",
+      "source_id": "9d367849-174c-4cc8-966d-8daeb43ae23f",
+      "target_id": "NEW_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Diana's inventory records for different items",
+      "step_created": 71,
+      "step_last_accessed": 0
+    },
+    "c1f5759c-8a98-4e97-a922-287c259f5af6": {
+      "id": "c1f5759c-8a98-4e97-a922-287c259f5af6",
+      "source_id": "9ab652bb-9230-42af-a1b2-74f50a4d662b",
+      "target_id": "619ced01-3177-49b6-a38d-17114cbe6994",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 72,
+      "step_last_accessed": 0
+    },
+    "9bc8fbd4-6c6b-4e63-bb0f-0983a871b23e": {
+      "id": "9bc8fbd4-6c6b-4e63-bb0f-0983a871b23e",
+      "source_id": "619ced01-3177-49b6-a38d-17114cbe6994",
+      "target_id": "84324cb2-b209-48e1-b9b0-58fefdc34cde",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are Rachel inventory records (dates and grapes)",
+      "step_created": 72,
+      "step_last_accessed": 0
+    },
+    "f545e0de-2ada-4ae8-a643-39d78426df40": {
+      "id": "f545e0de-2ada-4ae8-a643-39d78426df40",
+      "source_id": "dee0265c-7c7c-4277-9e75-85a06cedf82b",
+      "target_id": "b1f1089b-00c7-4156-927d-b473fe8fbb7b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 73,
+      "step_last_accessed": 0
+    },
+    "d50613f7-8d98-4758-9454-ebc452d4cc1c": {
+      "id": "d50613f7-8d98-4758-9454-ebc452d4cc1c",
+      "source_id": "2e0c145d-3c1f-4b80-a03d-3b5d02c68d27",
+      "target_id": "9ab652bb-9230-42af-a1b2-74f50a4d662b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 74,
+      "step_last_accessed": 0
+    },
+    "26274b7d-a9e8-49d6-8fbe-77c40b081702": {
+      "id": "26274b7d-a9e8-49d6-8fbe-77c40b081702",
+      "source_id": "24997d17-6eb6-4484-8af3-af69ca728cb3",
+      "target_id": "df5f8a4f-e36b-4729-bb67-1edcbcae3e03",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are Nathan inventory records",
+      "step_created": 74,
+      "step_last_accessed": 0
+    },
+    "dc44aa44-e647-45d2-befc-d281aa613961": {
+      "id": "dc44aa44-e647-45d2-befc-d281aa613961",
+      "source_id": "532f151b-6b0e-4c99-b6e8-d90f9c0659e9",
+      "target_id": "fe0c3ff8-68d4-460c-9282-d8ef08cbb635",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 75,
+      "step_last_accessed": 0
+    },
+    "c7399ab2-d714-42f3-bc7a-7337902e19bc": {
+      "id": "c7399ab2-d714-42f3-bc7a-7337902e19bc",
+      "source_id": "bfdc6135-c7b1-4ef2-8280-ec5417f1070d",
+      "target_id": "df5f8a4f-e36b-4729-bb67-1edcbcae3e03",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 76,
+      "step_last_accessed": 0
+    },
+    "f5e269a3-373e-4d0b-bda7-a1ac83269eae": {
+      "id": "f5e269a3-373e-4d0b-bda7-a1ac83269eae",
+      "source_id": "24997d17-6eb6-4484-8af3-af69ca728cb3",
+      "target_id": "<NEW_ENTRY>",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Nathan's lime and date records",
+      "step_created": 76,
+      "step_last_accessed": 0
+    },
+    "384ac091-2257-4521-bcab-4c02bcb0366e": {
+      "id": "384ac091-2257-4521-bcab-4c02bcb0366e",
+      "source_id": "NEW:0",
+      "target_id": "df5f8a4f-e36b-4729-bb67-1edcbcae3e03",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Tina lime record, created from Nathan-to-Tina lime transfer",
+      "step_created": 76,
+      "step_last_accessed": 0
+    },
+    "9a52e0fd-9c4d-4773-8a4c-f49bd383c923": {
+      "id": "9a52e0fd-9c4d-4773-8a4c-f49bd383c923",
+      "source_id": "f7a02ac6-ed72-4962-864e-290e501daf09",
+      "target_id": "190a5b1d-052f-48e3-baf6-c18dfadf4ca2",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 77,
+      "step_last_accessed": 0
+    },
+    "6651fa10-e097-444c-991b-e0198be1c2e6": {
+      "id": "6651fa10-e097-444c-991b-e0198be1c2e6",
+      "source_id": "8a1e4a7e-32fc-4c80-98b8-ee16d03781b4",
+      "target_id": "b74a725c-df19-48d7-a5e0-bbdbeef6b7d9",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 77,
+      "step_last_accessed": 0
+    },
+    "279d4da0-b054-4486-b6ba-5b6f46581613": {
+      "id": "279d4da0-b054-4486-b6ba-5b6f46581613",
+      "source_id": "<new_entry_id>",
+      "target_id": "bfdc6135-c7b1-4ef2-8286-ec5417f1070d",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Nathan gave 2 limes to Alice; 20\u219218",
+      "step_created": 78,
+      "step_last_accessed": 0
+    },
+    "460e944e-e58f-4611-bf13-db8fa7601f6e": {
+      "id": "460e944e-e58f-4611-bf13-db8fa7601f6e",
+      "source_id": "973a9e41-87f2-44f3-87dd-45a2ff9593c2",
+      "target_id": "c8656cac-c823-4d28-9193-fa62d4ad6c91",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are Alice inventory records (different items)",
+      "step_created": 78,
+      "step_last_accessed": 0
+    },
+    "4ac5460e-9378-4fd8-a9ca-25371eab2f42": {
+      "id": "4ac5460e-9378-4fd8-a9ca-25371eab2f42",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "701039a4",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Karen gave 3 blueberries to Nathan; count reduced from 11 to 8",
+      "step_created": 79,
+      "step_last_accessed": 0
+    },
+    "a57d8cb6-1ed3-47cf-9fb3-722e758c7257": {
+      "id": "a57d8cb6-1ed3-47cf-9fb3-722e758c7257",
+      "source_id": "f8a5ac70-c3b1-4300-8c23-ad7925953f22",
+      "target_id": "701039a4-b0a6-4fa4-86eb-86aeb780da3a",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 79,
+      "step_last_accessed": 0
+    },
+    "618c4525-dc13-4df8-ab8c-5653f3c1f628": {
+      "id": "618c4525-dc13-4df8-ab8c-5653f3c1f628",
+      "source_id": "701039a4-b0a6-4fa4-86eb-86aeb780da3a",
+      "target_id": "<new_karen_blueberry_entry>",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Karen gave 3 blueberries to Nathan; count updated from 11 to 8.",
+      "step_created": 79,
+      "step_last_accessed": 0
+    },
+    "c5b53f0e-8bd2-4d3b-897a-1a80ccf18661": {
+      "id": "c5b53f0e-8bd2-4d3b-897a-1a80ccf18661",
+      "source_id": "4fe206d0-3e9c-44cb-a83b-8a20124d8b14",
+      "target_id": "f7a02ac6-ed72-4962-864e-290e501daf09",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 80,
+      "step_last_accessed": 0
+    },
+    "6a0de904-7ca6-413c-a3d7-5afb355e99f3": {
+      "id": "6a0de904-7ca6-413c-a3d7-5afb355e99f3",
+      "source_id": "6f966daa",
+      "target_id": "new_entry_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Iris's inventory records for different items",
+      "step_created": 80,
+      "step_last_accessed": 0
+    },
+    "fff2994a-4a8d-4055-be3b-7e8554ea2388": {
+      "id": "fff2994a-4a8d-4055-be3b-7e8554ea2388",
+      "source_id": "b64332ec-ec1a-453f-89d1-4625ba1c1b7b",
+      "target_id": "127224d7-8adb-4b81-ae77-5f0a2a44856b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 81,
+      "step_last_accessed": 0
+    },
+    "ab2759ed-3ada-4376-8eed-e690b3a7a7b2": {
+      "id": "ab2759ed-3ada-4376-8eed-e690b3a7a7b2",
+      "source_id": "b853a34d-da40-43b6-be58-bcdc98cd733b",
+      "target_id": "4fe206d0-3e9c-44cb-a83b-8a20124d8b14",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 82,
+      "step_last_accessed": 0
+    },
+    "618e2f1f-63ba-4871-bb84-bfa54c36e63b": {
+      "id": "618e2f1f-63ba-4871-bb84-bfa54c36e63b",
+      "source_id": "d620e967-74fb-45d7-8d05-baff6a9e646e",
+      "target_id": "176979c7-8743-4dcc-8a82-ad9f4932eae1",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 83,
+      "step_last_accessed": 0
+    },
+    "ba006c60-39ef-4bb6-99fa-449cba651d41": {
+      "id": "ba006c60-39ef-4bb6-99fa-449cba651d41",
+      "source_id": "a62875a3-6150-46ca-9859-7da5200252b2",
+      "target_id": "521472c8-ac0f-47a4-be61-7cb0d50817da",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 84,
+      "step_last_accessed": 0
+    },
+    "1d016820-a6cd-4294-a22c-677e0556a6be": {
+      "id": "1d016820-a6cd-4294-a22c-677e0556a6be",
+      "source_id": "NEW_0",
+      "target_id": "521472c8-ac0f-47a4-be61-7cb0d50817da",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Charlie gave 3 bananas to Iris; 17-3=14",
+      "step_created": 84,
+      "step_last_accessed": 0
+    },
+    "1ec3ed91-b2c8-4cea-976d-885f791cde74": {
+      "id": "1ec3ed91-b2c8-4cea-976d-885f791cde74",
+      "source_id": "521472c8-ac0f-47a4-be61-7cb0d50817da",
+      "target_id": "93f73505-af39-40d3-ae06-2a8043bb4bd3",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Both are inventory records in the same tracking session",
+      "step_created": 84,
+      "step_last_accessed": 0
+    },
+    "9138222e-a04c-48c6-bea6-8993a4799884": {
+      "id": "9138222e-a04c-48c6-bea6-8993a4799884",
+      "source_id": "e8a11c57-f66c-4344-badb-c66957d30bd4",
+      "target_id": "9e021102-5aab-48e1-9e20-68edc1ad50de",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 85,
+      "step_last_accessed": 0
+    },
+    "d96fb431-3750-45e6-a87d-606e4ecc129b": {
+      "id": "d96fb431-3750-45e6-a87d-606e4ecc129b",
+      "source_id": "9e021102-5aab-48e1-9e20-68edc1ad50de",
+      "target_id": "NEW_MIA_FIG_ENTRY",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Quinn gave 3 figs to Mia; both parties' fig records are linked",
+      "step_created": 85,
+      "step_last_accessed": 0
+    },
+    "99cf3492-c6ef-41fb-be92-ee879d201dbd": {
+      "id": "99cf3492-c6ef-41fb-be92-ee879d201dbd",
+      "source_id": "43585a47-4c8b-4bbf-b8dc-6dc688c5196e",
+      "target_id": "973a9e41-87f2-44f3-87dd-45a2ff9593c2",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 86,
+      "step_last_accessed": 0
+    },
+    "36bf7b43-8e11-4fd2-b869-22864d15b482": {
+      "id": "36bf7b43-8e11-4fd2-b869-22864d15b482",
+      "source_id": "d07808c8-5b36-4835-b8db-389ba1c43f28",
+      "target_id": "dcc2add9-ed85-4d9f-ac4c-45b8179f9447",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 86,
+      "step_last_accessed": 0
+    },
+    "cdd1efc9-1aea-43fd-993f-fd0c78db2961": {
+      "id": "cdd1efc9-1aea-43fd-993f-fd0c78db2961",
+      "source_id": "NEW_0",
+      "target_id": "NEW_1",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.4,
+      "context": "Alice gave 3 apples to Diana \u2014 both records updated from this trade",
+      "step_created": 86,
+      "step_last_accessed": 0
+    },
+    "2a2f529c-1ad5-43d2-b6c4-0c732a079e60": {
+      "id": "2a2f529c-1ad5-43d2-b6c4-0c732a079e60",
+      "source_id": "NEW_0",
+      "target_id": "d07808c8",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Diana received 3 more apples from Alice; count updated from 5 to 8",
+      "step_created": 86,
+      "step_last_accessed": 0
+    },
+    "d78090eb-e081-4c75-ae60-bcf836c567c2": {
+      "id": "d78090eb-e081-4c75-ae60-bcf836c567c2",
+      "source_id": "2d446043-d581-4858-979d-3bbf634b1cef",
+      "target_id": "b9744499-8eba-4991-9fee-cac2d49ac736",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 87,
+      "step_last_accessed": 0
+    },
+    "60bd88f0-83db-4a67-bd6c-8bbc099659ae": {
+      "id": "60bd88f0-83db-4a67-bd6c-8bbc099659ae",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "299cad78-cfb9-47bd-99cf-dacb5680a8a2",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are active delivery route delay records due to road construction with temporary reroutes.",
+      "step_created": 87,
+      "step_last_accessed": 0
+    },
+    "c159abb2-8938-4201-b511-a477faf9413d": {
+      "id": "c159abb2-8938-4201-b511-a477faf9413d",
+      "source_id": "<NEW_0>",
+      "target_id": "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for warehouse/storage areas",
+      "step_created": 101,
+      "step_last_accessed": 0
+    },
+    "74988a6f-4ee6-48f2-bfd0-45dd67b261af": {
+      "id": "74988a6f-4ee6-48f2-bfd0-45dd67b261af",
+      "source_id": "<NEW_0>",
+      "target_id": "a5c03936-ffb9-4cad-bf62-38a7f665c141",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for warehouse/storage areas",
+      "step_created": 101,
+      "step_last_accessed": 0
+    },
+    "6fef83c0-5aec-4df3-903c-0df6903aef8c": {
+      "id": "6fef83c0-5aec-4df3-903c-0df6903aef8c",
+      "source_id": "<NEW_0>",
+      "target_id": "35dffcb3-c615-45c0-8002-001fb6db0051",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for warehouse/storage areas",
+      "step_created": 101,
+      "step_last_accessed": 0
+    },
+    "2b0ec9b3-3c44-4847-963b-0555f4059fcd": {
+      "id": "2b0ec9b3-3c44-4847-963b-0555f4059fcd",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records across different storage locations",
+      "step_created": 101,
+      "step_last_accessed": 0
+    },
+    "883ad812-1f15-4830-a7ff-c6351724970d": {
+      "id": "883ad812-1f15-4830-a7ff-c6351724970d",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "a5c03936-ffb9-4cad-bf62-38a7f665c141",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records across different storage locations",
+      "step_created": 101,
+      "step_last_accessed": 0
+    },
+    "ba790a7b-66d1-46ff-a718-87961c8e4de9": {
+      "id": "ba790a7b-66d1-46ff-a718-87961c8e4de9",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "35dffcb3-c615-45c0-8002-001fb6db0051",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records across different storage locations",
+      "step_created": 101,
+      "step_last_accessed": 0
+    },
+    "1ec1535b-3681-4bae-a60b-310d13fc9734": {
+      "id": "1ec1535b-3681-4bae-a60b-310d13fc9734",
+      "source_id": "fd33a8cd-90cf-4a1d-a18d-8bc22087d9aa",
+      "target_id": "a32eefa1-f117-4c5c-a46b-fd9859066068",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 102,
+      "step_last_accessed": 0
+    },
+    "6d15038f-37fc-41de-b761-daded9771c09": {
+      "id": "6d15038f-37fc-41de-b761-daded9771c09",
+      "source_id": "299cad78",
+      "target_id": "new_entry_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay records caused by road construction with temporary reroutes.",
+      "step_created": 103,
+      "step_last_accessed": 0
+    },
+    "fe97dabb-fcb3-40f7-901f-665499f8764c": {
+      "id": "fe97dabb-fcb3-40f7-901f-665499f8764c",
+      "source_id": "813f6296-4877-4b31-b1dc-f0c80f90f114",
+      "target_id": "ada02afc-d7ac-4ade-9d8f-8f878a385f2b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 104,
+      "step_last_accessed": 0
+    },
+    "f93acf39-2440-485e-9196-9add791d4817": {
+      "id": "f93acf39-2440-485e-9196-9add791d4817",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "31c2c992-c9f6-4e57-8696-6d72bcc00c23",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "Latest reschedule: Thursday to next Thursday",
+      "step_created": 104,
+      "step_last_accessed": 0
+    },
+    "eddd40e4-10f6-407d-aa87-9d4e952b2b02": {
+      "id": "eddd40e4-10f6-407d-aa87-9d4e952b2b02",
+      "source_id": "a89f5ca3-6425-4a99-ae48-564d572e0186",
+      "target_id": "813f6296-4877-4b31-b1dc-f0c80f90f114",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 105,
+      "step_last_accessed": 0
+    },
+    "56c6178e-c9b1-41b1-9642-e7001341f956": {
+      "id": "56c6178e-c9b1-41b1-9642-e7001341f956",
+      "source_id": "aa28639e-d6e3-431e-b16a-8adc22ed6a1c",
+      "target_id": "fd33a8cd-90cf-4a1d-a18d-8bc22087d9aa",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 106,
+      "step_last_accessed": 0
+    },
+    "54e107be-7b87-44d5-a7ea-6e93335bbe87": {
+      "id": "54e107be-7b87-44d5-a7ea-6e93335bbe87",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "299cad78-cfb9-47bd-99cf-dacb5680a8a2",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are delivery route delay records with road construction and Industrial Park Loop reroutes",
+      "step_created": 107,
+      "step_last_accessed": 0
+    },
+    "21ce5ee1-a129-4f9f-b6c8-3ea5645d66ba": {
+      "id": "21ce5ee1-a129-4f9f-b6c8-3ea5645d66ba",
+      "source_id": "<NEW_ENTRY_0>",
+      "target_id": "60be1619-1e31-4c2d-afde-4264eb9f5171",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay records due to road construction with temporary reroutes",
+      "step_created": 107,
+      "step_last_accessed": 0
+    },
+    "13a90f52-95ee-4272-ad04-1b37755ab11a": {
+      "id": "13a90f52-95ee-4272-ad04-1b37755ab11a",
+      "source_id": "6981b72e",
+      "target_id": "317413d3",
+      "relationship": "supersedes",
+      "weight": 0.9,
+      "context": "Corrects training date from Thursday to next Wednesday",
+      "step_created": 110,
+      "step_last_accessed": 0
+    },
+    "00668107-b97c-4900-ae9f-4f4432e099de": {
+      "id": "00668107-b97c-4900-ae9f-4f4432e099de",
+      "source_id": "317413d3",
+      "target_id": "6981b72e",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both entries relate to the rescheduled barcode scanning training session",
+      "step_created": 111,
+      "step_last_accessed": 0
+    },
+    "45db52a1-eb26-47f7-bc36-32596bc7f180": {
+      "id": "45db52a1-eb26-47f7-bc36-32596bc7f180",
+      "source_id": "<NEW_0>",
+      "target_id": "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for different storage locations",
+      "step_created": 112,
+      "step_last_accessed": 0
+    },
+    "f6b9fa64-c75f-4f75-8a16-e0ecdcda64a5": {
+      "id": "f6b9fa64-c75f-4f75-8a16-e0ecdcda64a5",
+      "source_id": "<NEW_0>",
+      "target_id": "a5c03936-ffb9-4cad-bf62-38a7f665c141",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for different storage locations",
+      "step_created": 112,
+      "step_last_accessed": 0
+    },
+    "9f41eb68-4138-41de-8dd8-7830b2b88c61": {
+      "id": "9f41eb68-4138-41de-8dd8-7830b2b88c61",
+      "source_id": "<NEW_0>",
+      "target_id": "35dffcb3-c615-45c0-8002-001fb6db0051",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for different storage locations",
+      "step_created": 112,
+      "step_last_accessed": 0
+    },
+    "5501c0a9-fc75-4ebd-b1b1-545b88e713c8": {
+      "id": "5501c0a9-fc75-4ebd-b1b1-545b88e713c8",
+      "source_id": "<NEW_0>",
+      "target_id": "c55cf297-0f57-417b-ab77-850310f3f4c5",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both are QA quarterly inspection records for different storage locations",
+      "step_created": 112,
+      "step_last_accessed": 0
+    },
+    "46add18d-a2bb-4670-bb07-5e3a9aa9f312": {
+      "id": "46add18d-a2bb-4670-bb07-5e3a9aa9f312",
+      "source_id": "e38d7f48",
+      "target_id": "087ea14f",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Both relate to barcode scanning training session",
+      "step_created": 113,
+      "step_last_accessed": 0
+    },
+    "ef6dfdf4-e8dc-4808-9bd1-e6fd2af48656": {
+      "id": "ef6dfdf4-e8dc-4808-9bd1-e6fd2af48656",
+      "source_id": "e38d7f48",
+      "target_id": "087ea14f",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.7,
+      "context": "Training details supplement the rescheduled session entry",
+      "step_created": 114,
+      "step_last_accessed": 0
+    },
+    "0eb97eb3-f3f1-4022-848d-6373fa14f2ce": {
+      "id": "0eb97eb3-f3f1-4022-848d-6373fa14f2ce",
+      "source_id": "c71b0627-be3f-434b-b9b6-7c35da0103dd",
+      "target_id": "aa28639e-d6e3-431e-b16a-8adc22ed6a1c",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 115,
+      "step_last_accessed": 0
+    },
+    "d345e27d-201a-4568-ad10-0f4bc00b6ec8": {
+      "id": "d345e27d-201a-4568-ad10-0f4bc00b6ec8",
+      "source_id": "c8f70e86-545f-4b95-85f7-3eebcff931b4",
+      "target_id": "a62875a3-6150-46ca-9859-7da5200252b2",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 116,
+      "step_last_accessed": 0
+    },
+    "4f074277-4deb-4a39-84e6-34dc1f0086b2": {
+      "id": "4f074277-4deb-4a39-84e6-34dc1f0086b2",
+      "source_id": "94e0e4d9-89dd-4917-ac64-f388e29a4d06",
+      "target_id": "24997d17-6eb6-4484-8af3-af69ca728cb3",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 117,
+      "step_last_accessed": 0
+    },
+    "908d5e20-9814-42b5-8baa-db8232e3691e": {
+      "id": "908d5e20-9814-42b5-8baa-db8232e3691e",
+      "source_id": "b52fe01e-5265-4b9a-8bb5-3790eeb1c134",
+      "target_id": "bfdc6135-c7b1-4ef2-8280-ec5417f1070d",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 117,
+      "step_last_accessed": 0
+    },
+    "0c675ba9-06c7-4df9-9ca4-7e44bb0232fe": {
+      "id": "0c675ba9-06c7-4df9-9ca4-7e44bb0232fe",
+      "source_id": "4b76c6a1-fcd4-4cb5-8999-157a54c8cb7e",
+      "target_id": "d18e0ebc-0c58-4e18-ba45-96b698e1745f",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 117,
+      "step_last_accessed": 0
+    },
+    "68974edf-56bf-4a85-b57b-4caaada932d2": {
+      "id": "68974edf-56bf-4a85-b57b-4caaada932d2",
+      "source_id": "bfdc4131-4200-40fa-bb33-9d83607192f1",
+      "target_id": "39246eb4-cc5f-480b-90c4-5c3a54380e57",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both are Nathan's lime count records; bfdc4131 is recount correction trigger, 39246eb4 is final count (17) which remains accurate.",
+      "step_created": 117,
+      "step_last_accessed": 0
+    },
+    "ccbce5c1-22f6-4ca6-a218-9c03219811a7": {
+      "id": "ccbce5c1-22f6-4ca6-a218-9c03219811a7",
+      "source_id": "2e0c145d",
+      "target_id": "NEW_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Corrected initial count for Eve's grapes; current count is 8.",
+      "step_created": 118,
+      "step_last_accessed": 0
+    },
+    "02914d51-369a-4f80-b886-d3080f82b040": {
+      "id": "02914d51-369a-4f80-b886-d3080f82b040",
+      "source_id": "1d0bcb27-7ca6-415c-a615-3b3f5958f5e6",
+      "target_id": "f0a25987-73f4-46fd-b145-156141a3b4d8",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 119,
+      "step_last_accessed": 0
+    },
+    "35385476-d33d-44be-9c70-21330b135ccf": {
+      "id": "35385476-d33d-44be-9c70-21330b135ccf",
+      "source_id": "ea62cce5-0aa0-4ceb-a41c-5231ce156cc7",
+      "target_id": "abbdad48-963d-4ff6-9983-6f22c9301d2c",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 120,
+      "step_last_accessed": 0
+    },
+    "7e9a7f9c-e2cc-4a3c-abfd-b656b44510e3": {
+      "id": "7e9a7f9c-e2cc-4a3c-abfd-b656b44510e3",
+      "source_id": "c71b0627",
+      "target_id": "fd33a8cd",
+      "relationship": "supersedes",
+      "weight": 0.9,
+      "context": "New reconciliation date (Jan 6th week) replaces prior schedule entry.",
+      "step_created": 121,
+      "step_last_accessed": 0
+    },
+    "9520262b-c8b2-4405-b977-64dae5c63f3e": {
+      "id": "9520262b-c8b2-4405-b977-64dae5c63f3e",
+      "source_id": "<NEW_0>",
+      "target_id": "980296a8-638e-4433-b97e-fff9a951a472",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 122,
+      "step_last_accessed": 0
+    },
+    "d1156044-9805-4a47-b88c-e97c154580ca": {
+      "id": "d1156044-9805-4a47-b88c-e97c154580ca",
+      "source_id": "<NEW_0>",
+      "target_id": "640451a8-55cc-4eb4-8b17-70233cef3c5c",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 122,
+      "step_last_accessed": 0
+    },
+    "4adfc23d-3e51-444f-996d-49768c2beca3": {
+      "id": "4adfc23d-3e51-444f-996d-49768c2beca3",
+      "source_id": "<NEW_0>",
+      "target_id": "00747dfc-d297-4eab-a2c0-a1ad198d14e3",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 122,
+      "step_last_accessed": 0
+    },
+    "1dd69b35-c808-43a6-b54c-27c82872e664": {
+      "id": "1dd69b35-c808-43a6-b54c-27c82872e664",
+      "source_id": "<NEW_0>",
+      "target_id": "532f151b-6b0e-4c99-b6e8-d90f9c0659e9",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders awaiting parts from regional supply center",
+      "step_created": 122,
+      "step_last_accessed": 0
+    },
+    "877dd840-0216-44b0-8a59-135c87f619d1": {
+      "id": "877dd840-0216-44b0-8a59-135c87f619d1",
+      "source_id": "5974afc8-aa44-4441-a3b2-a16395615ed7",
+      "target_id": "299cad78-cfb9-47bd-99cf-dacb5680a8a2",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 123,
+      "step_last_accessed": 0
+    },
+    "307a6ec3-91c5-43a6-892b-f217d35840bc": {
+      "id": "307a6ec3-91c5-43a6-892b-f217d35840bc",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "60be1619-1e31-4c2d-afde-4264eb9f5171",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay records due to road construction",
+      "step_created": 123,
+      "step_last_accessed": 0
+    },
+    "2a99612f-804b-4658-b371-5c05a10d1b65": {
+      "id": "2a99612f-804b-4658-b371-5c05a10d1b65",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "97bfd021-c215-4c7a-86db-52d28c684e25",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay records due to road construction",
+      "step_created": 123,
+      "step_last_accessed": 0
+    },
+    "90f4618f-24cc-4d8c-802e-f4e897547eb0": {
+      "id": "90f4618f-24cc-4d8c-802e-f4e897547eb0",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "60be1619",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay/reroute records",
+      "step_created": 123,
+      "step_last_accessed": 0
+    },
+    "286c14c7-3715-434e-847f-47715dab21db": {
+      "id": "286c14c7-3715-434e-847f-47715dab21db",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "97bfd021",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay/reroute records",
+      "step_created": 123,
+      "step_last_accessed": 0
+    },
+    "c92539a4-4309-4c47-a93d-6f6ce6a2642f": {
+      "id": "c92539a4-4309-4c47-a93d-6f6ce6a2642f",
+      "source_id": "087ea14f",
+      "target_id": "e38d7f48",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Both relate to the barcode scanning system training session details",
+      "step_created": 124,
+      "step_last_accessed": 0
+    },
+    "3ebd0755-6fc4-4266-8b84-fa9e284cf3b7": {
+      "id": "3ebd0755-6fc4-4266-8b84-fa9e284cf3b7",
+      "source_id": "b8e92035-c696-4ff7-8e69-8e539e798025",
+      "target_id": "b64332ec-ec1a-453f-89d1-4625ba1c1b7b",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 125,
+      "step_last_accessed": 0
+    },
+    "0e5c4515-9f1b-4567-adc5-024020ccab8d": {
+      "id": "0e5c4515-9f1b-4567-adc5-024020ccab8d",
+      "source_id": "<NEW_0>",
+      "target_id": "640451a8",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are air filter replacement work orders submitted last Wednesday, parts from regional supply center",
+      "step_created": 126,
+      "step_last_accessed": 0
+    },
+    "332f0e11-368d-4e08-922b-72deb187f176": {
+      "id": "332f0e11-368d-4e08-922b-72deb187f176",
+      "source_id": "<NEW_0>",
+      "target_id": "532f151b",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are air filter replacement work orders submitted last Wednesday, parts from regional supply center",
+      "step_created": 126,
+      "step_last_accessed": 0
+    },
+    "ec108e28-83dc-4bb8-9f26-58fe3b320e40": {
+      "id": "ec108e28-83dc-4bb8-9f26-58fe3b320e40",
+      "source_id": "NEW_0",
+      "target_id": "60be1619",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are delivery route delay records caused by road construction",
+      "step_created": 129,
+      "step_last_accessed": 0
+    },
+    "62ce7e4a-4916-4367-bef9-0237ebf51c3f": {
+      "id": "62ce7e4a-4916-4367-bef9-0237ebf51c3f",
+      "source_id": "NEW_ENTRY_0",
+      "target_id": "60be1619",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both involve Oak Street bypass reroute",
+      "step_created": 129,
+      "step_last_accessed": 0
+    },
+    "12087e05-33d7-4dea-9039-d3dab281f322": {
+      "id": "12087e05-33d7-4dea-9039-d3dab281f322",
+      "source_id": "671cd399-fd86-459f-999e-7c7a67c237b8",
+      "target_id": "60be1619-1e31-4c2d-afde-4264eb9f5171",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 130,
+      "step_last_accessed": 0
+    },
+    "1d697fec-1d9d-4d4b-8977-7f5eb303e1c6": {
+      "id": "1d697fec-1d9d-4d4b-8977-7f5eb303e1c6",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "97bfd021-c215-4c7a-86db-52d28c684e25",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.6,
+      "context": "Both are active route delay records due to highway construction",
+      "step_created": 130,
+      "step_last_accessed": 0
+    },
+    "7fbc95ee-2969-4314-b69e-95c9e642f796": {
+      "id": "7fbc95ee-2969-4314-b69e-95c9e642f796",
+      "source_id": "fc502a75-1e85-4722-8dc9-17fe497d75cd",
+      "target_id": "640451a8-55cc-4eb4-8b17-70233cef3c5c",
+      "relationship": "supersedes",
+      "weight": 1.0,
+      "context": "correction",
+      "step_created": 131,
+      "step_last_accessed": 0
+    },
+    "19619e74-e5df-436f-890b-7223a017533c": {
+      "id": "19619e74-e5df-436f-890b-7223a017533c",
+      "source_id": "<NEW_ENTRY_ID>",
+      "target_id": "980296a8-638e-4433-b97e-fff9a951a472",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.5,
+      "context": "Both are air filter replacement work orders pending parts from regional supply center",
+      "step_created": 131,
+      "step_last_accessed": 0
+    },
+    "e39f5d63-57f1-47f9-9965-3bc0d4754c64": {
+      "id": "e39f5d63-57f1-47f9-9965-3bc0d4754c64",
+      "source_id": "e38d7f48",
+      "target_id": "NEW_ENTRY_0",
+      "relationship": "sibling_inventory_record",
+      "weight": 0.8,
+      "context": "Training content details linked to the rescheduled barcode scanning session",
+      "step_created": 133,
+      "step_last_accessed": 0
+    }
+  },
+  "memory_map": {
+    "topics": {
+      "Alice": {
+        "summary": "Tracks item counts belonging to Alice.",
+        "entry_points": [
+          "c8656cac-c823-4d28-9193-fa62d4ad6c91",
+          "2d240358-5e1c-4017-8d5d-423af3225425",
+          "2ce83c66-ab5d-463d-a7ff-55aae5528f04",
+          "43585a47-4c8b-4bbf-b8dc-6dc688c5196e"
+        ],
+        "density": "sparse"
+      },
+      "Bob": {
+        "summary": "Tracks item counts belonging to Bob.",
+        "entry_points": [
+          "fc87e0cf-c89f-4e8e-b354-25b4b493433e",
+          "9dd9fdfa-abda-49b7-a714-49b390282033",
+          "c1d9a376-a981-4e38-bcfa-1eb84aa8a43c",
+          "9a2c1f09-851e-491a-8459-c7a9f3f670d6",
+          "460070de-a5e5-4bf4-a4da-6355cf32e4cb",
+          "4aa45635-0034-45e3-87ae-43044ae401b5"
+        ],
+        "density": "sparse"
+      },
+      "Charlie": {
+        "summary": "Charlie's item counts; 16 bananas current, 14 original.",
+        "entry_points": [
+          "3644538f-4f2e-4d39-ace5-83801ce81103",
+          "c8f70e86-545f-4b95-85f7-3eebcff931b4"
+        ],
+        "density": "sparse"
+      },
+      "Diana": {
+        "summary": "Diana's item counts; 12 pears current.",
+        "entry_points": [
+          "9d367849-174c-4cc8-966d-8daeb43ae23f",
+          "00422c36-e28e-4200-8d13-f2de684372b9",
+          "f3482663-6fc1-44da-a8c6-f570e45a30fd",
+          "0150e2be-89d8-4b63-8939-2b2c051075dd"
+        ],
+        "density": "sparse"
+      },
+      "Eve": {
+        "summary": "Eve's item counts; 8 grapes original and current.",
+        "entry_points": [
+          "2e0c145d-3c1f-4b80-a03d-3b5d02c68d27",
+          "8fda6edb-9118-461c-a00d-ec98211bde56"
+        ],
+        "density": "sparse"
+      },
+      "Frank": {
+        "summary": "Frank's mangoes: 9 original, corrected to 7.",
+        "entry_points": [
+          "8a1e4a7e-32fc-4c80-98b8-ee16d03781b4",
+          "ea62cce5-0aa0-4ceb-a41c-5231ce156cc7"
+        ],
+        "density": "sparse"
+      },
+      "Grace": {
+        "summary": "Tracks item counts belonging to Grace.",
+        "entry_points": [
+          "7ec9b7ab-a61f-418b-87b4-85cf831a8d0e",
+          "3f880d9a-e4ce-473c-9cf4-fe3768bf7981"
+        ],
+        "density": "sparse"
+      },
+      "Henry": {
+        "summary": "Henry's plums: 7 current, history tracked.",
+        "entry_points": [
+          "90eb88ae-09fe-4e38-8aed-fcc255e9c3a5",
+          "b853a34d-da40-43b6-be58-bcdc98cd733b"
+        ],
+        "density": "sparse"
+      },
+      "Iris": {
+        "summary": "Tracks item counts belonging to Iris.",
+        "entry_points": [
+          "6f966daa-0eee-435d-99d6-a4dbb599778b",
+          "93f73505-af39-40d3-ae06-2a8043bb4bd3",
+          "24d1047c-b466-4086-bdc0-0e3fe77dd3ed",
+          "8eaf58f6-f5af-4bd3-a00f-c8bb1492b7a3",
+          "345223eb-56a7-4d96-aa53-1d4dba2c3aae",
+          "32ebd2ac-91ae-447d-b0b6-20def97b50cb"
+        ],
+        "density": "sparse"
+      },
+      "Jack": {
+        "summary": "Tracks item counts belonging to Jack.",
+        "entry_points": [
+          "45c65c06-81c5-4d6e-9bf9-07368f678e1e",
+          "993f9386-ca1e-4aac-b437-b5b6e2a82ec2",
+          "7ba6316f-de08-4825-8f91-2252075e8eaf",
+          "5f7be67b-6d3d-4123-83fd-f895aa0056ab"
+        ],
+        "density": "sparse"
+      },
+      "Karen": {
+        "summary": "Karen's item counts; 11 blueberries pre-Nathan trade.",
+        "entry_points": [
+          "104d785c-db6f-4c83-a0c6-19682a4b6d8c",
+          "6bcd0e7a-a06d-4320-b58b-0d2619d1cb4e",
+          "a4715359-5b56-4154-86a4-ac8fa3b81bc9",
+          "82d213ef-5901-441d-9d5a-c38667519195",
+          "2c22d112-1846-4dd5-a7be-0d804b3f2381"
+        ],
+        "density": "sparse"
+      },
+      "Leo": {
+        "summary": "Tracks item counts belonging to Leo.",
+        "entry_points": [
+          "dee0265c-7c7c-4277-9e75-85a06cedf82b"
+        ],
+        "density": "sparse"
+      },
+      "Mia": {
+        "summary": "Tracks item counts belonging to Mia.",
+        "entry_points": [
+          "d620e967-74fb-45d7-8d05-baff6a9e646e",
+          "9cbed5d8-4105-49e5-995f-a9e663190e2a"
+        ],
+        "density": "sparse"
+      },
+      "Nathan": {
+        "summary": "Nathan's item counts; limes corrected from 22 to 21.",
+        "entry_points": [
+          "39246eb4-cc5f-480b-90c4-5c3a54380e57",
+          "bfdc4131-4200-40fa-bb33-9d83607192f1",
+          "e634c9bd-294b-4d25-be0e-635c6f490239",
+          "94e0e4d9-89dd-4917-ac64-f388e29a4d06",
+          "b52fe01e-5265-4b9a-8bb5-3790eeb1c134",
+          "4b76c6a1-fcd4-4cb5-8999-157a54c8cb7e"
+        ],
+        "density": "sparse"
+      },
+      "Olivia": {
+        "summary": "Olivia's watermelons: 19 original, correction applied.",
+        "entry_points": [
+          "1d0bcb27-7ca6-415c-a615-3b3f5958f5e6"
+        ],
+        "density": "sparse"
+      },
+      "Paul": {
+        "summary": "Tracks item counts belonging to Paul.",
+        "entry_points": [
+          "7c3e6230-1a47-4516-aa19-a342745cd80f"
+        ],
+        "density": "sparse"
+      },
+      "Quinn": {
+        "summary": "Tracks item counts belonging to Quinn.",
+        "entry_points": [
+          "33d7725c-4df1-4348-acb7-c38784c0d429",
+          "e8a11c57-f66c-4344-badb-c66957d30bd4"
+        ],
+        "density": "sparse"
+      },
+      "Rachel": {
+        "summary": "Tracks item counts belonging to Rachel.",
+        "entry_points": [
+          "b2c75768-6240-45dc-aeb4-01bf11f25f10",
+          "0e810c95-816f-4e78-af72-46cda982c751",
+          "84324cb2-b209-48e1-b9b0-58fefdc34cde",
+          "ba1802ce-c1cd-42af-a831-6c3299801e43"
+        ],
+        "density": "sparse"
+      },
+      "Sam": {
+        "summary": "Tracks item counts belonging to Sam.",
+        "entry_points": [
+          "1bf83199-6b02-44a6-a52a-8f41d885a88a",
+          "888a9495-a8b7-4141-9be5-8ebb72649032",
+          "054ad62c-74d7-4eed-b9cf-842c03b9e2ee",
+          "c4497be2-3ba3-4424-8639-5ad71b901d6a",
+          "1d4173a4-4bbd-47ff-bc24-8db0a8b2b2c1",
+          "fb3e035d-08b5-49bb-a884-11ec762b31a4",
+          "77926f22-ba43-489e-8333-6c3ddaf9b372"
+        ],
+        "density": "sparse"
+      },
+      "Tina": {
+        "summary": "Tracks item counts belonging to Tina.",
+        "entry_points": [
+          "109724f4-cfd1-4e06-8022-75ec32daefea",
+          "8f061461-f5b2-416a-aa6b-12f01a7cfbcb",
+          "6f708d5f-3475-4390-bcef-a0ed48a11b23"
+        ],
+        "density": "sparse"
+      },
+      "Market Analysis": {
+        "summary": "Fresh produce demand up 13% next quarter; procurement advised.",
+        "entry_points": [
+          "b15932dd"
+        ],
+        "density": "sparse"
+      },
+      "Training Schedule": {
+        "summary": "Barcode system training rescheduled to next Friday; mandatory.",
+        "entry_points": [
+          "79453dce",
+          "32f0e71e",
+          "1df0b7fc",
+          "e38d7f48",
+          "087ea14f",
+          "6981b72e",
+          "317413d3",
+          "4ae8c338",
+          "96bc645b",
+          "9e65c7ba",
+          "6cd64110",
+          "48808bdf",
+          "462eddc4",
+          "2c59587a"
+        ],
+        "density": "sparse"
+      },
+      "Maintenance Orders": {
+        "summary": "Active work orders and repair status for store equipment.",
+        "entry_points": [
+          "980296a8-638e-4433-b97e-fff9a951a472",
+          "00747dfc-d297-4eab-a2c0-a1ad198d14e3",
+          "532f151b-6b0e-4c99-b6e8-d90f9c0659e9",
+          "bb7bbff5-b9f2-463d-ac47-d1b2ce72042e",
+          "2c767551",
+          "fc502a75"
+        ],
+        "density": "sparse"
+      },
+      "Warehouse Inspections": {
+        "summary": "QA inspection results and schedules for warehouses.",
+        "entry_points": [
+          "0ff45908-4d4b-4e94-b840-88360b6b1cab",
+          "a5c03936-ffb9-4cad-bf62-38a7f665c141",
+          "35dffcb3-c615-45c0-8002-001fb6db0051",
+          "c55cf297-0f57-417b-ab77-850310f3f4c5",
+          "f086979b-0d97-430b-bee6-60d10b5692c8"
+        ],
+        "density": "sparse"
+      },
+      "Delivery Routes": {
+        "summary": "Route delays, reroutes, and logistics route status.",
+        "entry_points": [
+          "2d446043",
+          "97bfd021-c215-4c7a-86db-52d28c684e25",
+          "5974afc8-aa44-4441-a3b2-a16395615ed7",
+          "b252259d",
+          "9cbc0617",
+          "671cd399"
+        ],
+        "density": "sparse"
+      },
+      "Inventory Reconciliation": {
+        "summary": "Annual reconciliation Dec 5th week; all facilities access needed.",
+        "entry_points": [
+          "7359509a",
+          "96c08111",
+          "fd33a8cd",
+          "c71b0627",
+          "c4ccf0a2"
+        ],
+        "density": "sparse"
+      }
+    },
+    "recent_changes": [
+      "Answered query: Olivia has 19 watermelons.",
+      "Henry gave 4 plums to Charlie; Henry now has 13 plums.",
+      "Rachel gave 1 dates to Diana; Rachel now has 18 dates.",
+      "Rachel gave 1 dates to Alice; Rachel now has 17 dates, Alice now has 1 date.",
+      "Bob gave 2 oranges to Sam; Bob now has 15, Sam now has 7.",
+      "Mia gave 5 lemons to Diana; Mia now has 11, Diana now has 5.",
+      "Tina gave 1 pomegranate to Sam; Tina now has 15 pomegranates.",
+      "Diana gave 2 pears to Rachel; Diana now has 12 pears. Rachel's pear count unknown before trade.",
+      "Iris gave 3 cherries to Jack; Iris now has 7, Jack now has 3.",
+      "Alice gave 2 apples to Diana; Alice now has 23, Diana now has 2.",
+      "Karen gave 3 blueberries to Nathan; Karen now has 8, Nathan now has 3.",
+      "Henry gave 1 plum to Alice; Henry now has 7, Alice now has 1.",
+      "Mia gave 2 lemons to Karen; Mia now has 9. Karen received 2 lemons (prior count unknown).",
+      "Quinn gave 3 figs to Mia; Quinn now has 8, Mia +3 figs.",
+      "Mia gave 2 lemons to Karen; Mia now has 9.",
+      "Answered: Bob has 17 oranges (entry fc87e0cf).",
+      "Answered: Eve had 9 grapes before transferring 1 to Rachel (now has 8).",
+      "Answered: Karen had 11 blueberries before giving 3 to Nathan (now has 8).",
+      "Answered: Diana has 8 apples (received 3 from Alice, entry 0150e2be).",
+      "Answered: Eve currently has 8 grapes (entry 2e0c145d)."
+    ],
+    "contested_regions": [],
+    "weakly_connected": []
+  }
+}

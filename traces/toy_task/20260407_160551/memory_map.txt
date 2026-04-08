@@ -1,0 +1,85 @@
+Memory Map:
+  Alice's Inventory: Tracks items held by Alice. Currently: 22 apples (down from 25; gave 3 to Iris, logistics-verified).
+    Entry points: [fde06f69-adf3-450a-bfcc-9d6885e457fd]
+    Density: sparse
+  Bob's Inventory: Tracks items held by Bob. Currently: 17 oranges (north warehouse, organic certified, locally sourced, good condition).
+    Entry points: [c858c949-780d-4a97-8915-92f7e74aaaf8]
+    Density: sparse
+  Charlie's Inventory: Tracks items held by Charlie. Currently: 23 items (19 bananas + 2 papayas from Paul + 1 original papaya + 1 coconut from Sam). Logistics-verified.
+    Entry points: [cffe2d91-d20f-4b6b-8323-c88c5762a98d]
+    Density: sparse
+  Diana's Inventory: Tracks items held by Diana. Original pear count corrected to 12 (recount-confirmed, replaces erroneous 14). Currently: 16 pears (12 base + trades) + 6 figs from Quinn = 22 items total. Previously gave 2 pears to Eve.
+    Entry points: [3c0d301c, 25c6dbda]
+    Density: sparse
+  Eve's Inventory: Tracks items held by Eve. Currently: 15 items (15 grapes). Gave 5 grapes to Paul, logistics-verified.
+    Entry points: [220dd504-1de7-4401-855c-0145f49c5930]
+    Density: sparse
+  Frank's Inventory: Currently: 13 items (9 mangoes + 4 limes from Nathan). Gave 4 mangoes to Iris, logistics-verified.
+    Entry points: [4a4759ed-e768-4714-9c01-ff13d7f2ab54]
+    Density: sparse
+  Grace's Inventory: Tracks items held by Grace. Original count corrected to 16 (recount-confirmed). Currently: 11 peaches (gave 2 to Rachel, accounting for corrected base).
+    Entry points: [ca341059]
+    Density: sparse
+  Henry's Inventory: Currently: 14 plums. Original count corrected to 19 (recount-confirmed, replaces erroneous 17). Gave 5 plums in trade, accounting for current total.
+    Entry points: [28d0edf1]
+    Density: sparse
+  Iris's Inventory: Currently: 17 items (10 cherries + 3 apples from Alice + 4 mangoes from Frank). Logistics-verified.
+    Entry points: [f2655f72-4b58-416b-877c-bc01a118db18]
+    Density: sparse
+  Jack's Inventory: Tracks items held by Jack. Currently: 10 strawberries (north warehouse, loading dock, standard commercial, good condition). Updated: gave 5 to Quinn, logistics-verified.
+    Entry points: [15667a32-f124-4e73-b01b-ffe6df76b873, 66be2551-acbd-4836-81f1-069b29690efc]
+    Density: sparse
+  Karen's Inventory: Tracks items held by Karen. Currently: 11 blueberries (north warehouse, loading dock, surplus from last week's order, good condition, manifest-confirmed today).
+    Entry points: [5d6e39ef-3d5f-4af3-a0cf-4b9d1a250cf1]
+    Density: sparse
+  Leo's Inventory: Tracks items held by Leo. Currently: 20 kiwis (refrigerated section, aisle 3, standard commercial grade, good condition, manifest-confirmed today).
+    Entry points: [d8875aa7-5be2-456a-ac9a-9cdae31e47d3]
+    Density: sparse
+  Mia's Inventory: Tracks items held by Mia. Currently: 12 lemons (building B, climate-controlled, farm-fresh). Gave 4 lemons to Tina, verified by logistics.
+    Entry points: [c2bbb72f-d27c-4baa-aa92-b708dd0c639d]
+    Density: sparse
+  Nathan's Inventory: Tracks items held by Nathan. Currently: 17 limes (building B, climate-controlled, farm-fresh). Gave 4 limes to Frank, verified by logistics.
+    Entry points: [11d10598-f9be-4a39-a28e-1860f713e2b2]
+    Density: sparse
+  Olivia's Inventory: Tracks items held by Olivia. Currently: 19 watermelons (north warehouse, loading dock, mixed variety, various sizes, good condition, manifest-verified today).
+    Entry points: [5aa670fa-9840-4f1b-ba44-bca21ebdbff2]
+    Density: sparse
+  Paul's Inventory: Currently: 15 items (10 papayas + 5 grapes from Eve). Had 10 papayas pre-trade; gave 2 papayas to Charlie. Logistics-verified.
+    Entry points: [0e72a42f-0553-4529-afd8-bc770367f6a0]
+    Density: sparse
+  Quinn's Inventory: Currently: 18 items (13 figs + 5 strawberries received from Jack). Traded with 1 person: Jack. Temporary staging area near shipping. Logistics-verified.
+    Entry points: [67476382-5de9-4341-a02b-b96ac2f8753e]
+    Density: sparse
+  Rachel's Inventory: Tracks items held by Rachel. Currently: 21 items (19 dates + 2 peaches from Grace). Building B, climate-controlled, standard commercial, good condition. Logistics-verified.
+    Entry points: [a1e85a43-f5f0-4a6b-af80-66396933d29d]
+    Density: sparse
+  Sam's Inventory: Currently: 13 coconuts (secure storage vault, basement; gave 1 to Charlie, logistics-verified). Pre-trade: 14 coconuts.
+    Entry points: [59397c07-a3f0-4ace-92f2-daca76fc3d97]
+    Density: sparse
+  Tina's Inventory: Tracks items held by Tina. Currently: 21 items (17 pomegranates + 4 lemons from Mia). Overflow storage behind office, standard commercial grade.
+    Entry points: [6b42c604-9d86-483d-8473-baaff14b6992]
+    Density: sparse
+  Market Forecasts: Demand forecasts and market intelligence. Current: fresh produce demand expected +9% next quarter (supersedes +10%; seasonal trends, farm-to-table growth). Procurement should increase order volumes.
+    Entry points: [fb9b7801-2d90-42a4-899c-f8ee262590af]
+    Density: sparse
+  Warehouse Training & Operations: Training on new barcode scanning system rescheduled (Monday → next Tuesday). Topics: updated handheld devices, new software interface, central inventory database integration. Mandatory for all warehouse staff.
+    Entry points: [edcf4620]
+    Density: sparse
+  Logistics & Delivery Routes: Route Alpha: ~9 min delays, Highway 57 construction, reroute via Industrial Park Loop until end of February (supersedes Highway 47/Riverside Connector/end of April). Route Beta: ~14 min delays, Highway 13 construction, reroute via Oak Street bypass until end of November.
+    Entry points: [79d7f4d3-9009-45c9-9916-ee10752d4150, 5af780ff-3629-4aaa-95c8-c7316dd79703]
+    Density: sparse
+  Inventory Reconciliation: Annual inventory reconciliation scheduled week of December 14th (supersedes June 12th). Department heads must update records and resolve prior-quarter discrepancies. Reconciliation team needs access to all facilities.
+    Entry points: [d49ecf71]
+    Density: sparse
+  Diana's Inventory Corrections: Diana's original pear count corrected to 12 (recount-confirmed, replaces erroneous 14). After trades, Diana has 16 pears.
+    Entry points: [3c0d301c, 25c6dbda]
+    Density: sparse
+  Henry's Inventory Corrections: Henry's original plum count corrected to 19 (recount-confirmed, replaces erroneous 17). Current count: 14 after all trades.
+    Entry points: [87a56ff0, d261bb10, 5899a791]
+    Density: sparse
+  Grace's Inventory Corrections: Grace's original peach count corrected to 16 (recount-confirmed, replaces erroneous 15). After trades, Grace now has 11 peaches.
+    Entry points: [ca341059]
+    Density: sparse
+  Recent: Answered query: Quinn currently has 13 figs.; Answered query: Diana's original pears count before correction was 14 (erroneous value, replaced by corrected count of 12).; Answered query: Henry's original plum count before correction was 17 (erroneous value, replaced by corrected count of 19).; Answered query: Grace's original peaches count before the correction was 15 (erroneous value, replaced by corrected count of 16).; Answered query: Quinn traded with 1 different person (Jack).
+  Contested: ea9e205a
+  Relationship types: sibling_inventory_record, demand_forecast_relevant_to, supersedes, reconciliation_applies_to

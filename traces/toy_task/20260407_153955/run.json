@@ -1,0 +1,39 @@
+{
+  "config": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "max_width": 3,
+    "max_steps": 5,
+    "context_budget": 3000,
+    "verbose_facts": false,
+    "scaled_entities": 15,
+    "seed": 42,
+    "llm_kwargs": {}
+  },
+  "results": {
+    "total_questions": 22,
+    "correct": 22,
+    "accuracy": "100%",
+    "pre_correction": {
+      "correct": 0,
+      "total": 0
+    },
+    "post_correction": {
+      "correct": 21,
+      "total": 21
+    }
+  },
+  "failures": [],
+  "performance": {
+    "duration_ms": 861351,
+    "llm_calls": 174,
+    "traversal_steps": 60
+  },
+  "state_summary": {
+    "entries": 44,
+    "active_entries": 31,
+    "associations": 65,
+    "topics": 23,
+    "memory_map_tokens": 1699
+  }
+}

@@ -81,10 +81,11 @@ class AssociationUpdateSpec(BaseModel):
     """Update an existing association's weight and/or context."""
     assoc_id: str
     delta: float = 0.0
-    append_context: str | None = Field(
+    context: str | None = Field(
         default=None,
-        description="Text to append to the association's context. "
-        "Use this to record new events or reasons related to this association.",
+        description="New context for this association. Replaces the existing context. "
+        "Should be a compact summary of why this association exists and "
+        "any key events — not an append log. Rewrite to keep it concise.",
     )
 
 
@@ -231,7 +232,7 @@ class CognitiveStep:
 
         try:
             # Orient: consult memory map, find entry points, decompose objective
-            orientation = await self._orient(objective, state, context, tracer, trace_id)
+            orientation, orient_tokens = await self._orient(objective, state, context, tracer, trace_id)
 
             # Collect traversal findings to pass to synthesis
             all_findings: list[str] = []
@@ -269,7 +270,7 @@ class CognitiveStep:
 
             # Always synthesize — compile response and update memory map
             result = await self._synthesize(
-                objective, state, context, all_findings, tracer, trace_id,
+                objective, state, context, all_findings, orient_tokens, tracer, trace_id,
             )
             return result
 
@@ -284,7 +285,7 @@ class CognitiveStep:
         context: dict[str, Any],
         tracer: TraceLogger | None,
         trace_id: str | None,
-    ) -> OrientationResponse:
+    ) -> tuple[OrientationResponse, int]:
         memory_map = state.memory_map.render()
         all_entry_points = state.memory_map.get_entry_points(store=state)
 
@@ -341,7 +342,7 @@ class CognitiveStep:
             "orient objective=%r entry_points=%d sub_objectives=%d",
             objective, len(result.entry_points), len(result.sub_objectives),
         )
-        return result
+        return result, total_tokens
 
     async def _direct_resolve(
         self,
@@ -391,11 +392,12 @@ class CognitiveStep:
                 "THE GRAPH:\n"
                 "- Entries are nodes (facts, observations, decisions, etc.)\n"
                 "- Associations are edges with free-form relationship types\n"
-                "- Each association has a weight (0-1) and a context string that "
-                "records WHY the association exists and any subsequent events\n"
+                "- Each association has a weight (0-1) and a compact context string "
+                "summarizing WHY this edge exists (not a log — a brief summary)\n"
+                "- Detailed information belongs in entries, not in association context\n"
                 "- Two entries can have multiple associations with different relationships\n"
-                "- When creating associations, provide meaningful context explaining "
-                "what led to this association\n"
+                "- When creating associations, provide a brief context. "
+                "Keep context compact — store details in entries, not in association context\n"
                 "- You see the current entries fully + a compact edge list showing "
                 "available connections. Use next_nodes to follow edges.\n\n"
                 f"{vocab_section}"
@@ -535,8 +537,8 @@ class CognitiveStep:
                 state.strengthen(spec.assoc_id, spec.delta, step_number)
             elif spec.delta < 0:
                 state.weaken(spec.assoc_id, abs(spec.delta), step_number)
-            if spec.append_context:
-                state.append_association_context(spec.assoc_id, spec.append_context)
+            if spec.context is not None:
+                state.set_association_context(spec.assoc_id, spec.context)
 
         return written_ids
 
@@ -546,6 +548,7 @@ class CognitiveStep:
         state: StateStore,
         context: dict[str, Any],
         findings: list[str],
+        orient_tokens: int,
         tracer: TraceLogger | None,
         trace_id: str | None,
     ) -> CognitiveResult:
@@ -568,15 +571,11 @@ class CognitiveStep:
         if weakly_connected:
             wc_entries = state.render_entries(weakly_connected)
             wc_section = (
-                f"Entries not yet organized into topics ({len(weakly_connected)}):\n"
+                f"Entries not yet organized ({len(weakly_connected)}):\n"
                 f"{wc_entries}\n\n"
-                "IMPORTANT: Organize these entries into topics using map_changes. "
-                "For each group of related entries, create a new_topics entry with:\n"
-                "- A descriptive topic name\n"
-                "- A brief summary of what the topic covers\n"
-                "- The entry IDs that belong to this topic\n"
-                "Then list those entry IDs in remove_weakly_connected so they "
-                "are no longer unorganized.\n"
+                "Organize these into topics. Each topic: short name, "
+                "one-line summary (max 10 words), entry IDs. "
+                "Put IDs in remove_weakly_connected.\n"
             )
         else:
             wc_section = ""
@@ -591,18 +590,25 @@ class CognitiveStep:
             "1. Compile a response to the input based on the findings below. "
             "If it was a statement, acknowledge briefly. "
             "If it was a question, answer it using the findings.\n"
-            "2. Organize the memory map — group related entries into topics. "
-            "Topics should reflect the graph's structure: entities, "
-            "relationships between entities, trade histories, corrections, etc. "
-            "Keep topic summaries concise and include relevant entry point IDs.\n\n"
+            "2. Organize the memory map. The memory map is a ROUTING TABLE, "
+            "not a knowledge base. Each topic should be:\n"
+            "- A short name (e.g., 'Alice', 'Delivery routes')\n"
+            "- A one-line summary (MAX 10 words — just enough to know what's here)\n"
+            "- Entry point IDs for graph traversal\n"
+            "Do NOT put detailed facts, counts, or history in the map. "
+            "That information lives in graph entries, not in the map.\n\n"
             f"Input: {objective}\n\n"
             f"{findings_section}"
             f"Current memory map:\n{memory_map}\n\n"
             f"{wc_section}"
             f"Agent context: {_format_context(context)}"
         )
-        total_tokens = _estimate_tokens(system + content_without_budget)
-        budget_section = self._budget_section(total_tokens)
+        synthesis_tokens = _estimate_tokens(system + content_without_budget)
+
+        # Use the larger of synthesis or orient (which already ran this step)
+        # so the LLM compresses the map enough for both
+        effective_tokens = max(synthesis_tokens, orient_tokens)
+        budget_section = self._budget_section(effective_tokens)
 
         messages = [
             {
